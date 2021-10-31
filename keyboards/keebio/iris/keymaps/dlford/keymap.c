@@ -1,7 +1,5 @@
 #include QMK_KEYBOARD_H
 
-// TODO: Tune Change LEDs on layers
-// TODO: Fix Turn off backlight on suspend
 // TODO: Macros
 
 #define _QWERTY 0
@@ -10,10 +8,9 @@
 #define _RAISE 3
 
 // Backlight timeout feature
-#define BACKLIGHT_TIMEOUT 1 // in minutes
+#define BACKLIGHT_TIMEOUT 5 // in minutes
 static uint16_t idle_timer = 0;
 static uint8_t halfmin_counter = 0;
-static uint8_t old_backlight_level = -1;
 static bool led_on = true;
 
 enum custom_keycodes {
@@ -38,9 +35,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   // Backlight timeout feature
   if (record->event.pressed) {
     #ifdef BACKLIGHT_ENABLE
-    if (led_on == false || old_backlight_level == -1) {
-      if (old_backlight_level == -1) old_backlight_level = get_backlight_level();
-      backlight_set(old_backlight_level);
+    if (led_on == false) {
+      backlight_enable();
       rgblight_enable();
       led_on = true;
     }
@@ -90,19 +86,28 @@ void matrix_scan_user(void) {
   if (idle_timer == 0) idle_timer = sync_timer_read();
 
   #ifdef BACKLIGHT_ENABLE
-    if ( led_on && timer_elapsed(idle_timer) > 30000) {
+    if (led_on && timer_elapsed(idle_timer) > 30000) {
       halfmin_counter++;
       idle_timer = sync_timer_read();
     }
 
-    if ( led_on && halfmin_counter >= BACKLIGHT_TIMEOUT * 2) {
-      old_backlight_level = get_backlight_level();
-      backlight_set(0);
+    if (led_on && halfmin_counter >= BACKLIGHT_TIMEOUT * 2) {
+      backlight_disable();
       rgblight_disable();
       led_on = false;
       halfmin_counter = 0;
     }
   #endif
+}
+
+// Backlight suspend
+void suspend_power_down_user(void) {
+  backlight_disable();
+  rgblight_disable();
+}
+void suspend_wakeup_init_user(void) {
+  backlight_enable();
+  rgblight_enable();
 }
 
 // RGB Layers
