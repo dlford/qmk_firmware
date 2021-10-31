@@ -41,7 +41,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       led_on = true;
     }
     #endif
-    idle_timer = timer_read();
+    idle_timer = sync_timer_read();
     halfmin_counter = 0;
   }
 
@@ -87,12 +87,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 // Backlight timeout feature
 void matrix_scan_user(void) {
   // idle_timer needs to be set one time
-  if (idle_timer == 0) idle_timer = timer_read();
+  if (idle_timer == 0) idle_timer = sync_timer_read();
 
   #ifdef BACKLIGHT_ENABLE
     if ( led_on && timer_elapsed(idle_timer) > 30000) {
       halfmin_counter++;
-      idle_timer = timer_read();
+      idle_timer = sync_timer_read();
     }
 
     if ( led_on && halfmin_counter >= BACKLIGHT_TIMEOUT * 2) {
@@ -107,7 +107,7 @@ void matrix_scan_user(void) {
 // RGB Layers
 // ----------
 // RGB Modes
-// 1 = Static
+// 1 = Static (use with rgblight_sethsv)
 // 2-5 = Breathing
 // 6-8 = Rainbow
 // 9-14 = Swirl
@@ -119,17 +119,17 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     switch (get_highest_layer(state)) {
       case _LOWER:
           rgblight_mode(1);
-          rgblight_setrgb(0xFF,  0x00, 0x00);
+          rgblight_sethsv(HSV_BLUE);
           break;
       case _RAISE:
           rgblight_mode(1);
-          rgblight_setrgb(0x00,  0x00, 0xFF);
+          rgblight_sethsv(HSV_PURPLE);
           break;
       case _ADJUST:
           rgblight_mode(1);
-          rgblight_setrgb(0x7A,  0x00, 0xFF);
+          rgblight_sethsv(HSV_RED);
           break;
-      case _QWERTY:
+      default:
           rgblight_mode(14);
           break;
     }
