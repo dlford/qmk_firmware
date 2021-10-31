@@ -1,13 +1,12 @@
 #include QMK_KEYBOARD_H
 
-// TODO: Tune Change LEDs on layers
-// TODO: Test Turn off backlight on suspend
+// TODO: Fix Turn off backlight on suspend
 // TODO: Macros
 
 #define _QWERTY 0
-#define _LOWER 1
-#define _RAISE 2
-#define _ADJUST 3
+#define _COLEMAK 1
+#define _LOWER 2
+#define _RAISE 3
 
 // Backlight timeout feature
 #define BACKLIGHT_TIMEOUT 1 // in minutes
@@ -18,16 +17,20 @@ static bool led_on = true;
 
 enum custom_keycodes {
   QWERTY = SAFE_RANGE,
+  COLEMAK,
   LOWER,
   RAISE,
-  ADJUST,
 };
 
+// Keymap -
+// Upload `qmk_configurator.json` to https://config.qmk.fm to edit,
+// use `qmk json2c qmk_configurator.json` to dump this code to CLI,
+// copy/paste here.
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-	[_QWERTY] = LAYOUT(KC_GRV, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0, KC_BSPC, LGUI(KC_TAB), KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, RGUI(KC_BSLS), LALT_T(KC_ESC), KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K, KC_L, KC_SCLN, RALT_T(KC_QUOT), KC_LSFT, KC_Z, KC_X, KC_C, KC_V, KC_B, TT(3), KC_BTN2, KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_RSFT, LCTL_T(KC_ENT), KC_SPC, TT(1), TT(2), KC_SPC, RCTL_T(KC_ENT)),
-	[_LOWER] = LAYOUT(KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, KC_NO, KC_PGUP, KC_INS, KC_UP, KC_PAUS, KC_HOME, KC_NO, KC_P7, KC_P8, KC_P9, KC_PLUS, KC_PMNS, KC_NO, KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, KC_END, KC_PSCR, KC_P4, KC_P5, KC_P6, KC_PAST, KC_PSLS, KC_NO, KC_LBRC, KC_RBRC, KC_LCBR, KC_RCBR, KC_NO, KC_NO, KC_NO, KC_APP, KC_P1, KC_P2, KC_P3, KC_PDOT, KC_SPC, KC_NO, KC_NO, KC_TRNS, KC_NO, KC_NO, KC_P0),
-	[_RAISE] = LAYOUT(KC_EXEC, KC_MAIL, KC_CALC, KC_MYCM, KC_MSEL, KC_NO, KC_BRID, KC_BRIU, KC_NO, KC_NO, KC_NO, KC_SLEP, KC_NO, KC_NO, KC_MS_U, KC_NO, KC_NO, KC_NO, KC_NO, KC_MPRV, KC_MNXT, KC_NO, KC_NO, KC_NO, KC_NO, KC_MS_L, KC_MS_D, KC_MS_R, KC_FIND, KC_NO, KC_NO, KC_ACL0, KC_ACL1, KC_ACL2, KC_NO, KC_NO, KC_NO, KC_NO, KC_CUT, KC_COPY, KC_PSTE, KC_NO, KC_NO, KC_MPLY, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_BTN1, KC_BTN2, KC_TRNS, KC_BTN3, KC_NO),
-	[_ADJUST] = LAYOUT(RESET, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, RGB_HUI, RGB_SAI, RGB_VAI, RGB_M_P, RGB_M_B, KC_NO, KC_NO, KC_NO, BL_STEP, BL_ON, KC_NO, KC_NO, RGB_HUD, RGB_SAD, RGB_VAD, RGB_M_R, RGB_M_SW, KC_NO, KC_NO, KC_NO, BL_INC, BL_TOGG, KC_NO, RGB_M_T, RGB_TOG, RGB_MOD, RGB_SPI, RGB_M_SN, RGB_M_K, KC_NO, KC_NO, KC_NO, BL_DEC, BL_OFF, KC_NO, KC_TRNS, KC_NO, KC_NO, KC_NO, RGB_RMOD, RGB_SPD, RGB_M_X, RGB_M_G, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO)
+	[0] = LAYOUT(KC_GRV, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0, KC_BSPC, LGUI_T(KC_TAB), KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, RGUI_T(KC_BSLS), LALT_T(KC_ESC), KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K, KC_L, KC_SCLN, RALT_T(KC_QUOT), KC_LSFT, KC_Z, KC_X, KC_C, KC_V, KC_B, TG(1), KC_BTN3, KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_RSFT, LCTL_T(KC_SPC), KC_ENT, TT(2), TT(3), KC_ENT, RCTL_T(KC_SPC)),
+	[1] = LAYOUT(KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_Q, KC_W, KC_F, KC_P, KC_G, KC_J, KC_L, KC_U, KC_Y, KC_SCLN, KC_TRNS, KC_TRNS, KC_A, KC_R, KC_S, KC_F, KC_D, KC_H, KC_N, KC_E, KC_I, KC_O, KC_TRNS, KC_TRNS, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_TRNS, KC_TRNS, KC_K, KC_M, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
+	[2] = LAYOUT(KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, KC_TRNS, KC_PGUP, KC_INS, KC_UP, KC_PAUS, KC_HOME, KC_TRNS, KC_P7, KC_P8, KC_P9, KC_PLUS, KC_PMNS, TG(2), KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, KC_END, KC_PSCR, KC_P4, KC_P5, KC_P6, KC_PAST, KC_PSLS, KC_TRNS, KC_LBRC, KC_RBRC, KC_LCBR, KC_RCBR, KC_TRNS, KC_TRNS, KC_TRNS, KC_P0, KC_P1, KC_P2, KC_P3, KC_PDOT, KC_ENT, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
+	[3] = LAYOUT(RESET, KC_EXEC, KC_MAIL, KC_CALC, KC_MYCM, KC_MSEL, KC_BRID, KC_BRIU, KC_TRNS, KC_TRNS, KC_TRNS, KC_SLEP, KC_TRNS, KC_TRNS, KC_TRNS, KC_MS_U, KC_TRNS, KC_TRNS, KC_TRNS, KC_MPRV, KC_MNXT, KC_TRNS, BL_ON, BL_STEP, TG(3), KC_TRNS, KC_MS_L, KC_MS_D, KC_MS_R, KC_TRNS, KC_TRNS, KC_BTN1, KC_BTN2, KC_BTN3, BL_TOGG, BL_INC, KC_TRNS, KC_TRNS, KC_CUT, KC_COPY, KC_PSTE, KC_FIND, KC_TRNS, KC_MPLY, KC_TRNS, KC_ACL0, KC_ACL1, KC_ACL2, BL_OFF, BL_DEC, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS)
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -38,6 +41,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (led_on == false || old_backlight_level == -1) {
       if (old_backlight_level == -1) old_backlight_level = get_backlight_level();
       backlight_set(old_backlight_level);
+      rgblight_enable();
       led_on = true;
     }
     #endif
@@ -55,28 +59,24 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case LOWER:
       if (record->event.pressed) {
         layer_on(_LOWER);
-        update_tri_layer(_LOWER, _RAISE, _ADJUST);
       } else {
         layer_off(_LOWER);
-        update_tri_layer(_LOWER, _RAISE, _ADJUST);
       }
       return false;
       break;
     case RAISE:
       if (record->event.pressed) {
         layer_on(_RAISE);
-        update_tri_layer(_LOWER, _RAISE, _ADJUST);
       } else {
         layer_off(_RAISE);
-        update_tri_layer(_LOWER, _RAISE, _ADJUST);
       }
       return false;
       break;
-    case ADJUST:
+    case COLEMAK:
       if (record->event.pressed) {
-        layer_on(_ADJUST);
+        layer_on(_COLEMAK);
       } else {
-        layer_off(_ADJUST);
+        layer_off(_COLEMAK);
       }
       return false;
       break;
@@ -98,6 +98,7 @@ void matrix_scan_user(void) {
     if ( led_on && halfmin_counter >= BACKLIGHT_TIMEOUT * 2) {
       old_backlight_level = get_backlight_level();
       backlight_set(0);
+      rgblight_disable();
       led_on = false;
       halfmin_counter = 0;
     }
@@ -117,25 +118,27 @@ void matrix_scan_user(void) {
 // 26-30 = Static Gradient
 layer_state_t layer_state_set_user(layer_state_t state) {
     switch (get_highest_layer(state)) {
-      case _LOWER:
-          rgblight_mode(1);
-          rgblight_sethsv(HSV_BLUE);
-          break;
       case _RAISE:
           rgblight_mode(1);
           rgblight_sethsv(HSV_PURPLE);
           break;
-      case _ADJUST:
+      case _LOWER:
           rgblight_mode(1);
-          rgblight_sethsv(HSV_RED);
+          rgblight_sethsv(HSV_BLUE);
+          break;
+      case _COLEMAK:
+          rgblight_mode(3);
+          rgblight_sethsv(HSV_WHITE);
           break;
       default:
           rgblight_mode(14);
+          rgblight_sethsv(HSV_PURPLE);
           break;
     }
   return state;
 }
 
+// Encoder
 bool encoder_update_user(uint8_t index, bool clockwise) {
     switch(biton32(layer_state)){
          case 2:
