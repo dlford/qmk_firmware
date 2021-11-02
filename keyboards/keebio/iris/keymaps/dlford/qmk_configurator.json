@@ -50,7 +50,7 @@
       "KC_V",
       "KC_B",
       "TG(1)",
-      "KC_BTN3",
+      "ANY(DM_REC1)",
       "KC_N",
       "KC_M",
       "KC_COMM",
@@ -182,7 +182,7 @@
     ],
     [
       "KC_TRNS",
-      "ANY(M_TEST)",
+      "ANY(DM_PLY1)",
       "KC_MAIL",
       "KC_CALC",
       "KC_MYCM",
