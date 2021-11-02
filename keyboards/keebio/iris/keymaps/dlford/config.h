@@ -20,3 +20,22 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define USE_I2C
 #define EE_HANDS
 #define TAPPING_TOGGLE 2
+#define TAPPING_TERM 300 // milliseconds from tap to hold for mod tap
+#define PERMISSIVE_HOLD // activate mod top hold earlier if another key is pressed and released
+// Animations I want
+#define RGBLIGHT_EFFECT_BREATHING
+#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+// Animations I don't want, remove to save space
+#undef RGBLIGHT_ANIMATIONS
+#undef RGBLIGHT_EFFECT_RAINBOW_MOOD
+#undef RGBLIGHT_EFFECT_SNAKE
+#undef RGBLIGHT_EFFECT_KNIGHT
+#undef RGBLIGHT_EFFECT_CHRISTMAS
+#undef RGBLIGHT_EFFECT_STATIC_GRADIENT
+#undef RGBLIGHT_EFFECT_RGB_TEST
+#undef RGBLIGHT_EFFECT_ALTERNATING
+#undef RGBLIGHT_EFFECT_TWINKLE
+// Features I don't want, remove to save space
+#define NO_ACTION_ONESHOT
+#define NO_ACTION_FUNCTION
+#define NO_ACTION_MACRO
