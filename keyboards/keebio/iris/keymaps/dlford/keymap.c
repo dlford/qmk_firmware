@@ -1,23 +1,15 @@
 #include QMK_KEYBOARD_H
 
 // TODO: Macros (macro keymaps legends?)
+// TODO: Change breathing settings when macro recording - https://beta.docs.qmk.fm/using-qmk/hardware-features/lighting/feature_backlight
+// TODO: Fix layer change when entering/leaving macro recording mode
+// TODO: Fix only one half breathing in macro recording mode
 
 #define _QWERTY 0
 #define _COLEMAK 1
 #define _SPECIAL 2
 #define _MACRO 3
 #define _MOUSE 4
-
-// RGB states
-static bool isColemak = false;
-static bool isMouse = false;
-static bool isMacroRecording = false;
-
-// Backlight timeout feature
-#define BACKLIGHT_TIMEOUT 5 // in minutes
-static uint16_t idle_timer = 0;
-static uint8_t halfmin_counter = 0;
-static bool led_on = true;
 
 enum custom_keycodes {
   QWERTY = SAFE_RANGE,
@@ -43,81 +35,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	[4] = LAYOUT(KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, RESET, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_MS_U, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_MS_L, KC_MS_D, KC_MS_R, KC_TRNS, KC_TRNS, KC_BTN1, KC_BTN2, KC_BTN3, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_ACL2, KC_ACL1, KC_ACL0, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, TG(4), TG(4), KC_TRNS, KC_TRNS)
 };
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  // Backlight timeout feature
-  if (record->event.pressed) {
-    #ifdef BACKLIGHT_ENABLE
-    if (led_on == false) {
-      backlight_enable();
-      rgblight_enable();
-      led_on = true;
-    }
-    #endif
-    idle_timer = sync_timer_read();
-    halfmin_counter = 0;
-  }
-
-  // Layers
-  switch (keycode) {
-    case QWERTY:
-      if (record->event.pressed) {
-        set_single_persistent_default_layer(_QWERTY);
-      }
-      return false;
-      break;
-    case COLEMAK:
-      if (isColemak) {
-        layer_off(_COLEMAK);
-        isColemak = false;
-      } else {
-        layer_on(_COLEMAK);
-        isColemak = true;
-      }
-      return false;
-      break;
-    case SPECIAL:
-      if (record->event.pressed) {
-        layer_on(_SPECIAL);
-      } else {
-        layer_off(_SPECIAL);
-      }
-      return false;
-      break;
-    case MACRO:
-      if (record->event.pressed) {
-        layer_on(_MACRO);
-      } else {
-        layer_off(_MACRO);
-      }
-      return false;
-      break;
-    case MOUSE:
-      if (record->event.pressed) {
-        layer_on(_MOUSE);
-        isMouse = true;
-      } else {
-        layer_off(_MOUSE);
-        isMouse = false;
-      }
-      return false;
-      break;
-  }
-
-  // Macros
-  /*
-  switch (keycode) {
-    case M_TEST:
-      if (record->event.pressed) {
-        SEND_STRING("Macro Test!");
-      }
-      break;
-  }
-  */
-
-  return true;
-}
-
-// Backlight timeout feature
+// Backlight timeout
+#define BACKLIGHT_TIMEOUT 5 // in minutes
+static uint16_t idle_timer = 0;
+static uint8_t halfmin_counter = 0;
+static bool led_on = true;
 void matrix_scan_user(void) {
   // idle_timer needs to be set one time
   if (idle_timer == 0) idle_timer = sync_timer_read();
@@ -147,6 +69,34 @@ void suspend_wakeup_init_user(void) {
   rgblight_enable();
 }
 
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  // Backlight resume
+  if (record->event.pressed) {
+    #ifdef BACKLIGHT_ENABLE
+    if (led_on == false) {
+      backlight_enable();
+      rgblight_enable();
+      led_on = true;
+    }
+    #endif
+    idle_timer = sync_timer_read();
+    halfmin_counter = 0;
+  }
+
+  // Macros
+  /*
+  switch (keycode) {
+    case M_TEST:
+      if (record->event.pressed) {
+        SEND_STRING("Macro Test!");
+      }
+      break;
+  }
+  */
+
+  return true;
+}
+
 // RGB Layers
 // ----------
 // RGB Modes
@@ -169,51 +119,27 @@ layer_state_t layer_state_set_user(layer_state_t state) {
           rgblight_sethsv(HSV_BLUE);
           break;
       case _MOUSE:
-          if (isMacroRecording) {
-            rgblight_mode(3);
-          } else {
-            rgblight_mode(1);
-          }
+          rgblight_mode(1);
           rgblight_sethsv(HSV_GREEN);
           break;
       case _COLEMAK:
-          if (isMacroRecording) {
-            rgblight_mode(3);
-            rgblight_sethsv(HSV_RED);
-          } else {
-            rgblight_mode(3);
-            rgblight_sethsv(HSV_WHITE);
-          }
+          rgblight_mode(3);
+          rgblight_sethsv(HSV_WHITE);
           break;
       default:
-          if (isMacroRecording) {
-              rgblight_mode(1);
-              rgblight_sethsv(HSV_RED);
-          } else {
-              rgblight_mode(14);
-              rgblight_sethsv(HSV_PURPLE);
-          }
+          rgblight_mode(14);
+          rgblight_sethsv(HSV_PURPLE);
           break;
     }
   return state;
 }
 
 void dynamic_macro_record_start_user(void) {
-    isMacroRecording = true;
+    breathing_enable();
 }
 
 void dynamic_macro_record_end_user(int8_t direction) {
-    isMacroRecording = false;
-    if (isColemak) {
-        rgblight_mode(3);
-        rgblight_sethsv(HSV_WHITE);
-    } else if (isMouse) {
-        rgblight_mode(1);
-        rgblight_sethsv(HSV_ORANGE);
-    } else {
-        rgblight_mode(14);
-        rgblight_sethsv(HSV_PURPLE);
-    }
+    breathing_disable();
 }
 
 // Encoder

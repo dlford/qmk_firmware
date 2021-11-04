@@ -22,6 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define TAPPING_TOGGLE 2 // number of taps to toggle TT
 #define TAPPING_TERM 300 // milliseconds from tap to hold for mod tap
 #define PERMISSIVE_HOLD // activate mod top hold earlier if another key is pressed and released
+#define BACKLIGHT_BREATHING
 // Animations I want
 #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
