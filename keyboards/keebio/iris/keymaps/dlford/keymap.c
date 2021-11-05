@@ -1,10 +1,9 @@
 #include QMK_KEYBOARD_H
 
-// TODO: Macros (macro keymaps legends?)
+// TODO: Macros (alt tab, etc, keymaps legends?)
 // TODO: Change breathing settings when macro recording - https://beta.docs.qmk.fm/using-qmk/hardware-features/lighting/feature_backlight
 // TODO: Fix layer change when entering/leaving macro recording mode
 // TODO: Fix only one half breathing in macro recording mode
-// TODO: Flash red when using top row keys on base layer to deter use
 // TODO: Make colemak persistent when active
 
 #define _QWERTY 0
@@ -16,7 +15,7 @@
 /*
 // Macros
 enum custom_keycodes {
-  M_TEST = SAFE_RANGE,
+  M_ALT_TAB = SAFE_RANGE,
 };
 */
 
