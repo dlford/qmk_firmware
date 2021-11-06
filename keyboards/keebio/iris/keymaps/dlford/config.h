@@ -20,7 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define USE_I2C
 #define EE_HANDS
 #define TAPPING_TOGGLE 2 // number of taps to toggle TT
-#define TAPPING_TERM 500 // milliseconds from tap to hold for mod tap
+#define TAPPING_TERM 350 // milliseconds from tap to hold for mod tap
 #define IGNORE_MOD_TAP_INTERRUPT // ignore hold mod if another tap occurs within tapping term
 #define PERMISSIVE_HOLD // activate mod top hold earlier if another key is pressed AND released
 #define BACKLIGHT_BREATHING

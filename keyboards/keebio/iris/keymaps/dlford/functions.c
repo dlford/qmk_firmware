@@ -1,10 +1,7 @@
 #include QMK_KEYBOARD_H
 
 // TODO: Macros (keymaps legends?)
-// TODO: Fix layer change when entering/leaving macro recording mode
 // TODO: Fix only one half breathing in macro recording mode
-// TODO: Make colemak persistent when active
-// TODO: Make how row keys repeat when held
 
 // Layers
 #define _QWERTY 0
@@ -27,10 +24,24 @@
 
 // Init
 void keyboard_post_init_user(void) {
-    breathing_disable();
-    backlight_enable();
-    backlight_level(3);
+  rgblight_mode(14);
+  rgblight_sethsv(HSV_PURPLE);
+  breathing_disable();
+  backlight_enable();
+  backlight_level(3);
 }
+
+// Key overrides
+// Ctrl+Slash = Quote
+const key_override_t quote_override = ko_make_basic(MOD_MASK_CTRL, KC_SLSH, KC_QUOT);
+// Shift+Delete = Backspace
+const key_override_t del_override = ko_make_basic(MOD_MASK_SHIFT, KC_DEL, KC_BSPC);
+// Apply key combos
+const key_override_t **key_overrides = (const key_override_t *[]) {
+  &quote_override,
+  &del_override,
+  NULL
+};
 
 // Backlight / RGB timeout
 #define BACKLIGHT_TIMEOUT 5 // in minutes
@@ -66,7 +77,6 @@ void suspend_wakeup_init_user(void) {
   rgblight_enable();
 }
 
-uint8_t mod_state;
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   // Backlight / RGB resume
   if (record->event.pressed) {
@@ -81,51 +91,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     halfmin_counter = 0;
   }
 
-  // Key Combos
-  mod_state = get_mods();
   switch (keycode) {
-    // TODO: Ctrl + semicolon = quote
-
-    // Alt+Escape = Alt+Tab
-    case KC_ESC:
-        if ((mod_state & MOD_BIT(KC_LALT)) == MOD_BIT(KC_LALT)) {
-            if (record->event.pressed) {
-                register_code(KC_TAB);
-            } else {
-                unregister_code(KC_TAB);
-            }
-            return false; // Stop processing keycodes
-        }
-        return true; // Continue processing keycodes
-
-    // Shift+Backspace = Delete
-    case KC_BSPC:
-        {
-            static bool delkey_registered;
-            if (record->event.pressed) {
-                if (mod_state & MOD_MASK_SHIFT) {
-                    del_mods(MOD_MASK_SHIFT);
-                    register_code(KC_DEL);
-                    delkey_registered = true;
-                    set_mods(mod_state);
-                    return false;
-                } else {
-                    if (delkey_registered) {
-                        unregister_code(KC_DEL);
-                        delkey_registered = false;
-                        return true;
-                    }
-                }
-            }
-            return true;
-        }
-
-      // Macros
-      case _M0:
-        if (record->event.pressed) {
-          SEND_STRING("Macro Test!");
-        }
-        return false;
+    // Macros
+    case _M0:
+      if (record->event.pressed) {
+        SEND_STRING("Macro Test!");
+      }
+      return false;
   }
 
   return true;
@@ -143,57 +115,58 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 // 25 = Christmas
 // 26-30 = Static Gradient
 layer_state_t layer_state_set_user(layer_state_t state) {
-    switch (get_highest_layer(state)) {
-      case _SPECIAL:
-          rgblight_mode(1);
-          rgblight_sethsv(HSV_PURPLE);
-          break;
-      case _NAVIGATION:
-          rgblight_mode(1);
-          rgblight_sethsv(HSV_BLUE);
-          break;
-      case _MOUSE:
-          rgblight_mode(1);
-          rgblight_sethsv(HSV_GREEN);
-          break;
-      case _COLEMAK:
-          rgblight_mode(3);
-          rgblight_sethsv(HSV_WHITE);
-          break;
-      default:
-          rgblight_mode(14);
-          rgblight_sethsv(HSV_PURPLE);
-          break;
-    }
+  switch (get_highest_layer(state)) {
+    case _SPECIAL:
+      rgblight_mode(1);
+      rgblight_sethsv(HSV_PURPLE);
+      break;
+    case _NAVIGATION:
+      rgblight_mode(1);
+      rgblight_sethsv(HSV_BLUE);
+      break;
+    case _MOUSE:
+      rgblight_mode(1);
+      rgblight_sethsv(HSV_GREEN);
+      break;
+    default:
+      if (default_layer_state - 1 == _COLEMAK) {
+        rgblight_mode(3);
+        rgblight_sethsv(HSV_WHITE);
+      } else {
+        rgblight_mode(14);
+        rgblight_sethsv(HSV_PURPLE);
+      }
+      break;
+  }
   return state;
 }
 
 // Dynamic Macro Recording Backlight
 void dynamic_macro_record_start_user(void) {
-    breathing_enable();
+  breathing_enable();
 }
 
 void dynamic_macro_record_end_user(int8_t direction) {
-    breathing_disable();
+  breathing_disable();
 }
 
 // Encoder Actions
 bool encoder_update_user(uint8_t index, bool clockwise) {
-    switch(biton32(layer_state)){
-         case 3:
-            if (clockwise){
-                tap_code(KC_VOLU);
-            } else{
-                tap_code(KC_VOLD);
-            }
-            break;
-        default:
-            if (clockwise) {
-                tap_code(KC_WH_D);
-            } else {
-                tap_code(KC_WH_U);
-            }
-            break;
-    }
-    return true;
+  switch(biton32(layer_state)){
+    case 3:
+      if (clockwise){
+        tap_code(KC_VOLU);
+      } else{
+        tap_code(KC_VOLD);
+      }
+      break;
+    default:
+      if (clockwise) {
+        tap_code(KC_WH_D);
+      } else {
+        tap_code(KC_WH_U);
+      }
+      break;
+  }
+  return true;
 }
