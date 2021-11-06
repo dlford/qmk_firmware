@@ -152,24 +152,3 @@ void dynamic_macro_record_start_user(void) {
 void dynamic_macro_record_end_user(int8_t direction) {
   breathing_disable();
 }
-
-// Encoder Actions
-bool encoder_update_user(uint8_t index, bool clockwise) {
-  switch(biton32(layer_state)){
-    case 3:
-      if (clockwise){
-        tap_code(KC_VOLU);
-      } else{
-        tap_code(KC_VOLD);
-      }
-      break;
-    default:
-      if (clockwise) {
-        tap_code(KC_WH_D);
-      } else {
-        tap_code(KC_WH_U);
-      }
-      break;
-  }
-  return true;
-}

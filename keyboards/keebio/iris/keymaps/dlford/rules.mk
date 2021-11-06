@@ -24,7 +24,7 @@ BACKLIGHT_ENABLE = yes      # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = yes       # Enable keyboard RGB underglow
 AUDIO_ENABLE = no           # Audio output
 SPLIT_KEYBOARD = yes
-ENCODER_ENABLE = yes
+ENCODER_ENABLE = no
 DYNAMIC_MACRO_ENABLE = yes  # Create macros on the fly
 
 # Link Time Optimization, saves space, disables some legacy features
