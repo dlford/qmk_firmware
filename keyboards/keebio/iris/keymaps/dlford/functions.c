@@ -31,21 +31,6 @@ void keyboard_post_init_user(void) {
   backlight_level(3);
 }
 
-// Key overrides
-// Ctrl+Slash = Quote
-const key_override_t quote_override = ko_make_basic(MOD_MASK_CTRL, KC_SLSH, KC_QUOT);
-// Shift+Delete = Backspace
-const key_override_t del_override = ko_make_basic(MOD_MASK_SHIFT, KC_DEL, KC_BSPC);
-// Shift+Backspace = Delete
-const key_override_t bspc_override = ko_make_basic(MOD_MASK_SHIFT, KC_BSPC, KC_DEL);
-// Apply key combos
-const key_override_t **key_overrides = (const key_override_t *[]) {
-  &quote_override,
-  &del_override,
-  &bspc_override,
-  NULL
-};
-
 // Backlight / RGB timeout
 #define BACKLIGHT_TIMEOUT 5 // in minutes
 static uint16_t idle_timer = 0;
