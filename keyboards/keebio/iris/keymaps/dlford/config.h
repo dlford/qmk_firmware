@@ -20,9 +20,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define USE_I2C
 #define EE_HANDS
 #define TAPPING_TOGGLE 2 // number of taps to toggle TT
-#define TAPPING_TERM 350 // milliseconds from tap to hold for mod tap
+#define TAPPING_TERM 180 // milliseconds from tap to hold for mod tap
 #define IGNORE_MOD_TAP_INTERRUPT // ignore hold mod if another tap occurs within tapping term
-#define PERMISSIVE_HOLD // activate mod top hold earlier if another key is pressed AND released
+#define PERMISSIVE_HOLD_PER_KEY // activate mod top hold earlier if another key is pressed AND released per key
+#define TAPPING_FORCE_HOLD_PER_KEY // disable double tap hold key repeat per key
 #define BACKLIGHT_BREATHING
 #define BREATHING_PERIOD 3
 // Animations I want

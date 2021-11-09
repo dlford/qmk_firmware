@@ -31,6 +31,30 @@ void keyboard_post_init_user(void) {
   backlight_level(3);
 }
 
+// Permissive hold per key
+bool get_permissive_hold(uint16_t keycode, keyrecord_t *record) {
+  switch (keycode) {
+    case LT(3, KC_SPC):
+      return true; // Enable permissive hold
+    case LT(2, KC_TAB):
+      return true;
+    default:
+      return false; // Disable permissive hold
+  }
+}
+
+// Tapping force hold per key
+bool get_tapping_force_hold(uint16_t keycode, keyrecord_t *record) {
+  switch (keycode) {
+    case LT(3, KC_SPC):
+      return true; // Enable force hold
+    case LT(2, KC_TAB):
+      return true;
+    default:
+      return false; // Disable force hold
+  }
+}
+
 // Backlight / RGB timeout
 #define BACKLIGHT_TIMEOUT 5 // in minutes
 static uint16_t idle_timer = 0;
