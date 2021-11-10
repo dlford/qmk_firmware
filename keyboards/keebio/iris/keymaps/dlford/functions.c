@@ -143,10 +143,19 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     default:
       if (default_layer_state - 1 == _COLEMAK) {
         rgblight_mode(3);
-        rgblight_sethsv(HSV_WHITE);
+        if (host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK)) {
+          rgblight_sethsv(HSV_YELLOW);
+        } else {
+          rgblight_sethsv(HSV_WHITE);
+        }
       } else {
-        rgblight_mode(14);
-        rgblight_sethsv(HSV_PURPLE);
+        if (host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK)) {
+          rgblight_mode(1);
+          rgblight_sethsv(HSV_YELLOW);
+        } else {
+          rgblight_mode(14);
+          rgblight_sethsv(HSV_PURPLE);
+        }
       }
       break;
   }
