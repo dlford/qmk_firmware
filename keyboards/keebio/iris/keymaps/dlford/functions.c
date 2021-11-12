@@ -105,9 +105,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
   switch (keycode) {
     // Macros
-    case _M0:
+    case _M0: // Link to keymap legends SVG file
       if (record->event.pressed) {
-        SEND_STRING("Macro Test!");
+        SEND_STRING("https://raw.githubusercontent.com/dlford/qmk_firmware/master/keyboards/keebio/iris/keymaps/dlford/legends.svg");
       }
       return false;
   }
