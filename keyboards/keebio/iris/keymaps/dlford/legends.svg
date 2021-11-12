@@ -27,9 +27,9 @@
      inkscape:document-units="mm"
      showgrid="false"
      showborder="true"
-     inkscape:zoom="0.5"
-     inkscape:cx="449"
-     inkscape:cy="139"
+     inkscape:zoom="0.70710678"
+     inkscape:cx="382.54477"
+     inkscape:cy="314.66252"
      inkscape:window-width="1472"
      inkscape:window-height="1082"
      inkscape:window-x="26"
@@ -1998,6 +1998,28 @@
          y="97.723137">[</tspan></text>
     <text
        xml:space="preserve"
+       style="font-size:3.56339px;line-height:1.25;font-family:sans-serif;fill:#7200ff;fill-opacity:1;stroke-width:0.334068"
+       x="-24.07007"
+       y="103.12762"
+       id="text2719-35-0-4-0-36"><tspan
+         sodipodi:role="line"
+         id="tspan2717-62-9-5-4-7"
+         style="font-size:3.56339px;fill:#7200ff;fill-opacity:1;stroke-width:0.334068"
+         x="-24.07007"
+         y="103.12762">(</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:3.56339px;line-height:1.25;font-family:sans-serif;fill:#7200ff;fill-opacity:1;stroke-width:0.334068"
+       x="48.425285"
+       y="103.08181"
+       id="text2719-35-0-4-0-36-5"><tspan
+         sodipodi:role="line"
+         id="tspan2717-62-9-5-4-7-3"
+         style="font-size:3.56339px;fill:#7200ff;fill-opacity:1;stroke-width:0.334068"
+         x="48.425285"
+         y="103.08181">)</tspan></text>
+    <text
+       xml:space="preserve"
        style="font-size:2.22712px;line-height:1;font-family:sans-serif;fill:#800000;stroke-width:0.334068"
        x="86.02346"
        y="90.016121"
@@ -2339,14 +2361,14 @@
     <text
        xml:space="preserve"
        style="font-size:4.45425px;line-height:1.25;font-family:sans-serif;fill:#d45500;stroke-width:0.334068"
-       x="-18.527641"
-       y="103.6211"
+       x="-18.36977"
+       y="103.83788"
        id="text2719-35-7-5-6-2-7"><tspan
          sodipodi:role="line"
          id="tspan2717-62-5-69-4-6-7"
          style="font-size:4.45425px;fill:#d45500;stroke-width:0.334068"
-         x="-18.527641"
-         y="103.6211">D</tspan></text>
+         x="-18.36977"
+         y="103.83788">D</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:2.67255px;line-height:1.25;font-family:sans-serif;fill:#0000ff;stroke-width:0.334068"
@@ -2389,14 +2411,14 @@
     <text
        xml:space="preserve"
        style="font-size:4.45425px;line-height:1.25;font-family:sans-serif;fill:#d45500;stroke-width:0.334068"
-       x="53.607353"
-       y="103.52521"
+       x="52.993954"
+       y="103.59135"
        id="text2719-35-7-5-6-2-7-1"><tspan
          sodipodi:role="line"
          id="tspan2717-62-5-69-4-6-7-5"
          style="font-size:4.45425px;fill:#d45500;stroke-width:0.334068"
-         x="53.607353"
-         y="103.52521">H</tspan></text>
+         x="52.993954"
+         y="103.59135">H</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:2.22712px;line-height:1;font-family:sans-serif;fill:#800000;stroke-width:0.334068"
