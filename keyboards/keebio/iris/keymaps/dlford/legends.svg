@@ -27,13 +27,13 @@
      inkscape:document-units="mm"
      showgrid="false"
      showborder="true"
-     inkscape:zoom="0.70710678"
-     inkscape:cx="382.54477"
-     inkscape:cy="314.66252"
+     inkscape:zoom="1"
+     inkscape:cx="521.5"
+     inkscape:cy="187.5"
      inkscape:window-width="1472"
      inkscape:window-height="1082"
      inkscape:window-x="26"
-     inkscape:window-y="23"
+     inkscape:window-y="32"
      inkscape:window-maximized="0"
      inkscape:current-layer="layer1"
      fit-margin-top="0"
@@ -116,13 +116,13 @@
     <text
        xml:space="preserve"
        style="font-size:4.45425px;line-height:1.25;font-family:sans-serif;stroke-width:0.334068"
-       x="60.459396"
+       x="61.595806"
        y="149.70937"
        id="text2719-35-4-2-3-3-2"><tspan
          sodipodi:role="line"
          id="tspan2717-62-76-6-3-0-4"
          style="font-size:4.45425px;stroke-width:0.334068"
-         x="60.459396"
+         x="61.595806"
          y="149.70937">Tab</tspan></text>
     <text
        xml:space="preserve"
@@ -1717,7 +1717,7 @@
          id="tspan2717-62-5-5-1"
          style="font-size:4.45425px;fill:#d45500;stroke-width:0.334068"
          x="128.34059"
-         y="104.23631">A</tspan></text>
+         y="104.23631">O</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:5.34509px;line-height:1.25;font-family:sans-serif;fill:#7200ff;fill-opacity:1;stroke-width:0.334068"
@@ -2594,14 +2594,14 @@
     <text
        xml:space="preserve"
        style="font-size:2.22712px;line-height:1;font-family:sans-serif;fill:#800080;stroke-width:0.334068"
-       x="142.51091"
-       y="-70.370102"
+       x="143.84853"
+       y="-57.545811"
        id="text2719-8-9-4"
        transform="rotate(90)"><tspan
          sodipodi:role="line"
          style="font-weight:bold;font-size:2.22712px;fill:#800080;stroke-width:0.334068"
-         x="142.51091"
-         y="-70.370102"
+         x="143.84853"
+         y="-57.545811"
          id="tspan44072-0-7-6">Mouse</tspan></text>
     <circle
        style="fill:#0000ff;fill-opacity:1;stroke:#800000;stroke-width:0.29873;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
@@ -2612,8 +2612,8 @@
     <circle
        style="fill:#008000;fill-opacity:1;stroke:#800080;stroke-width:0.29873;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="path211099-7-2"
-       cx="71.075218"
-       cy="152.20825"
+       cx="58.250927"
+       cy="153.54587"
        r="0.99517334" />
     <circle
        style="fill:#d45500;fill-opacity:1;stroke:#0000ff;stroke-width:0.289831;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
