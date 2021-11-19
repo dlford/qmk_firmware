@@ -75,6 +75,9 @@ bool get_tapping_force_hold(uint16_t keycode, keyrecord_t *record) {
 
 // TODO: Import
 // TODO: Caps Lock/Colemak/Rec keys
+// TODO: OLEDs
+// TODO: EE_HANDS
+// TODO: Macro rec oled indicator
 
 // OLEDs
 #ifdef OLED_ENABLE
@@ -137,13 +140,86 @@ void oled_render_keylog(void) {
     oled_write(keylog_str, false);
 }
 
+// WPM
+int timer = 0;
+char wpm_text[5];
+int x = 31;
+int currwpm = 0;
+int vert_count = 0; 
+//=============  USER CONFIG PARAMS  ===============
+float max_wpm = 110.0f; //WPM value at the top of the graph window
+int graph_refresh_interval = 80; //in milliseconds
+int graph_area_fill_interval = 3; //determines how dense the horizontal lines under the graph line are; lower = more dense
+int vert_interval = 3; //determines frequency of vertical lines under the graph line
+bool vert_line = false; //determines whether to draw vertical lines
+int graph_line_thickness = 3; //determines thickness of graph line in pixels
+void oled_render_wpm(void) {
+  //get current WPM value
+  currwpm = get_current_wpm();
+  //check if it's been long enough before refreshing graph
+  if(timer_elapsed(timer) > graph_refresh_interval){
+    // main calculation to plot graph line
+    x = 32 - ((currwpm / max_wpm) * 32);
+    //first draw actual value line
+    for(int i = 0; i <= graph_line_thickness - 1; i++){
+      oled_write_pixel(1, x + i, true);
+    }
+    //then fill in area below the value line
+    if(vert_line){
+      if(vert_count == vert_interval){
+        vert_count = 0;
+        while(x <= 32){
+          oled_write_pixel(1, x, true);
+          x++;
+        }
+      } else {
+        for(int i = 32; i > x; i--){
+          if(i % graph_area_fill_interval == 0){
+            oled_write_pixel(1, i, true);
+          }
+        }
+        vert_count++;
+      }
+    } else {
+      for(int i = 32; i > x; i--){
+        if(i % graph_area_fill_interval == 0){
+          oled_write_pixel(1, i, true);
+        }
+      }
+    }
+    //then move the entire graph one pixel to the right
+    oled_pan(false); 
+    //refresh the timer for the next iteration
+    timer = timer_read();
+  }
+  //format current WPM value into a printable string
+  sprintf(wpm_text,"%i", currwpm);
+  //formatting for triple digit WPM vs double digits, then print WPM readout
+  if(currwpm >= 100){
+    oled_set_cursor(14, 3);
+    oled_write("WPM: ", false);
+    oled_set_cursor(18, 3);
+    oled_write(wpm_text, false);
+  } else if (currwpm >= 10){
+    oled_set_cursor(15, 3);
+    oled_write("WPM: ", false);
+    oled_set_cursor(19, 3);
+    oled_write(wpm_text, false);
+  } else if (currwpm > 0) {
+    oled_set_cursor(16, 3);
+    oled_write("WPM: ", false);
+    oled_set_cursor(20, 3);
+    oled_write(wpm_text, false);		
+  }
+}
+// WPM
+
 void oled_task_user(void) {
     if (is_keyboard_master()) {
         oled_render_layer_state();
         oled_render_keylog();
     } else {
-        oled_render_layer_state();
-        oled_render_keylog();
+        oled_render_wpm();
     }
 }
 
@@ -170,39 +246,39 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 layer_state_t layer_state_set_user(layer_state_t state) {
   switch (get_highest_layer(state)) {
     case _SPECIAL:
-      rgblight_sethsv(HSV_ORANGE);
-      rgb_matrix_set_speed(secondary_speed);
+      rgb_matrix_sethsv(HSV_ORANGE);
+      rgb_matrix_set_speed_noeeprom(secondary_speed);
       rgb_matrix_mode_noeeprom(secondary_animation);
       break;
     case _NAVIGATION:
-      rgblight_sethsv(HSV_BLUE);
-      rgb_matrix_set_speed(secondary_speed);
+      rgb_matrix_sethsv(HSV_BLUE);
+      rgb_matrix_set_speed_noeeprom(secondary_speed);
       rgb_matrix_mode_noeeprom(secondary_animation);
       break;
     case _MOUSE:
-      rgblight_sethsv(HSV_GREEN);
-      rgb_matrix_set_speed(secondary_speed);
+      rgb_matrix_sethsv(HSV_GREEN);
+      rgb_matrix_set_speed_noeeprom(secondary_speed);
       rgb_matrix_mode_noeeprom(secondary_animation);
       break;
     default:
       if (default_layer_state - 1 == _COLEMAK) {
         if (host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK)) {
-          rgblight_sethsv(HSV_TURQUOISE);
-          rgb_matrix_set_speed(secondary_speed);
+          rgb_matrix_sethsv(HSV_TURQUOISE);
+          rgb_matrix_set_speed_noeeprom(secondary_speed);
           rgb_matrix_mode_noeeprom(secondary_animation);
         } else {
-          rgblight_sethsv(HSV_CYAN);
-          rgb_matrix_set_speed(secondary_speed);
+          rgb_matrix_sethsv(HSV_CYAN);
+          rgb_matrix_set_speed_noeeprom(secondary_speed);
           rgb_matrix_mode_noeeprom(secondary_animation);
         }
       } else {
         if (host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK)) {
-          rgblight_sethsv(HSV_RED);
-          rgb_matrix_set_speed(secondary_speed);
+          rgb_matrix_sethsv(HSV_RED);
+          rgb_matrix_set_speed_noeeprom(secondary_speed);
           rgb_matrix_mode_noeeprom(secondary_animation);
         } else {
-          rgblight_sethsv(HSV_ORANGE);
-          rgb_matrix_set_speed(default_speed);
+          rgb_matrix_sethsv(HSV_ORANGE);
+          rgb_matrix_set_speed_noeeprom(default_speed);
           rgb_matrix_mode_noeeprom(default_animation);
         }
       }
