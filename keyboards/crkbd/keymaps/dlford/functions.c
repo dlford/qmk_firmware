@@ -77,17 +77,13 @@ bool get_tapping_force_hold(uint16_t keycode, keyrecord_t *record) {
 // Tapping term per key
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
-    case C_S_T(KC_I):
-      return 215;
     case C_S_T(KC_E):
+    case C_S_T(KC_I):
       return 215;
     default:
       return 190;
   }
 }
-
-// TODO: Caps Lock/Colemak
-// TODO: EE_HANDS
 
 // RGB timeout
 #define RGB_CUSTOM_TIMEOUT 5 // in minutes
@@ -181,7 +177,7 @@ void oled_render_dynamic_macro_status(void) {
 }
 
 void oled_render_caps_lock_status(void) {
-    if (host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK)) {
+    if (host_keyboard_led_state().caps_lock) {
         oled_write_ln_P(PSTR("CAPS LOCK"), false);
     } else {
         oled_write_ln_P(PSTR(""), false);
@@ -212,45 +208,46 @@ void oled_task_user(void) {
 
 // RGB Layers (Enable animations in config.h)
 layer_state_t layer_state_set_user(layer_state_t state) {
-  switch (get_highest_layer(state)) {
-    case _SPECIAL:
-      rgb_matrix_sethsv(HSV_ORANGE);
-      rgb_matrix_set_speed_noeeprom(secondary_speed);
-      rgb_matrix_mode_noeeprom(secondary_animation);
-      break;
-    case _NAVIGATION:
-      rgb_matrix_sethsv(HSV_BLUE);
-      rgb_matrix_set_speed_noeeprom(secondary_speed);
-      rgb_matrix_mode_noeeprom(secondary_animation);
-      break;
-    case _MOUSE:
-      rgb_matrix_sethsv(HSV_GREEN);
-      rgb_matrix_set_speed_noeeprom(secondary_speed);
-      rgb_matrix_mode_noeeprom(secondary_animation);
-      break;
-    default:
-      if (default_layer_state - 1 == _COLEMAK) {
-        if (host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK)) {
-          rgb_matrix_sethsv(HSV_TURQUOISE);
-          rgb_matrix_set_speed_noeeprom(secondary_speed);
-          rgb_matrix_mode_noeeprom(secondary_animation);
-        } else {
-          rgb_matrix_sethsv(HSV_CYAN);
-          rgb_matrix_set_speed_noeeprom(secondary_speed);
-          rgb_matrix_mode_noeeprom(secondary_animation);
-        }
-      } else {
-        if (host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK)) {
-          rgb_matrix_sethsv(HSV_RED);
-          rgb_matrix_set_speed_noeeprom(secondary_speed);
-          rgb_matrix_mode_noeeprom(secondary_animation);
-        } else {
-          rgb_matrix_sethsv(HSV_ORANGE);
-          rgb_matrix_set_speed_noeeprom(default_speed);
-          rgb_matrix_mode_noeeprom(default_animation);
-        }
-      }
-      break;
-  }
-  return state;
+    switch (get_highest_layer(state)) {
+        case _SPECIAL:
+            rgb_matrix_sethsv(HSV_ORANGE);
+            rgb_matrix_set_speed_noeeprom(secondary_speed);
+            rgb_matrix_mode_noeeprom(secondary_animation);
+            break;
+        case _NAVIGATION:
+            rgb_matrix_sethsv(HSV_BLUE);
+            rgb_matrix_set_speed_noeeprom(secondary_speed);
+            rgb_matrix_mode_noeeprom(secondary_animation);
+            break;
+        case _MOUSE:
+            rgb_matrix_sethsv(HSV_GREEN);
+            rgb_matrix_set_speed_noeeprom(secondary_speed);
+            rgb_matrix_mode_noeeprom(secondary_animation);
+            break;
+        default:
+            rgb_matrix_sethsv(HSV_ORANGE);
+            rgb_matrix_set_speed_noeeprom(default_speed);
+            rgb_matrix_mode_noeeprom(default_animation);
+            break;
+    }
+    return state;
+}
+
+// Indicators
+void rgb_matrix_indicators_user(void) {
+    if (host_keyboard_led_state().caps_lock) {
+        rgb_matrix_set_color(50, RGB_RED);
+        rgb_matrix_set_color(49, RGB_RED);
+        rgb_matrix_set_color(48, RGB_RED);
+    }
+    if (is_macro_recording) {
+        rgb_matrix_set_color(33, RGB_ORANGE);
+        rgb_matrix_set_color(40, RGB_ORANGE);
+        rgb_matrix_set_color(41, RGB_ORANGE);
+    }
+    if (default_layer_state - 1 == _COLEMAK) {
+        rgb_matrix_set_color(45, RGB_GREEN);
+        rgb_matrix_set_color(46, RGB_GREEN);
+        rgb_matrix_set_color(47, RGB_GREEN);
+    }
 }

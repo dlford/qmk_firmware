@@ -24,6 +24,7 @@ AUDIO_ENABLE = no           # Audio output
 DYNAMIC_MACRO_ENABLE = yes  # Create macros on the fly
 RGB_MATRIX_ENABLE = yes
 RGB_MATRIX_DRIVER = WS2812
+INDICATOR_LIGHTS = yes      # Enable indicator lights for caps lock, etc.
 
 # if firmware size over limit, try this option
 # LTO_ENABLE = yes
