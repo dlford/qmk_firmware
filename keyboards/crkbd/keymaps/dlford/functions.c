@@ -42,11 +42,12 @@ static uint16_t default_animation = RGB_MATRIX_CYCLE_SPIRAL;
 static int default_speed = 50;
 static uint16_t secondary_animation = RGB_MATRIX_HUE_WAVE;
 static int secondary_speed = 150;
+static bool is_macro_recording = false;
 
 // Init
 void keyboard_post_init_user(void) {
   rgb_matrix_mode_noeeprom(default_animation);
-  rgb_matrix_set_speed(default_speed);
+  rgb_matrix_set_speed_noeeprom(default_speed);
 }
 
 // Permissive hold per key
@@ -73,16 +74,69 @@ bool get_tapping_force_hold(uint16_t keycode, keyrecord_t *record) {
   }
 }
 
-// TODO: Import
-// TODO: Caps Lock/Colemak/Rec keys
-// TODO: OLEDs
+// Tapping term per key
+uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
+  switch (keycode) {
+    case C_S_T(KC_I):
+      return 215;
+    case C_S_T(KC_E):
+      return 215;
+    default:
+      return 190;
+  }
+}
+
+// TODO: Caps Lock/Colemak
 // TODO: EE_HANDS
-// TODO: Macro rec oled indicator
+
+// RGB timeout
+#define RGB_CUSTOM_TIMEOUT 5 // in minutes
+static uint16_t idle_timer = 0;
+static uint8_t halfmin_counter = 0;
+static bool led_on = true;
+void matrix_scan_user(void) {
+  // idle_timer needs to be set one time
+  if (idle_timer == 0) idle_timer = sync_timer_read();
+
+    if (led_on && timer_elapsed(idle_timer) > 30000) {
+      halfmin_counter++;
+      idle_timer = sync_timer_read();
+    }
+
+    if (led_on && halfmin_counter >= RGB_CUSTOM_TIMEOUT * 2) {
+      rgb_matrix_disable();
+      led_on = false;
+      halfmin_counter = 0;
+    }
+}
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  // RGB resume
+  if (record->event.pressed) {
+    if (led_on == false) {
+      rgb_matrix_enable();
+      led_on = true;
+    }
+    idle_timer = sync_timer_read();
+    halfmin_counter = 0;
+  }
+
+  switch (keycode) {
+    // Macros
+    case _M0: // Link to keymap legends SVG file
+      if (record->event.pressed) {
+        SEND_STRING("https://raw.githubusercontent.com/dlford/qmk_firmware/master/keyboards/keebio/iris/keymaps/dlford/legends.svg");
+      }
+      return false;
+  }
+
+  return true;
+}
 
 // OLEDs
 #ifdef OLED_ENABLE
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
-  if (!is_keyboard_master()) {
+  if (is_keyboard_master()) {
     return OLED_ROTATION_180;  // flips the display 180 degrees if offhand
   }
   return rotation;
@@ -112,134 +166,48 @@ void oled_render_layer_state(void) {
     }
 }
 
-char keylog_str[24] = {};
-
-const char code_to_name[60] = {
-    ' ', ' ', ' ', ' ', 'a', 'b', 'c', 'd', 'e', 'f',
-    'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p',
-    'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
-    '1', '2', '3', '4', '5', '6', '7', '8', '9', '0',
-    'R', 'E', 'B', 'T', '_', '-', '=', '[', ']', '\\',
-    '#', ';', '\'', '`', ',', '.', '/', ' ', ' ', ' '};
-
-void set_keylog(uint16_t keycode, keyrecord_t *record) {
-  char name = ' ';
-    if ((keycode >= QK_MOD_TAP && keycode <= QK_MOD_TAP_MAX) ||
-        (keycode >= QK_LAYER_TAP && keycode <= QK_LAYER_TAP_MAX)) { keycode = keycode & 0xFF; }
-  if (keycode < 60) {
-    name = code_to_name[keycode];
-  }
-
-  // update keylog
-  snprintf(keylog_str, sizeof(keylog_str), "%dx%d, k%2d : %c",
-           record->event.key.row, record->event.key.col,
-           keycode, name);
+void dynamic_macro_record_start_user(void) {
+    is_macro_recording = true;
 }
-
-void oled_render_keylog(void) {
-    oled_write(keylog_str, false);
+void dynamic_macro_record_end_user(int8_t direction) {
+    is_macro_recording = false;
 }
-
-// WPM
-int timer = 0;
-char wpm_text[5];
-int x = 31;
-int currwpm = 0;
-int vert_count = 0; 
-//=============  USER CONFIG PARAMS  ===============
-float max_wpm = 110.0f; //WPM value at the top of the graph window
-int graph_refresh_interval = 80; //in milliseconds
-int graph_area_fill_interval = 3; //determines how dense the horizontal lines under the graph line are; lower = more dense
-int vert_interval = 3; //determines frequency of vertical lines under the graph line
-bool vert_line = false; //determines whether to draw vertical lines
-int graph_line_thickness = 3; //determines thickness of graph line in pixels
-void oled_render_wpm(void) {
-  //get current WPM value
-  currwpm = get_current_wpm();
-  //check if it's been long enough before refreshing graph
-  if(timer_elapsed(timer) > graph_refresh_interval){
-    // main calculation to plot graph line
-    x = 32 - ((currwpm / max_wpm) * 32);
-    //first draw actual value line
-    for(int i = 0; i <= graph_line_thickness - 1; i++){
-      oled_write_pixel(1, x + i, true);
-    }
-    //then fill in area below the value line
-    if(vert_line){
-      if(vert_count == vert_interval){
-        vert_count = 0;
-        while(x <= 32){
-          oled_write_pixel(1, x, true);
-          x++;
-        }
-      } else {
-        for(int i = 32; i > x; i--){
-          if(i % graph_area_fill_interval == 0){
-            oled_write_pixel(1, i, true);
-          }
-        }
-        vert_count++;
-      }
+void oled_render_dynamic_macro_status(void) {
+    if (is_macro_recording) {
+        oled_write_ln_P(PSTR("Macro Recording..."), false);
     } else {
-      for(int i = 32; i > x; i--){
-        if(i % graph_area_fill_interval == 0){
-          oled_write_pixel(1, i, true);
-        }
-      }
+        oled_write_ln_P(PSTR(""), false);
     }
-    //then move the entire graph one pixel to the right
-    oled_pan(false); 
-    //refresh the timer for the next iteration
-    timer = timer_read();
-  }
-  //format current WPM value into a printable string
-  sprintf(wpm_text,"%i", currwpm);
-  //formatting for triple digit WPM vs double digits, then print WPM readout
-  if(currwpm >= 100){
-    oled_set_cursor(14, 3);
-    oled_write("WPM: ", false);
-    oled_set_cursor(18, 3);
-    oled_write(wpm_text, false);
-  } else if (currwpm >= 10){
-    oled_set_cursor(15, 3);
-    oled_write("WPM: ", false);
-    oled_set_cursor(19, 3);
-    oled_write(wpm_text, false);
-  } else if (currwpm > 0) {
-    oled_set_cursor(16, 3);
-    oled_write("WPM: ", false);
-    oled_set_cursor(20, 3);
-    oled_write(wpm_text, false);		
-  }
 }
-// WPM
+
+void oled_render_caps_lock_status(void) {
+    if (host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK)) {
+        oled_write_ln_P(PSTR("CAPS LOCK"), false);
+    } else {
+        oled_write_ln_P(PSTR(""), false);
+    }
+}
+
+// DLF Logo
+static void oled_render_logo(void) {
+    static const char PROGMEM raw_logo[] = {
+        0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,192,224,248, 60, 12, 12, 12, 12, 12, 12, 12, 12,196,240,248,252,252,252,124,124,124,252,252,248,248,224,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+        0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,128,224,240,124, 31,  7,  1,  0,128,192,224,240,240,248,248,248,  0,255,255,255,255,255,254,252,248,248,  1,  3, 11, 59,251,225,128,  0,  0,  0,  0,  0,224,224,224,224,224,224,224,224,192,128,  0,  0,224,224,224,224,  0,  0,  0,  0,  0,  0,224,224, 96, 96, 96, 96, 96,  0,224,224, 96, 96, 96, 96, 96,224,224,  0,  0,224,224, 96, 96, 96, 96,224,224,  0,224,224,224, 96, 96, 96,224,224,192,128,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 
+        0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  1,  7, 31, 60,248,224,128,  0, 63,127,255,255,255,241,240,240,240,255,255,255,127, 63,  0,  0,  0,  0,128,192,240,124, 31,  7,  3,  0,  0,  0,  0,  0,255,255,255,255,225,225,251,255,255,127, 63,  0,255,255,255,255,224,224,224,224,224,  0,255,255, 12, 12, 12, 12,  0,  0,255,255,128,128,128,128,128,255,255,  0,  0,255,255, 28, 28, 60,252,255,207,  0,255,255,255,128,128,128,192,255,255,127,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 
+        0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  3, 15, 30, 60, 48, 48, 49, 49, 51, 51, 51, 51, 49, 49, 48, 48, 48, 48, 48, 56, 62, 15,  3,  1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  1,  1,  1,  1,  1,  1,  1,  0,  0,  0,  0,  0,  0,  0,  1,  1,  1,  1,  1,  1,  1,  0,  1,  1,  0,  0,  0,  0,  0,  0,  1,  1,  1,  1,  1,  1,  1,  1,  1,  0,  0,  1,  1,  0,  0,  0,  0,  1,  1,  0,  1,  1,  1,  1,  1,  1,  1,  1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+    };
+    oled_write_raw_P(raw_logo, sizeof(raw_logo));
+}
 
 void oled_task_user(void) {
     if (is_keyboard_master()) {
         oled_render_layer_state();
-        oled_render_keylog();
+        oled_render_dynamic_macro_status();
+        oled_render_caps_lock_status();
     } else {
-        oled_render_wpm();
+        oled_render_logo();
     }
 }
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  if (record->event.pressed) {
-    set_keylog(keycode, record);
-  }
-
-  switch (keycode) {
-    // Macros
-    case _M0: // Link to keymap legends SVG file
-      if (record->event.pressed) {
-        SEND_STRING("https://raw.githubusercontent.com/dlford/qmk_firmware/master/keyboards/keebio/iris/keymaps/dlford/legends.svg");
-      }
-      return false;
-  }
-
-  return true;
-}
-
 #endif // OLED_ENABLE
 
 // RGB Layers (Enable animations in config.h)

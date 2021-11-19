@@ -31,7 +31,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define USE_SERIAL_PD2
 
 #define TAPPING_TOGGLE 2 // number of taps to toggle TT
-#define TAPPING_TERM 190 // milliseconds from tap to hold for mod tap
+// #define TAPPING_TERM 190 // milliseconds from tap to hold for mod tap
+#define TAPPING_TERM_PER_KEY // milliseconds from tap to hold for mod tap per key
 #define IGNORE_MOD_TAP_INTERRUPT // ignore hold mod if another tap occurs within tapping term
 #define PERMISSIVE_HOLD_PER_KEY // activate mod top hold earlier if another key is pressed AND released per key
 #define TAPPING_FORCE_HOLD_PER_KEY // disable double tap hold key repeat per key
@@ -49,16 +50,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define OLED_FONT_H "keyboards/crkbd/lib/glcdfont.c"
 
 #ifdef RGB_MATRIX_ENABLE
-// #   define RGB_DISABLE_AFTER_TIMEOUT 25 // number of ticks to wait until disabling effects
-#   define RGB_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
-#   define RGB_MATRIX_FRAMEBUFFER_EFFECTS
-#   define RGB_MATRIX_LED_PROCESS_LIMIT (DRIVER_LED_TOTAL + 4) / 5 // limits the number of LEDs to process in an animation per task run (increases keyboard responsiveness)
-#   define RGB_MATRIX_LED_FLUSH_LIMIT 16 // limits in milliseconds how frequently an animation will update the LEDs. 16 (16ms) is equivalent to limiting to 60fps (increases keyboard responsiveness)
-#   define RGB_MATRIX_MAXIMUM_BRIGHTNESS 150 // limits maximum brightness of LEDs to 150 out of 255. Higher may cause the controller to crash. 
-#   define RGB_MATRIX_HUE_STEP 8
-#   define RGB_MATRIX_SAT_STEP 8
-#   define RGB_MATRIX_VAL_STEP 8
-#   define RGB_MATRIX_SPD_STEP 10
+// #  define RGB_DISABLE_AFTER_TIMEOUT 25 // number of ticks to wait until disabling effects
+// #  define RGB_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
+#  define RGB_MATRIX_LED_PROCESS_LIMIT (DRIVER_LED_TOTAL + 4) / 5 // limits the number of LEDs to process in an animation per task run (increases keyboard responsiveness)
+#  define RGB_MATRIX_LED_FLUSH_LIMIT 16 // limits in milliseconds how frequently an animation will update the LEDs. 16 (16ms) is equivalent to limiting to 60fps (increases keyboard responsiveness)
+#  define RGB_MATRIX_MAXIMUM_BRIGHTNESS 150 // limits maximum brightness of LEDs to 150 out of 255. Higher may cause the controller to crash. 
+#  define RGB_MATRIX_HUE_STEP 8
+#  define RGB_MATRIX_SAT_STEP 8
+#  define RGB_MATRIX_VAL_STEP 8
+#  define RGB_MATRIX_SPD_STEP 10
 
 /* Disable the animations you don't want/need.  You will need to disable a good number of these    *
  * because they take up a lot of space.  Disable until you can successfully compile your firmware. */
@@ -90,10 +90,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #  define DISABLE_RGB_MATRIX_HUE_BREATHING       // Hue shifts up a slight ammount at the same time then shifts back
 #  define DISABLE_RGB_MATRIX_HUE_PENDULUM        // Hue shifts up a slight ammount in a wave to the right then back to the left
 // #  define DISABLE_RGB_MATRIX_HUE_WAVE            // Hue shifts up a slight ammount and then back down in a wave to the right 
-// #   define RGB_MATRIX_FRAMEBUFFER_EFFECTS
+// #   define RGB_MATRIX_FRAMEBUFFER_EFFECTS        // Required for the following two effects
 #  define DISABLE_RGB_MATRIX_TYPING_HEATMAP      // How hot is your WPM!
 #  define DISABLE_RGB_MATRIX_DIGITAL_RAIN        // That famous computer simulation
-// #   define RGB_MATRIX_KEYPRESSES // reacts to keypresses
+// #   define RGB_MATRIX_KEYPRESSES // reacts to keypresses, required for the remaining effects
 // #   define RGB_MATRIX_KEYRELEASES // reacts to keyreleases (instead of keypresses)
 #  define DISABLE_RGB_MATRIX_SOLID_REACTIVE_SIMPLE   // Pulses keys hit to hue & value then fades value out
 #  define DISABLE_RGB_MATRIX_SOLID_REACTIVE      // Static single hue pulses keys hit to shifted hue then fades to current hue
@@ -113,3 +113,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define NO_ACTION_ONESHOT
 #define NO_ACTION_FUNCTION
 #define NO_ACTION_MACRO
+#define NO_USB_STARTUP_CHECK
+#ifdef NKRO_ENABLE
+#  undef NKRO_ENABLE
+#endif
+
+#ifndef NO_DEBUG
+#  define NO_DEBUG
+#endif // !NO_DEBUG
+#if !defined(NO_PRINT) && !defined(CONSOLE_ENABLE)
+#  define NO_PRINT
+#endif // !NO_PRINT
