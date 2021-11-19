@@ -89,7 +89,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #  define DISABLE_RGB_MATRIX_JELLYBEAN_RAINDROPS // Randomly changes a single key's hue and saturation
 #  define DISABLE_RGB_MATRIX_HUE_BREATHING       // Hue shifts up a slight ammount at the same time then shifts back
 #  define DISABLE_RGB_MATRIX_HUE_PENDULUM        // Hue shifts up a slight ammount in a wave to the right then back to the left
-#  define DISABLE_RGB_MATRIX_HUE_WAVE            // Hue shifts up a slight ammount and then back down in a wave to the right 
+// #  define DISABLE_RGB_MATRIX_HUE_WAVE            // Hue shifts up a slight ammount and then back down in a wave to the right 
 // #   define RGB_MATRIX_FRAMEBUFFER_EFFECTS
 #  define DISABLE_RGB_MATRIX_TYPING_HEATMAP      // How hot is your WPM!
 #  define DISABLE_RGB_MATRIX_DIGITAL_RAIN        // That famous computer simulation

@@ -38,12 +38,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define _M8 KC_F21
 #define _M9 KC_F22
 
-uint16_t default_animation = RGB_MATRIX_CYCLE_SPIRAL;
+static uint16_t default_animation = RGB_MATRIX_CYCLE_SPIRAL;
+static int default_speed = 50;
+static uint16_t secondary_animation = RGB_MATRIX_HUE_WAVE;
+static int secondary_speed = 150;
 
 // Init
 void keyboard_post_init_user(void) {
   rgb_matrix_mode_noeeprom(default_animation);
-  rgb_matrix_set_speed(50);
+  rgb_matrix_set_speed(default_speed);
 }
 
 // Permissive hold per key
@@ -164,43 +167,42 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #endif // OLED_ENABLE
 
 // RGB Layers (Enable animations in config.h)
-// ----------
-// RGB Modes
-// 1 = Static (use with rgblight_sethsv)
-// 2-5 = Breathing
-// 6-8 = Rainbow
-// 9-14 = Swirl
-// 15-20 = Snake
-// 21-24 = Nightrider
-// 25 = Christmas
-// 26-30 = Static Gradient
 layer_state_t layer_state_set_user(layer_state_t state) {
   switch (get_highest_layer(state)) {
     case _SPECIAL:
-      rgblight_mode(1);
-      rgblight_sethsv(HSV_PURPLE);
+      rgblight_sethsv(HSV_ORANGE);
+      rgb_matrix_set_speed(secondary_speed);
+      rgb_matrix_mode_noeeprom(secondary_animation);
       break;
     case _NAVIGATION:
-      rgblight_mode(1);
       rgblight_sethsv(HSV_BLUE);
+      rgb_matrix_set_speed(secondary_speed);
+      rgb_matrix_mode_noeeprom(secondary_animation);
       break;
     case _MOUSE:
-      rgblight_mode(1);
       rgblight_sethsv(HSV_GREEN);
+      rgb_matrix_set_speed(secondary_speed);
+      rgb_matrix_mode_noeeprom(secondary_animation);
       break;
     default:
       if (default_layer_state - 1 == _COLEMAK) {
-        rgblight_mode(3);
         if (host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK)) {
-          rgblight_sethsv(HSV_YELLOW);
+          rgblight_sethsv(HSV_TURQUOISE);
+          rgb_matrix_set_speed(secondary_speed);
+          rgb_matrix_mode_noeeprom(secondary_animation);
         } else {
-          rgblight_sethsv(HSV_WHITE);
+          rgblight_sethsv(HSV_CYAN);
+          rgb_matrix_set_speed(secondary_speed);
+          rgb_matrix_mode_noeeprom(secondary_animation);
         }
       } else {
         if (host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK)) {
-          rgblight_mode(1);
-          rgblight_sethsv(HSV_YELLOW);
+          rgblight_sethsv(HSV_RED);
+          rgb_matrix_set_speed(secondary_speed);
+          rgb_matrix_mode_noeeprom(secondary_animation);
         } else {
+          rgblight_sethsv(HSV_ORANGE);
+          rgb_matrix_set_speed(default_speed);
           rgb_matrix_mode_noeeprom(default_animation);
         }
       }
@@ -208,4 +210,3 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   }
   return state;
 }
-
