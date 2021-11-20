@@ -17,7 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include QMK_KEYBOARD_H
-#include <stdio.h>
+#include "bit-c_led.h"
 
 // Layers
 #define _QWERTY 0
@@ -48,6 +48,7 @@ static bool is_macro_recording = false;
 void keyboard_post_init_user(void) {
   rgb_matrix_mode_noeeprom(default_animation);
   rgb_matrix_set_speed_noeeprom(default_speed);
+  set_bit_c_LED(LED_OFF);
 }
 
 // Permissive hold per key
@@ -234,6 +235,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 }
 
 // Indicators
+// TODO: Handle on slave or set both
 void rgb_matrix_indicators_user(void) {
     if (host_keyboard_led_state().caps_lock) {
         rgb_matrix_set_color(50, RGB_RED);
