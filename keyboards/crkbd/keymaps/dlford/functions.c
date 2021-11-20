@@ -235,19 +235,33 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 }
 
 // Indicators
-// TODO: Handle on slave or set both
 void rgb_matrix_indicators_user(void) {
     if (host_keyboard_led_state().caps_lock) {
+        // Left master
+        rgb_matrix_set_color(23, RGB_RED);
+        rgb_matrix_set_color(22, RGB_RED);
+        rgb_matrix_set_color(21, RGB_RED);
+        // Right master
         rgb_matrix_set_color(50, RGB_RED);
         rgb_matrix_set_color(49, RGB_RED);
         rgb_matrix_set_color(48, RGB_RED);
     }
     if (is_macro_recording) {
+        // Left master
+        rgb_matrix_set_color(6, RGB_ORANGE);
+        rgb_matrix_set_color(13, RGB_ORANGE);
+        rgb_matrix_set_color(14, RGB_ORANGE);
+        // Right master
         rgb_matrix_set_color(33, RGB_ORANGE);
         rgb_matrix_set_color(40, RGB_ORANGE);
         rgb_matrix_set_color(41, RGB_ORANGE);
     }
     if (default_layer_state - 1 == _COLEMAK) {
+        // Left master
+        rgb_matrix_set_color(18, RGB_GREEN);
+        rgb_matrix_set_color(19, RGB_GREEN);
+        rgb_matrix_set_color(20, RGB_GREEN);
+        // Right master
         rgb_matrix_set_color(45, RGB_GREEN);
         rgb_matrix_set_color(46, RGB_GREEN);
         rgb_matrix_set_color(47, RGB_GREEN);
