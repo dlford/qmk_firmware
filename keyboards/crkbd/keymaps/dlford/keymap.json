@@ -145,7 +145,7 @@
       "KC_CAPS",
       "KC_LCBR",
       "KC_RCBR",
-      "KC_NO",
+      "EEP_RST",
       "KC_NO",
       "KC_UNDS",
       "KC_PLUS",
