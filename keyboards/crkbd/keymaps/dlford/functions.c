@@ -99,7 +99,7 @@ void matrix_scan_user(void) {
     }
 
     if (led_on && halfmin_counter >= RGB_CUSTOM_TIMEOUT * 2) {
-      rgb_matrix_disable();
+      rgb_matrix_disable_noeeprom();
       led_on = false;
       halfmin_counter = 0;
     }
@@ -109,7 +109,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   // RGB resume
   if (record->event.pressed) {
     if (led_on == false) {
-      rgb_matrix_enable();
+      rgb_matrix_enable_noeeprom();
       led_on = true;
     }
     idle_timer = sync_timer_read();
@@ -209,22 +209,22 @@ void oled_task_user(void) {
 layer_state_t layer_state_set_user(layer_state_t state) {
     switch (get_highest_layer(state)) {
         case _SPECIAL:
-            rgb_matrix_sethsv(HSV_ORANGE);
+            rgb_matrix_sethsv_noeeprom(HSV_ORANGE);
             rgb_matrix_set_speed_noeeprom(secondary_speed);
             rgb_matrix_mode_noeeprom(secondary_animation);
             break;
         case _NAVIGATION:
-            rgb_matrix_sethsv(HSV_BLUE);
+            rgb_matrix_sethsv_noeeprom(HSV_BLUE);
             rgb_matrix_set_speed_noeeprom(secondary_speed);
             rgb_matrix_mode_noeeprom(secondary_animation);
             break;
         case _MOUSE:
-            rgb_matrix_sethsv(HSV_GREEN);
+            rgb_matrix_sethsv_noeeprom(HSV_GREEN);
             rgb_matrix_set_speed_noeeprom(secondary_speed);
             rgb_matrix_mode_noeeprom(secondary_animation);
             break;
         default:
-            rgb_matrix_sethsv(HSV_ORANGE);
+            rgb_matrix_sethsv_noeeprom(HSV_ORANGE);
             rgb_matrix_set_speed_noeeprom(default_speed);
             rgb_matrix_mode_noeeprom(default_animation);
             break;
