@@ -32,5 +32,5 @@
 
 #include QMK_KEYBOARD_H
 
-bool process_caps_word(uint16_t keycode, keyrecord_t* record, bool status);
-
+bool process_caps_word(uint16_t keycode, keyrecord_t* record);
+extern bool caps_word_enabled;

@@ -16,8 +16,6 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-// TODO: Fix caps word oled display
-// TODO: Add caps word indicator
 
 #include QMK_KEYBOARD_H
 #include "features/caps_word.h"
@@ -46,7 +44,6 @@ static int default_speed = 50;
 static uint16_t secondary_animation = RGB_MATRIX_HUE_WAVE;
 static int secondary_speed = 150;
 static bool is_macro_recording = false;
-static bool caps_word_enabled = false;
 
 // Init
 void keyboard_post_init_user(void) {
@@ -130,7 +127,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
 
   // Caps word
-  if (!process_caps_word(keycode, record, caps_word_enabled)) { return false; }
+  if (!process_caps_word(keycode, record)) { return false; }
 
   switch (keycode) {
     // Macros
@@ -252,7 +249,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 
 // Indicators
 void rgb_matrix_indicators_user(void) {
-    if (host_keyboard_led_state().caps_lock) {
+    if (host_keyboard_led_state().caps_lock || caps_word_enabled) {
         // Left master
         rgb_matrix_set_color(23, RGB_RED);
         rgb_matrix_set_color(22, RGB_RED);

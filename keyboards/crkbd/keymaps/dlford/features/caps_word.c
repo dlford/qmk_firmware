@@ -17,9 +17,9 @@
 // https://getreuer.info/posts/keyboards/caps-word
 
 #include "caps_word.h"
+bool caps_word_enabled = false;
 
-bool process_caps_word(uint16_t keycode, keyrecord_t* record, bool status) {
-  static bool caps_word_enabled = false;
+bool process_caps_word(uint16_t keycode, keyrecord_t* record) {
   static bool shifted = false;
 
   if (!caps_word_enabled) {
@@ -30,7 +30,6 @@ bool process_caps_word(uint16_t keycode, keyrecord_t* record, bool status) {
       clear_oneshot_mods();
       shifted = false;
       caps_word_enabled = true;
-      status = true;
       return false;
     }
     return true;
@@ -70,7 +69,6 @@ bool process_caps_word(uint16_t keycode, keyrecord_t* record, bool status) {
 
   // Disable caps word.
   caps_word_enabled = false;
-  status = false;
   if (shifted) { unregister_code(KC_LSFT); }
   shifted = false;
   return true;
