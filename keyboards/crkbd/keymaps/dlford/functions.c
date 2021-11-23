@@ -16,7 +16,11 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+// TODO: Fix caps word oled display
+// TODO: Add caps word indicator
+
 #include QMK_KEYBOARD_H
+#include "features/caps_word.h"
 
 // Layers
 #define _QWERTY 0
@@ -42,6 +46,7 @@ static int default_speed = 50;
 static uint16_t secondary_animation = RGB_MATRIX_HUE_WAVE;
 static int secondary_speed = 150;
 static bool is_macro_recording = false;
+static bool caps_word_enabled = false;
 
 // Init
 void keyboard_post_init_user(void) {
@@ -105,6 +110,14 @@ void matrix_scan_user(void) {
     }
 }
 
+// RGB suspend
+void suspend_power_down_user(void) {
+  rgb_matrix_disable_noeeprom();
+}
+void suspend_wakeup_init_user(void) {
+  rgb_matrix_enable_noeeprom();
+}
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   // RGB resume
   if (record->event.pressed) {
@@ -115,6 +128,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     idle_timer = sync_timer_read();
     halfmin_counter = 0;
   }
+
+  // Caps word
+  if (!process_caps_word(keycode, record, caps_word_enabled)) { return false; }
 
   switch (keycode) {
     // Macros
@@ -178,6 +194,8 @@ void oled_render_dynamic_macro_status(void) {
 void oled_render_caps_lock_status(void) {
     if (host_keyboard_led_state().caps_lock) {
         oled_write_ln_P(PSTR("CAPS LOCK"), false);
+    } else if (caps_word_enabled) {
+        oled_write_ln_P(PSTR("CAPS word"), false);
     } else {
         oled_write_ln_P(PSTR(""), false);
     }

@@ -110,7 +110,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 // Features I don't want, remove to save space
-#define NO_ACTION_ONESHOT
+// #define NO_ACTION_ONESHOT // Used by caps word
 #define NO_ACTION_FUNCTION
 #define NO_ACTION_MACRO
 #define NO_USB_STARTUP_CHECK

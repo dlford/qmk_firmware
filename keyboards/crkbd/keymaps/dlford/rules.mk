@@ -1,5 +1,6 @@
 # Include functions.c file
 SRC += functions.c
+SRC += features/caps_word.c
 
 # MCU name
 MCU = atmega32u4
