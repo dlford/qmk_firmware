@@ -22,7 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * combo arrow keys (adjacent)
  * combo toggle layers (instead of MO)
  * override alt+w => alt+tab
- * MT ctrl+win
+ * MT ctrl+win: MT(MOD_LCTL | MOD_LGUI, KC_XXX)
  * paired braces https://www.reddit.com/r/olkb/comments/8jvxkv/qmk_trick_for_paired_braces/?utm_medium=android_app&utm_source=share
  *   https://getreuer.info/posts/keyboards/macros/index.html
  * macros https://getreuer.info/posts/keyboards/macros/index.html#next-sentence-macro
@@ -32,11 +32,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "features/caps_word.h"
 
 // Layers
-#define _QWERTY 0
-#define _COLEMAK 1
-#define _NAVIGATION 2
-#define _SPECIAL 3
-#define _MOUSE 4
+enum {
+    _QWERTY = 0,
+    _COLEMAK,
+    _NAVIGATION,
+    _SPECIAL,
+    _MOUSE,
+};
 
 // Macros
 // TODO: Cleanup
@@ -294,35 +296,37 @@ void rgb_matrix_indicators_user(void) {
 }
 
 // Quantum keys / Abbreviations
-#define VVV KC_TRNS
-#define XXX KC_NO
-#define CSA_Q MEH_T(KC_Q)
-#define CA_W LCA_T(KC_W)
-#define CS_E C_S_T(KC_E)
-#define CS_F C_S_T(KC_E)
-#define CS_I C_S_T(KC_I)
-#define CS_U C_S_T(KC_U)
-#define CA_O LCA_T(KC_O)
-#define CA_Y LCA_T(KC_Y)
-#define CSA_P MEH_T(KC_P)
-#define CSA_SCLN MEH_T(KC_SCLN)
-#define LGUI_A LGUI_T(KC_A)
-#define LALT_S LALT_T(KC_S)
-#define LALT_R LALT_T(KC_R)
-#define LCTL_D LCTL_T(KC_D)
-#define LCTL_S LCTL_T(KC_S)
-#define LSFT_F LSFT_T(KC_F)
-#define _LSFT_T LSFT_T(KC_T)
-#define RSFT_J RSFT_T(KC_J)
-#define RSFT_N RSFT_T(KC_N)
-#define RCTL_K RCTL_T(KC_K)
-#define RCTL_E RCTL_T(KC_E)
-#define RALT_L RALT_T(KC_L)
-#define RALT_I RALT_T(KC_I)
-#define RGUI_SCLN RGUI_T(KC_SCLN)
-#define RGUI_O RGUI_T(KC_O)
-#define LT3_SPC LT(3,KC_SPC)
-#define LT2_TAB LT(2,KC_TAB)
+enum {
+    VVV = KC_TRNS,
+    XXX = KC_NO,
+    CSA_Q = MEH_T(KC_Q),
+    CA_W = LCA_T(KC_W),
+    CS_E = C_S_T(KC_E),
+    CS_F = C_S_T(KC_F),
+    CS_I = C_S_T(KC_I),
+    CS_U = C_S_T(KC_U),
+    CA_O = LCA_T(KC_O),
+    CA_Y = LCA_T(KC_Y),
+    CSA_P = MEH_T(KC_P),
+    CSA_SCLN = MEH_T(KC_SCLN),
+    LGUI_A = LGUI_T(KC_A),
+    LALT_S = LALT_T(KC_S),
+    LALT_R = LALT_T(KC_R),
+    LCTL_D = LCTL_T(KC_D),
+    LCTL_S = LCTL_T(KC_S),
+    LSFT_F = LSFT_T(KC_F),
+    _LSFT_T = LSFT_T(KC_T),
+    RSFT_J = RSFT_T(KC_J),
+    RSFT_N = RSFT_T(KC_N),
+    RCTL_K = RCTL_T(KC_K),
+    RCTL_E = RCTL_T(KC_E),
+    RALT_L = RALT_T(KC_L),
+    RALT_I = RALT_T(KC_I),
+    RGUI_SCLN = RGUI_T(KC_SCLN),
+    RGUI_O = RGUI_T(KC_O),
+    LT3_SPC = LT(3,KC_SPC),
+    LT2_TAB = LT(2,KC_TAB),
+};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_QWERTY] = LAYOUT_split_3x5_3(
