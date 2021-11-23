@@ -1,5 +1,4 @@
-# Include functions.c file
-SRC += functions.c
+# Includes
 SRC += features/caps_word.c
 
 # MCU name

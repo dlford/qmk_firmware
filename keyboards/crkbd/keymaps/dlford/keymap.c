@@ -16,6 +16,17 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+/* TODO:
+ * cheatsheet https://jayliu50.github.io/qmk-cheatsheet/
+ * tap dance number keys => symbols
+ * combo arrow keys (adjacent)
+ * combo toggle layers (instead of MO)
+ * override alt+w => alt+tab
+ * MT ctrl+win
+ * paired braces https://www.reddit.com/r/olkb/comments/8jvxkv/qmk_trick_for_paired_braces/?utm_medium=android_app&utm_source=share
+ *   https://getreuer.info/posts/keyboards/macros/index.html
+ * macros https://getreuer.info/posts/keyboards/macros/index.html#next-sentence-macro
+ */
 
 #include QMK_KEYBOARD_H
 #include "features/caps_word.h"
@@ -28,6 +39,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define _MOUSE 4
 
 // Macros
+// TODO: Cleanup
 #define _M0 KC_F13
 #define _M1 KC_F14
 #define _M2 KC_F15
@@ -38,25 +50,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define _M7 KC_F20
 #define _M8 KC_F21
 #define _M9 KC_F22
-
-/*
-// Quantum keys
-#define CSA_Q MEH_T(KC_Q)
-
-const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [_QWERTY] = LAYOUT_split_3x5_3(
-  //|--------------------------------------------|                    |--------------------------------------------|
-      KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                         KC_Y,    KC_U,    KC_I,    KC_O,   KC_P,
-  //|--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
-      KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                         KC_H,    KC_J,    KC_K,    KC_L,   KC_SCLN,
-  //|--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
-      KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_N,    KC_M, KC_COMM,  KC_DOT,   KC_SLSH,
-  //|--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------|
-                                 KC_LGUI,   MO(1),  KC_SPC,    KC_ENT,   MO(2), KC_RALT
-  //                           |--------+--------+--------|  |--------+--------+--------|
-  ),
-};
-*/
 
 static uint16_t default_animation = RGB_MATRIX_CYCLE_SPIRAL;
 static int default_speed = 50;
@@ -299,3 +292,93 @@ void rgb_matrix_indicators_user(void) {
         rgb_matrix_set_color(47, RGB_GREEN);
     }
 }
+
+// Quantum keys / Abbreviations
+#define VVV KC_TRNS
+#define XXX KC_NO
+#define CSA_Q MEH_T(KC_Q)
+#define CA_W LCA_T(KC_W)
+#define CS_E C_S_T(KC_E)
+#define CS_F C_S_T(KC_E)
+#define CS_I C_S_T(KC_I)
+#define CS_U C_S_T(KC_U)
+#define CA_O LCA_T(KC_O)
+#define CA_Y LCA_T(KC_Y)
+#define CSA_P MEH_T(KC_P)
+#define CSA_SCLN MEH_T(KC_SCLN)
+#define LGUI_A LGUI_T(KC_A)
+#define LALT_S LALT_T(KC_S)
+#define LALT_R LALT_T(KC_R)
+#define LCTL_D LCTL_T(KC_D)
+#define LCTL_S LCTL_T(KC_S)
+#define LSFT_F LSFT_T(KC_F)
+#define _LSFT_T LSFT_T(KC_T)
+#define RSFT_J RSFT_T(KC_J)
+#define RSFT_N RSFT_T(KC_N)
+#define RCTL_K RCTL_T(KC_K)
+#define RCTL_E RCTL_T(KC_E)
+#define RALT_L RALT_T(KC_L)
+#define RALT_I RALT_T(KC_I)
+#define RGUI_SCLN RGUI_T(KC_SCLN)
+#define RGUI_O RGUI_T(KC_O)
+#define LT3_SPC LT(3,KC_SPC)
+#define LT2_TAB LT(2,KC_TAB)
+
+const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+    [_QWERTY] = LAYOUT_split_3x5_3(
+        //|--------------------------------------------|                    |--------------------------------------------|
+            CSA_Q,   CA_W,    CS_E,    KC_R,    KC_T,                         KC_Y,    KC_U,    CS_I,    CA_O,    CSA_P,
+        //|--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
+            LGUI_A,  LALT_S,  LCTL_D,  LSFT_F,  KC_G,                         KC_H,    RSFT_J,  RCTL_K,  RALT_L,  RGUI_SCLN,
+        //|--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
+            KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,
+        //|--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------|
+                                       KC_ESC,  LT3_SPC, KC_BSPC,    KC_DEL, LT2_TAB,  KC_ENT
+        //                           |--------+--------+--------|  |--------+--------+--------|
+    ),
+    [_COLEMAK] = LAYOUT_split_3x5_3(
+        //|--------------------------------------------|                    |--------------------------------------------|
+            CSA_Q,   CA_W,    CS_F,    KC_P,    KC_G,                         KC_J,    KC_L,    CS_U,    CA_Y,    CSA_SCLN,
+        //|--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
+            LGUI_A,  LALT_R,  LCTL_S,  _LSFT_T, KC_D,                         KC_H,    RSFT_N,  RCTL_E,  RALT_I,  RGUI_O,
+        //|--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
+            KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,
+        //|--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------|
+                                       KC_ESC,  LT3_SPC, KC_BSPC,    KC_DEL, LT2_TAB,  KC_ENT
+        //                           |--------+--------+--------|  |--------+--------+--------|
+    ),
+    [_NAVIGATION] = LAYOUT_split_3x5_3(
+            // TODO: Formatting
+        //|--------------------------------------------|                    |--------------------------------------------|
+            MEH_T(KC_F1), LCA_T(KC_F2), C_S_T(KC_F3), KC_F4, KC_F5, KC_F6, KC_F7, C_S_T(KC_F8), LCA_T(KC_F9), MEH_T(KC_F10),
+        //|--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
+            LGUI_T(KC_FIND), LALT_T(KC_HOME), LCTL_T(KC_PGUP), LSFT_T(KC_PGDN), KC_END, KC_LEFT, RSFT_T(KC_DOWN), RCTL_T(KC_UP), RALT_T(KC_RGHT), RGUI_T(KC_F11),
+        //|--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
+            DF(0), DF(1), KC_VOLD, KC_VOLU, RESET, KC_MUTE, KC_MPLY, KC_MPRV, KC_MNXT, KC_F12,
+        //|--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------|
+            VVV, TG(4), VVV, VVV, VVV, VVV
+        //                           |--------+--------+--------|  |--------+--------+--------|
+    ),
+    [_SPECIAL] = LAYOUT_split_3x5_3(
+        //|--------------------------------------------|                    |--------------------------------------------|
+            MEH_T(KC_1), LCA_T(KC_2), C_S_T(KC_3), KC_4, KC_5, KC_6, KC_7, C_S_T(KC_8), LCA_T(KC_9), MEH_T(KC_0),
+        //|--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
+            LGUI_T(KC_GRV), KC_LALT, LCTL_T(KC_LBRC), LSFT_T(KC_RBRC), KC_LPRN, KC_RPRN, RSFT_T(KC_MINS), RCTL_T(KC_EQL), RALT_T(KC_BSLS), RGUI_T(KC_QUOT),
+        //|--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
+            KC_TILD, KC_CAPS, KC_LCBR, KC_RCBR, EEP_RST, XXX, KC_UNDS, KC_PLUS, KC_PIPE, KC_DQUO,
+        //|--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------|
+            VVV, VVV, VVV, VVV, TG(4), VVV
+        //                           |--------+--------+--------|  |--------+--------+--------|
+    ),
+    [_MOUSE] = LAYOUT_split_3x5_3(
+        //|--------------------------------------------|                    |--------------------------------------------|
+            KC_WH_U, KC_WH_L, KC_MS_U, KC_WH_R, DM_REC1, KC_WSTP, KC_ACL2, KC_ACL1, KC_ACL0, KC_WFWD,
+        //|--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
+            KC_WH_D, KC_MS_L, KC_MS_D, KC_MS_R, DM_PLY1, KC_WREF, KC_BTN1, KC_BTN2, KC_BTN3, KC_WBAK,
+        //|--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
+            KC_F13, KC_F14, KC_F15, KC_F16, KC_F17, KC_F18, KC_F19, KC_F20, KC_F21, KC_F22,
+        //|--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------|
+            VVV, TG(4), VVV, VVV, TG(4), VVV
+        //                           |--------+--------+--------|  |--------+--------+--------|
+    ),
+};
