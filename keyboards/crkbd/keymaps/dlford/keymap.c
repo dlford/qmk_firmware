@@ -18,12 +18,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* TODO:
  * cheatsheet https://jayliu50.github.io/qmk-cheatsheet/
- * override alt+w => alt+tab
- * tap dance number keys => symbols
+ * macro alt+w => alt+tab
+ * macro number keys => symbols
+ * macro scln => quot
  * combo arrow keys (adjacent)
  * combo toggle layers (instead of MO)
- * MT ctrl+win: MT(MOD_LCTL | MOD_LGUI, KC_XXX)
  * macros https://getreuer.info/posts/keyboards/macros/index.html#next-sentence-macro
+ * MT ctrl+win: MT(MOD_LCTL | MOD_LGUI, KC_XXX)
  */
 
 #include QMK_KEYBOARD_H
@@ -176,10 +177,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // Caps word
     if (!process_caps_word(keycode, record)) { return false; }
 
+    // Macros
     const uint8_t mods = get_mods();
-    static bool isBraceMod = false;
+    static int braceMod = 0;
     switch (keycode) {
-      // Macros
       case X_LEGENDS:
           if (record->event.pressed) {
               SEND_STRING("https://raw.githubusercontent.com/dlford/qmk_firmware/master/keyboards/keebio/iris/keymaps/dlford/legends.svg");
@@ -187,25 +188,35 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           return false;
       case X_BRACES:
           if (record->event.pressed) {
-              if (mods & MOD_MASK_CTRL) {
-                  isBraceMod = true;
+              if ((mods & MOD_MASK_CTRL) && (mods & MOD_MASK_ALT)) {
+                  braceMod = 1;
                   clear_mods();
                   SEND_STRING("<>");
-              } else if (mods & MOD_MASK_ALT) {
-                  isBraceMod = true;
+              } else if ((mods & MOD_MASK_CTRL) && (mods & MOD_MASK_SHIFT)) {
+                  braceMod = 2;
+                  clear_mods();
+                  SEND_STRING("{};");
+              } else if (mods & MOD_MASK_CTRL) {
+                  braceMod = 1;
                   clear_mods();
                   SEND_STRING("{}");
-              } else if (mods & MOD_MASK_GUI) {
-                  isBraceMod = true;
+              } else if ((mods & MOD_MASK_ALT) && (mods & MOD_MASK_SHIFT)) {
+                  braceMod = 2;
+                  clear_mods();
+                  SEND_STRING("[];");
+              } else if (mods & MOD_MASK_ALT) {
+                  braceMod = 1;
                   clear_mods();
                   SEND_STRING("[]");
               } else {
                   tap_code(KC_COMM);
               }
-              if (isBraceMod) {
-                  tap_code(KC_LEFT);
+              if (braceMod) {
+                  while (braceMod > 0) {
+                      tap_code(KC_LEFT);
+                      braceMod--;
+                  }
                   set_mods(mods);
-                  isBraceMod = false;
               }
               return false;
           }
