@@ -18,13 +18,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* TODO:
  * cheatsheet https://jayliu50.github.io/qmk-cheatsheet/
+ * override alt+w => alt+tab
  * tap dance number keys => symbols
  * combo arrow keys (adjacent)
  * combo toggle layers (instead of MO)
- * override alt+w => alt+tab
  * MT ctrl+win: MT(MOD_LCTL | MOD_LGUI, KC_XXX)
- * paired braces https://www.reddit.com/r/olkb/comments/8jvxkv/qmk_trick_for_paired_braces/?utm_medium=android_app&utm_source=share
- *   https://getreuer.info/posts/keyboards/macros/index.html
  * macros https://getreuer.info/posts/keyboards/macros/index.html#next-sentence-macro
  */
 
@@ -32,26 +30,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "features/caps_word.h"
 
 // Layers
-enum {
+enum layers {
     _QWERTY = 0,
     _COLEMAK,
     _NAVIGATION,
     _SPECIAL,
     _MOUSE,
 };
-
-// Macros
-// TODO: Cleanup
-#define _M0 KC_F13
-#define _M1 KC_F14
-#define _M2 KC_F15
-#define _M3 KC_F16
-#define _M4 KC_F17
-#define _M5 KC_F18
-#define _M6 KC_F19
-#define _M7 KC_F20
-#define _M8 KC_F21
-#define _M9 KC_F22
 
 static uint16_t default_animation = RGB_MATRIX_CYCLE_SPIRAL;
 static int default_speed = 50;
@@ -100,6 +85,46 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
   }
 }
 
+/*
+// Overrides
+const key_override_t alt_tab_override =  ko_make_basic(MOD_MASK_ALT, RSFT_T(KC_J), LALT(KC_TAB));
+const key_override_t **key_overrides = (const key_override_t *[]) {
+    &alt_tab_override,
+    NULL
+};
+
+// Tap Dance
+enum tapdance_events {
+    ONE_EXLM = 0,
+    TWO_AT,
+};
+
+qk_tap_dance_action_t tap_dance_actions[] = {
+    [ONE_EXLM] = ACTION_TAP_DANCE_DOUBLE(MEH_T(KC_1), KC_EXLM),
+    [TWO_AT] = ACTION_TAP_DANCE_DOUBLE(LCA_T(KC_2), KC_AT),
+};
+
+// Combos
+enum combo_events {
+    COMBO_LEFT,
+    COMBO_DOWN,
+    COMBO_UP,
+    COMBO_RIGHT,
+    COMBO_LENGTH
+};
+const uint16_t PROGMEM left_combo[] = {KC_H, RSFT_T(KC_J), COMBO_END};
+const uint16_t PROGMEM down_combo[] = {RSFT_T(KC_J), RCTL_T(KC_K), COMBO_END};
+const uint16_t PROGMEM up_combo[] = {RCTL_T(KC_K), RALT_T(KC_L), COMBO_END};
+const uint16_t PROGMEM right_combo[] = {RALT_T(KC_L), RGUI_T(KC_SCLN), COMBO_END};
+uint16_t COMBO_LEN = COMBO_LENGTH;
+combo_t key_combos[] = {
+    [COMBO_LEFT] = COMBO(left_combo, KC_LEFT),
+    [COMBO_DOWN] = COMBO(down_combo, KC_DOWN),
+    [COMBO_UP] = COMBO(up_combo, KC_UP),
+    [COMBO_RIGHT] = COMBO(right_combo, KC_RIGHT),
+};
+*/
+
 // RGB timeout
 #define RGB_CUSTOM_TIMEOUT 5 // in minutes
 static uint16_t idle_timer = 0;
@@ -129,39 +154,89 @@ void suspend_wakeup_init_user(void) {
   rgb_matrix_enable_noeeprom();
 }
 
+// Macros
+enum macro_events {
+    X_LEGENDS = SAFE_RANGE,
+    X_BRACES,
+    X_ARROWS,
+};
+
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  // RGB resume
-  if (record->event.pressed) {
-    if (led_on == false) {
-      rgb_matrix_enable_noeeprom();
-      led_on = true;
+    // RGB resume
+    if (record->event.pressed) {
+        if (led_on == false) {
+            rgb_matrix_enable_noeeprom();
+            led_on = true;
+        }
+        idle_timer = sync_timer_read();
+        halfmin_counter = 0;
     }
-    idle_timer = sync_timer_read();
-    halfmin_counter = 0;
-  }
 
-  // Caps word
-  if (!process_caps_word(keycode, record)) { return false; }
+    // Caps word
+    if (!process_caps_word(keycode, record)) { return false; }
 
-  switch (keycode) {
-    // Macros
-    case _M0: // Link to keymap legends SVG file
-      if (record->event.pressed) {
-        SEND_STRING("https://raw.githubusercontent.com/dlford/qmk_firmware/master/keyboards/keebio/iris/keymaps/dlford/legends.svg");
-      }
-      return false;
-  }
+    const uint8_t mods = get_mods();
+    static bool isBraceMod = false;
+    switch (keycode) {
+      // Macros
+      case X_LEGENDS:
+          if (record->event.pressed) {
+              SEND_STRING("https://raw.githubusercontent.com/dlford/qmk_firmware/master/keyboards/keebio/iris/keymaps/dlford/legends.svg");
+          }
+          return false;
+      case X_BRACES:
+          if (record->event.pressed) {
+              if (mods & MOD_MASK_CTRL) {
+                  isBraceMod = true;
+                  clear_mods();
+                  SEND_STRING("<>");
+              } else if (mods & MOD_MASK_ALT) {
+                  isBraceMod = true;
+                  clear_mods();
+                  SEND_STRING("{}");
+              } else if (mods & MOD_MASK_GUI) {
+                  isBraceMod = true;
+                  clear_mods();
+                  SEND_STRING("[]");
+              } else {
+                  tap_code(KC_COMM);
+              }
+              if (isBraceMod) {
+                  tap_code(KC_LEFT);
+                  set_mods(mods);
+                  isBraceMod = false;
+              }
+              return false;
+          }
+      case X_ARROWS:
+          if (record->event.pressed) {
+              if (mods & MOD_MASK_CTRL) {
+                  clear_mods();
+                  SEND_STRING("=>");
+              } else if (mods & MOD_MASK_ALT) {
+                  clear_mods();
+                  SEND_STRING("->");
+              } else if (mods & MOD_MASK_SHIFT) {
+                  tap_code(KC_DOT);
+              } else {
+                  tap_code(KC_DOT);
+              }
+          }
+          set_mods(mods);
+          return false;
+    }
 
-  return true;
+    return true;
 }
 
 // OLEDs
 #ifdef OLED_ENABLE
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
-  if (is_keyboard_master()) {
-    return OLED_ROTATION_180;  // flips the display 180 degrees if offhand
-  }
-  return rotation;
+    if (is_keyboard_master()) {
+        return OLED_ROTATION_180;  // flips the display 180 degrees if offhand
+    }
+    return rotation;
 }
 
 void oled_render_layer_state(void) {
@@ -296,7 +371,7 @@ void rgb_matrix_indicators_user(void) {
 }
 
 // Quantum keys / Abbreviations
-enum {
+enum custom_keycodes {
     VVV = KC_TRNS,
     XXX = KC_NO,
     CSA_Q = MEH_T(KC_Q),
@@ -333,9 +408,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         //|--------------------------------------------|                    |--------------------------------------------|
             CSA_Q,   CA_W,    CS_E,    KC_R,    KC_T,                         KC_Y,    KC_U,    CS_I,    CA_O,    CSA_P,
         //|--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
-            LGUI_A,  LALT_S,  LCTL_D,  LSFT_F,  KC_G,                         KC_H,    RSFT_J,  RCTL_K,  RALT_L,  RGUI_SCLN,
+            LGUI_A,  LALT_S,  LCTL_D,  LSFT_F,  KC_G,                         KC_H,    RSFT_J,  RCTL_K,  RALT_L, RGUI_SCLN,
         //|--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
-            KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,
+            KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_N,    KC_M,   X_BRACES,X_ARROWS,  KC_SLSH,
         //|--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------|
                                        KC_ESC,  LT3_SPC, KC_BSPC,    KC_DEL, LT2_TAB,  KC_ENT
         //                           |--------+--------+--------|  |--------+--------+--------|
@@ -346,7 +421,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         //|--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
             LGUI_A,  LALT_R,  LCTL_S,  _LSFT_T, KC_D,                         KC_H,    RSFT_N,  RCTL_E,  RALT_I,  RGUI_O,
         //|--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
-            KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,
+            KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_K,    KC_M,   X_BRACES,X_ARROWS,  KC_SLSH,
         //|--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------|
                                        KC_ESC,  LT3_SPC, KC_BSPC,    KC_DEL, LT2_TAB,  KC_ENT
         //                           |--------+--------+--------|  |--------+--------+--------|
