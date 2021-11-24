@@ -188,23 +188,23 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           return false;
       case X_BRACES:
           if (record->event.pressed) {
-              if ((mods & MOD_MASK_CTRL) && (mods & MOD_MASK_ALT)) {
+              if ((mods & MOD_BIT(KC_LCTL)) && (mods & MOD_BIT(KC_LALT))) {
                   braceMod = 1;
                   clear_mods();
                   SEND_STRING("<>");
-              } else if ((mods & MOD_MASK_CTRL) && (mods & MOD_MASK_SHIFT)) {
+              } else if ((mods & MOD_BIT(KC_LCTL)) && (mods & MOD_BIT(KC_LSFT))) {
                   braceMod = 2;
                   clear_mods();
                   SEND_STRING("{};");
-              } else if (mods & MOD_MASK_CTRL) {
+              } else if (mods & MOD_BIT(KC_LCTL)) {
                   braceMod = 1;
                   clear_mods();
                   SEND_STRING("{}");
-              } else if ((mods & MOD_MASK_ALT) && (mods & MOD_MASK_SHIFT)) {
+              } else if ((mods & MOD_BIT(KC_LALT)) && (mods & MOD_BIT(KC_LSFT))) {
                   braceMod = 2;
                   clear_mods();
                   SEND_STRING("[];");
-              } else if (mods & MOD_MASK_ALT) {
+              } else if (mods & MOD_BIT(KC_LALT)) {
                   braceMod = 1;
                   clear_mods();
                   SEND_STRING("[]");
@@ -222,14 +222,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           }
       case X_ARROWS:
           if (record->event.pressed) {
-              if (mods & MOD_MASK_CTRL) {
+              if (mods & MOD_BIT(KC_LCTL)) {
                   clear_mods();
                   SEND_STRING("=>");
-              } else if (mods & MOD_MASK_ALT) {
+              } else if (mods & MOD_BIT(KC_LALT)) {
                   clear_mods();
                   SEND_STRING("->");
-              } else if (mods & MOD_MASK_SHIFT) {
-                  tap_code(KC_DOT);
               } else {
                   tap_code(KC_DOT);
               }
