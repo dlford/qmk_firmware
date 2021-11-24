@@ -216,6 +216,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
               } else {
                   keyDown = true;
                   register_code(KC_COMM);
+                  return true;
               }
               if (backstepCounter) {
                   while (backstepCounter > 0) {
@@ -243,6 +244,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
               } else {
                   keyDown = true;
                   register_code(KC_DOT);
+                  return true;
               }
           } else {
               if (keyDown) {
