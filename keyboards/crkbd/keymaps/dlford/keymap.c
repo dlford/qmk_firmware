@@ -1,6 +1,7 @@
 /*
 Copyright 2019 @foostan
 Copyright 2020 Drashna Jaelre <@drashna>
+Copyright 2021 @dlford
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -157,11 +158,10 @@ void suspend_wakeup_init_user(void) {
 
 // Macros
 enum macro_events {
-    X_LEGENDS = SAFE_RANGE,
-    X_BRACES,
-    X_ARROWS,
+    M_KEYMAP = SAFE_RANGE,
+    M_COMM,
+    M_DOT,
 };
-
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // RGB resume
@@ -179,48 +179,60 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     // Macros
     const uint8_t mods = get_mods();
-    static int braceMod = 0;
+    static uint8_t backstepCounter = 0;
+    static bool keyDown = false;
     switch (keycode) {
-      case X_LEGENDS:
+      case M_KEYMAP:
           if (record->event.pressed) {
               SEND_STRING("https://raw.githubusercontent.com/dlford/qmk_firmware/master/keyboards/keebio/iris/keymaps/dlford/legends.svg");
           }
           return false;
-      case X_BRACES:
+      case M_COMM:
           if (record->event.pressed) {
-              if ((mods & MOD_BIT(KC_LCTL)) && (mods & MOD_BIT(KC_LALT))) {
-                  braceMod = 1;
+              if ((mods & MOD_BIT(KC_LCTL)) && (mods & MOD_BIT(KC_LSFT) && (mods & MOD_BIT(KC_LALT)))) {
+                  backstepCounter = 1;
                   clear_mods();
                   SEND_STRING("<>");
+              } else if ((mods & MOD_BIT(KC_LCTL)) && (mods & MOD_BIT(KC_LALT))) {
+                  backstepCounter = 1;
+                  clear_mods();
+                  SEND_STRING("()");
               } else if ((mods & MOD_BIT(KC_LCTL)) && (mods & MOD_BIT(KC_LSFT))) {
-                  braceMod = 2;
+                  backstepCounter = 2;
                   clear_mods();
                   SEND_STRING("{};");
               } else if (mods & MOD_BIT(KC_LCTL)) {
-                  braceMod = 1;
+                  backstepCounter = 1;
                   clear_mods();
                   SEND_STRING("{}");
               } else if ((mods & MOD_BIT(KC_LALT)) && (mods & MOD_BIT(KC_LSFT))) {
-                  braceMod = 2;
+                  backstepCounter = 2;
                   clear_mods();
                   SEND_STRING("[];");
               } else if (mods & MOD_BIT(KC_LALT)) {
-                  braceMod = 1;
+                  backstepCounter = 1;
                   clear_mods();
                   SEND_STRING("[]");
               } else {
-                  tap_code(KC_COMM);
+                  keyDown = true;
+                  register_code(KC_COMM);
               }
-              if (braceMod) {
-                  while (braceMod > 0) {
+              if (backstepCounter) {
+                  while (backstepCounter > 0) {
                       tap_code(KC_LEFT);
-                      braceMod--;
+                      backstepCounter--;
                   }
                   set_mods(mods);
               }
-              return false;
+          } else {
+              if (keyDown) {
+                  unregister_code(KC_COMM);
+                  keyDown = false;
+                  return true;
+              }
           }
-      case X_ARROWS:
+          return false;
+      case M_DOT:
           if (record->event.pressed) {
               if (mods & MOD_BIT(KC_LCTL)) {
                   clear_mods();
@@ -229,7 +241,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                   clear_mods();
                   SEND_STRING("->");
               } else {
-                  tap_code(KC_DOT);
+                  keyDown = true;
+                  register_code(KC_DOT);
+              }
+          } else {
+              if (keyDown) {
+                  unregister_code(KC_DOT);
+                  keyDown = false;
+                  return true;
               }
           }
           set_mods(mods);
@@ -419,7 +438,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         //|--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
             LGUI_A,  LALT_S,  LCTL_D,  LSFT_F,  KC_G,                         KC_H,    RSFT_J,  RCTL_K,  RALT_L, RGUI_SCLN,
         //|--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
-            KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_N,    KC_M,   X_BRACES,X_ARROWS,  KC_SLSH,
+            KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_N,    KC_M,    M_COMM,  M_DOT,  KC_SLSH,
         //|--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------|
                                        KC_ESC,  LT3_SPC, KC_BSPC,    KC_DEL, LT2_TAB,  KC_ENT
         //                           |--------+--------+--------|  |--------+--------+--------|
@@ -430,7 +449,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         //|--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
             LGUI_A,  LALT_R,  LCTL_S,  _LSFT_T, KC_D,                         KC_H,    RSFT_N,  RCTL_E,  RALT_I,  RGUI_O,
         //|--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
-            KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_K,    KC_M,   X_BRACES,X_ARROWS,  KC_SLSH,
+            KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_K,    KC_M,    M_COMM,  M_DOT,  KC_SLSH,
         //|--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------|
                                        KC_ESC,  LT3_SPC, KC_BSPC,    KC_DEL, LT2_TAB,  KC_ENT
         //                           |--------+--------+--------|  |--------+--------+--------|
