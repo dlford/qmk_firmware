@@ -134,11 +134,11 @@ static uint8_t halfmin_counter = 0;
 static bool led_on = true;
 void matrix_scan_user(void) {
   // idle_timer needs to be set one time
-  if (idle_timer == 0) idle_timer = sync_timer_read();
+  if (idle_timer == 0) idle_timer = timer_read();
 
     if (led_on && timer_elapsed(idle_timer) > 30000) {
       halfmin_counter++;
-      idle_timer = sync_timer_read();
+      idle_timer = timer_read();
     }
 
     if (led_on && halfmin_counter >= RGB_CUSTOM_TIMEOUT * 2) {
@@ -146,14 +146,6 @@ void matrix_scan_user(void) {
       led_on = false;
       halfmin_counter = 0;
     }
-}
-
-// RGB suspend
-void suspend_power_down_user(void) {
-  rgb_matrix_disable_noeeprom();
-}
-void suspend_wakeup_init_user(void) {
-  rgb_matrix_enable_noeeprom();
 }
 
 // Macros
@@ -170,7 +162,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             rgb_matrix_enable_noeeprom();
             led_on = true;
         }
-        idle_timer = sync_timer_read();
+        idle_timer = timer_read();
         halfmin_counter = 0;
     }
 
