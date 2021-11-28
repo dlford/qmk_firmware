@@ -27,7 +27,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT         Dactyl Minidox (3x5+3)
 
 // Communication
-#define USE_SERIAL
+#define USE_I2C
 #ifdef SOFT_SERIAL_PIN
   #undef SOFT_SERIAL_PIN
 #endif
