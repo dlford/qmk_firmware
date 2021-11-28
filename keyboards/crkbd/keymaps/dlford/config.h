@@ -3,6 +3,7 @@ This is the c configuration file for the keymap
 
 Copyright 2012 Jun Wako <wakojun@gmail.com>
 Copyright 2015 Jack Humbert
+Copyright 2021 @dlford
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -36,6 +37,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define IGNORE_MOD_TAP_INTERRUPT // ignore hold mod if another tap occurs within tapping term
 #define PERMISSIVE_HOLD_PER_KEY // activate mod top hold earlier if another key is pressed AND released per key
 #define TAPPING_FORCE_HOLD_PER_KEY // disable double tap hold key repeat per key
+#define SPLIT_MODS_ENABLE // share mod state between halves
 
 #ifdef RGBLIGHT_ENABLE
     #undef RGBLED_NUM
