@@ -26,6 +26,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MANUFACTURER    DLFord
 #define PRODUCT         Dactyl Minidox (3x5+3)
 
+// Communication
+#define USE_SERIAL
+#ifdef SOFT_SERIAL_PIN
+  #undef SOFT_SERIAL_PIN
+#endif
+#define SOFT_SERIAL_PIN D2
+
 /* key matrix size */
 // Rows are doubled-up
 #define MATRIX_ROWS 8

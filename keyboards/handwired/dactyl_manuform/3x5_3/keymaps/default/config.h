@@ -23,8 +23,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define MASTER_RIGHT
 #define EE_HANDS // ./util/docker_build.sh crkbd:dlford:dfu-split-[left|right] (or avrdude-split[left|right])
 
-#define USE_SERIAL_PD2
-
 #define TAPPING_TOGGLE 2 // number of taps to toggle TT
 // #define TAPPING_TERM 190 // milliseconds from tap to hold for mod tap
 #define TAPPING_TERM_PER_KEY // milliseconds from tap to hold for mod tap per key
