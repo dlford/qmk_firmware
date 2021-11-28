@@ -28,10 +28,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // Communication
 #define USE_I2C
-#ifdef SOFT_SERIAL_PIN
-  #undef SOFT_SERIAL_PIN
-#endif
-#define SOFT_SERIAL_PIN D2
+// #ifdef SOFT_SERIAL_PIN
+//   #undef SOFT_SERIAL_PIN
+// #endif
+// #define SOFT_SERIAL_PIN D2
 
 /* key matrix size */
 // Rows are doubled-up
