@@ -28,10 +28,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // Communication
 #define USE_I2C
-// #ifdef SOFT_SERIAL_PIN
-//   #undef SOFT_SERIAL_PIN
-// #endif
-// #define SOFT_SERIAL_PIN D2
 
 /* key matrix size */
 // Rows are doubled-up
@@ -49,3 +45,35 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DRIVER_LED_TOTAL 36
 #define RGB_MATRIX_SPLIT { 18, 18 }
 #define RGB_MATRIX_CENTER { 133, 54 }
+
+/* mouse config */
+// TODO: Copy mouse config to corne, adjust indicators
+#define MOUSEKEY_INTERVAL    20
+#define MOUSEKEY_DELAY       0
+#define MOUSEKEY_TIME_TO_MAX 60
+#define MOUSEKEY_MAX_SPEED   7
+#define MOUSEKEY_WHEEL_DELAY 0
+
+// Remove upward config options
+
+/* Set 0 if debouncing isn't needed */
+#ifdef DEBOUNCE
+  #undef DEBOUNCE
+#endif
+
+/* serial.c configuration for split keyboard */
+#ifdef USE_SERIAL
+  #undef USE_SERIAL
+#endif
+#ifdef SOFT_SERIAL_PIN
+  #undef SOFT_SERIAL_PIN
+#endif
+
+
+/* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
+#undef LOCKING_SUPPORT_ENABLE
+/* Locking resynchronize hack */
+#undef LOCKING_RESYNC_ENABLE
+
+/* Enables This makes it easier for fast typists to use dual-function keys */
+#undef PERMISSIVE_HOLD
