@@ -46,34 +46,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGB_MATRIX_SPLIT { 18, 18 }
 #define RGB_MATRIX_CENTER { 133, 54 }
 
-/* mouse config */
-// TODO: Copy mouse config to corne, adjust indicators
-#ifdef MOUSEKEY_INTERVAL
-  #undef MOUSEKEY_INTERVAL
-#endif
-#ifdef MOUSEKEY_DELAY
-  #undef MOUSEKEY_DELAY
-#endif
-#ifdef MOUSEKEY_TIME_TO_MAX
-  #undef MOUSEKEY_TIME_TO_MAX
-#endif
-#ifdef MOUSEKEY_MAX_SPEED
-  #undef MOUSEKEY_MAX_SPEED
-#endif
-#ifdef MOUSEKEY_WHEEL_DELAY
-  #undef MOUSEKEY_WHEEL_DELAY
-#endif
-#define MK_KINETIC_SPEED
-#define MOUSEKEY_DELAY              100
-#define MOUSEKEY_INTERVAL           8
-#define MOUSEKEY_MOVE_DELTA         10
-#define MOUSEKEY_INITIAL_SPEED      1
-#define MOUSEKEY_DECELERATED_SPEED  10
-#define MOUSEKEY_BASE_SPEED         100
-#define MOUSEKEY_ACCELERATED_SPEED  200
-
 // Remove upward config options
-
 /* Set 0 if debouncing isn't needed */
 #ifdef DEBOUNCE
   #undef DEBOUNCE
@@ -86,7 +59,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef SOFT_SERIAL_PIN
   #undef SOFT_SERIAL_PIN
 #endif
-
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #undef LOCKING_SUPPORT_ENABLE

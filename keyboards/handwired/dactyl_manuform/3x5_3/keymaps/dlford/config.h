@@ -30,6 +30,29 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PERMISSIVE_HOLD_PER_KEY // activate mod top hold earlier if another key is pressed AND released per key
 #define TAPPING_FORCE_HOLD_PER_KEY // disable double tap hold key repeat per key
 #define SPLIT_MODS_ENABLE // share mod state between halves
+#ifdef MOUSEKEY_INTERVAL
+  #undef MOUSEKEY_INTERVAL
+#endif
+#ifdef MOUSEKEY_DELAY
+  #undef MOUSEKEY_DELAY
+#endif
+#ifdef MOUSEKEY_TIME_TO_MAX
+  #undef MOUSEKEY_TIME_TO_MAX
+#endif
+#ifdef MOUSEKEY_MAX_SPEED
+  #undef MOUSEKEY_MAX_SPEED
+#endif
+#ifdef MOUSEKEY_WHEEL_DELAY
+  #undef MOUSEKEY_WHEEL_DELAY
+#endif
+#define MK_KINETIC_SPEED
+#define MOUSEKEY_DELAY              100
+#define MOUSEKEY_INTERVAL           20
+#define MOUSEKEY_MOVE_DELTA         10
+#define MOUSEKEY_INITIAL_SPEED      1
+#define MOUSEKEY_DECELERATED_SPEED  10
+#define MOUSEKEY_BASE_SPEED         50
+#define MOUSEKEY_ACCELERATED_SPEED  100
 
 #ifdef RGB_MATRIX_ENABLE
 // #  define RGB_DISABLE_TIMEOUT 300000 // number of milliseconds to wait until disabling effects
