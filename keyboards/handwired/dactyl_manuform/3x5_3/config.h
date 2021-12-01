@@ -48,11 +48,29 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* mouse config */
 // TODO: Copy mouse config to corne, adjust indicators
-#define MOUSEKEY_INTERVAL    20
-#define MOUSEKEY_DELAY       0
-#define MOUSEKEY_TIME_TO_MAX 60
-#define MOUSEKEY_MAX_SPEED   7
-#define MOUSEKEY_WHEEL_DELAY 0
+#ifdef MOUSEKEY_INTERVAL
+  #undef MOUSEKEY_INTERVAL
+#endif
+#ifdef MOUSEKEY_DELAY
+  #undef MOUSEKEY_DELAY
+#endif
+#ifdef MOUSEKEY_TIME_TO_MAX
+  #undef MOUSEKEY_TIME_TO_MAX
+#endif
+#ifdef MOUSEKEY_MAX_SPEED
+  #undef MOUSEKEY_MAX_SPEED
+#endif
+#ifdef MOUSEKEY_WHEEL_DELAY
+  #undef MOUSEKEY_WHEEL_DELAY
+#endif
+#define MK_KINETIC_SPEED
+#define MOUSEKEY_DELAY              100
+#define MOUSEKEY_INTERVAL           8
+#define MOUSEKEY_MOVE_DELTA         10
+#define MOUSEKEY_INITIAL_SPEED      1
+#define MOUSEKEY_DECELERATED_SPEED  10
+#define MOUSEKEY_BASE_SPEED         100
+#define MOUSEKEY_ACCELERATED_SPEED  200
 
 // Remove upward config options
 
