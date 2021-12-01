@@ -40,12 +40,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define SPLIT_MODS_ENABLE // share mod state between halves
 #define MK_KINETIC_SPEED
 #define MOUSEKEY_DELAY              100
-#define MOUSEKEY_INTERVAL           20
-#define MOUSEKEY_MOVE_DELTA         10
+#define MOUSEKEY_INTERVAL           35
+#define MOUSEKEY_MOVE_DELTA         3
 #define MOUSEKEY_INITIAL_SPEED      1
 #define MOUSEKEY_DECELERATED_SPEED  10
-#define MOUSEKEY_BASE_SPEED         50
-#define MOUSEKEY_ACCELERATED_SPEED  100
+#define MOUSEKEY_BASE_SPEED         400
+#define MOUSEKEY_ACCELERATED_SPEED  1200
 
 #ifdef RGBLIGHT_ENABLE
     #undef RGBLED_NUM
