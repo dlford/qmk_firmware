@@ -151,7 +151,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
       case M_KEYMAP:
           if (record->event.pressed) {
-              SEND_STRING("https://raw.githubusercontent.com/dlford/qmk_firmware/tree/dlford_dactyl/keyboards/handwired/dactyl_manuform/3x5_3/keymaps/dlford/legends.svg");
+              SEND_STRING("https://raw.githubusercontent.com/dlford/qmk_firmware/dlford_dactyl/keyboards/handwired/dactyl_manuform/3x5_3/keymaps/dlford/legends.svg");
           }
           return false;
       case M_EXIT:
