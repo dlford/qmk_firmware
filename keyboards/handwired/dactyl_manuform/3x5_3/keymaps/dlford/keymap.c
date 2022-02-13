@@ -103,6 +103,7 @@ void matrix_scan_user(void) {
 // Macros
 enum macro_events {
     M_KEYMAP = SAFE_RANGE,
+    M_EXIT,
     M_COMM,
     M_DOT,
 };
@@ -131,6 +132,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       case M_KEYMAP:
           if (record->event.pressed) {
               SEND_STRING("https://raw.githubusercontent.com/dlford/qmk_firmware/master/keyboards/crkbd/keymaps/dlford/legends.svg");
+          }
+          return false;
+      case M_EXIT:
+          if (record->event.pressed) {
+              SEND_STRING("exit");
+              tap_code(KC_ENT);
           }
           return false;
       case M_COMM:
@@ -377,7 +384,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         //|--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
             KC_WH_D, KC_MS_L, KC_MS_D, KC_MS_R, DM_PLY1,                      KC_WREF, KC_BTN1, KC_BTN2, KC_BTN3, KC_WBAK,
         //|--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
-           M_KEYMAP,KC_BTN3, KC_BTN2, KC_BTN1,  XXX,                          XXX,     XXX,     XXX,     XXX,     XXX,
+           M_KEYMAP,KC_BTN3, KC_BTN2, KC_BTN1,  XXX,                          XXX,     XXX,     XXX,     XXX,     M_EXIT,
         //|--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------|
                                         VVV,    TG(4),    VVV,        VVV,    TG(4),    VVV
         //                           |--------+--------+--------|  |--------+--------+--------|
