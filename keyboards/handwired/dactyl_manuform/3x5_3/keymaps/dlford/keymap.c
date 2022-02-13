@@ -77,6 +77,26 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
   }
 }
 
+// Combos
+enum combo_events {
+    CAPS_COMBO,
+    COMBO_LENGTH,
+};
+uint16_t COMBO_LEN = COMBO_LENGTH;
+const uint16_t PROGMEM caps_combo[] = {KC_V, KC_M, COMBO_END};
+combo_t key_combos[] = {
+    [CAPS_COMBO] = COMBO_ACTION(caps_combo),
+};
+void process_combo_event(uint16_t combo_index, bool pressed) {
+    switch(combo_index) {
+        case CAPS_COMBO:
+            if (pressed) {
+                caps_word_set(true);
+            }
+            break;
+    }
+}
+
 // RGB timeout
 #define RGB_CUSTOM_TIMEOUT 5 // in minutes
 static uint16_t idle_timer = 0;
@@ -109,6 +129,9 @@ enum macro_events {
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    // Caps word
+    if (!process_caps_word(keycode, record)) { return false; }
+
     // RGB resume
     if (is_keyboard_master()) {
         if (record->event.pressed) {
@@ -121,9 +144,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
     }
 
-    // Caps word
-    if (!process_caps_word(keycode, record)) { return false; }
-
     // Macros
     const uint8_t mods = get_mods();
     static uint8_t backstepCounter = 0;
@@ -131,7 +151,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
       case M_KEYMAP:
           if (record->event.pressed) {
-              SEND_STRING("https://raw.githubusercontent.com/dlford/qmk_firmware/master/keyboards/crkbd/keymaps/dlford/legends.svg");
+              SEND_STRING("https://raw.githubusercontent.com/dlford/qmk_firmware/tree/dlford_dactyl/keyboards/handwired/dactyl_manuform/3x5_3/keymaps/dlford/legends.svg");
           }
           return false;
       case M_EXIT:
@@ -251,7 +271,7 @@ void dynamic_macro_record_end_user(int8_t direction) {
 
 // Indicators
 void rgb_matrix_indicators_user(void) {
-    if (host_keyboard_led_state().caps_lock || caps_word_enabled) {
+    if (host_keyboard_led_state().caps_lock || caps_word_get()) {
         // Left master
         rgb_matrix_set_color(3, RGB_RED);
         // Right master
@@ -384,7 +404,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         //|--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
             KC_WH_D, KC_MS_L, KC_MS_D, KC_MS_R, DM_PLY1,                      KC_WREF, KC_BTN1, KC_BTN2, KC_BTN3, KC_WBAK,
         //|--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
-           M_KEYMAP,KC_BTN3, KC_BTN2, KC_BTN1,  XXX,                          XXX,     XXX,     XXX,     XXX,     M_EXIT,
+           M_KEYMAP,KC_BTN3, KC_BTN2, KC_BTN1,  XXX,                          XXX,     M_EXIT,  XXX,     XXX,     XXX,
         //|--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------|
                                         VVV,    TG(4),    VVV,        VVV,    TG(4),    VVV
         //                           |--------+--------+--------|  |--------+--------+--------|
