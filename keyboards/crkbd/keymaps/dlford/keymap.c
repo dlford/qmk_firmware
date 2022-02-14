@@ -17,17 +17,6 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/* TODO:
- * cheatsheet https://jayliu50.github.io/qmk-cheatsheet/
- * macro alt+w => alt+tab
- * macro number keys => symbols
- * macro scln => quot
- * combo arrow keys (adjacent)
- * combo toggle layers (instead of MO)
- * macros https://getreuer.info/posts/keyboards/macros/index.html#next-sentence-macro
- * MT ctrl+win: MT(MOD_LCTL | MOD_LGUI, KC_XXX)
- */
-
 #include QMK_KEYBOARD_H
 #include "features/caps_word.h"
 
@@ -88,43 +77,25 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
 }
 
 /*
-// Overrides
-const key_override_t alt_tab_override =  ko_make_basic(MOD_MASK_ALT, RSFT_T(KC_J), LALT(KC_TAB));
-const key_override_t **key_overrides = (const key_override_t *[]) {
-    &alt_tab_override,
-    NULL
-};
-
-// Tap Dance
-enum tapdance_events {
-    ONE_EXLM = 0,
-    TWO_AT,
-};
-
-qk_tap_dance_action_t tap_dance_actions[] = {
-    [ONE_EXLM] = ACTION_TAP_DANCE_DOUBLE(MEH_T(KC_1), KC_EXLM),
-    [TWO_AT] = ACTION_TAP_DANCE_DOUBLE(LCA_T(KC_2), KC_AT),
-};
-
 // Combos
 enum combo_events {
-    COMBO_LEFT,
-    COMBO_DOWN,
-    COMBO_UP,
-    COMBO_RIGHT,
-    COMBO_LENGTH
+    CAPS_COMBO,
+    COMBO_LENGTH,
 };
-const uint16_t PROGMEM left_combo[] = {KC_H, RSFT_T(KC_J), COMBO_END};
-const uint16_t PROGMEM down_combo[] = {RSFT_T(KC_J), RCTL_T(KC_K), COMBO_END};
-const uint16_t PROGMEM up_combo[] = {RCTL_T(KC_K), RALT_T(KC_L), COMBO_END};
-const uint16_t PROGMEM right_combo[] = {RALT_T(KC_L), RGUI_T(KC_SCLN), COMBO_END};
 uint16_t COMBO_LEN = COMBO_LENGTH;
+const uint16_t PROGMEM caps_combo[] = {KC_V, KC_M, COMBO_END};
 combo_t key_combos[] = {
-    [COMBO_LEFT] = COMBO(left_combo, KC_LEFT),
-    [COMBO_DOWN] = COMBO(down_combo, KC_DOWN),
-    [COMBO_UP] = COMBO(up_combo, KC_UP),
-    [COMBO_RIGHT] = COMBO(right_combo, KC_RIGHT),
+    [CAPS_COMBO] = COMBO_ACTION(caps_combo),
 };
+void process_combo_event(uint16_t combo_index, bool pressed) {
+    switch(combo_index) {
+        case CAPS_COMBO:
+            if (pressed) {
+                caps_word_set(true);
+            }
+            break;
+    }
+}
 */
 
 // RGB timeout
@@ -159,6 +130,9 @@ enum macro_events {
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    // Caps word
+    if (!process_caps_word(keycode, record)) { return false; }
+
     // RGB resume
     if (is_keyboard_master()) {
         if (record->event.pressed) {
@@ -171,9 +145,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
     }
 
-    // Caps word
-    if (!process_caps_word(keycode, record)) { return false; }
-
     // Macros
     const uint8_t mods = get_mods();
     static uint8_t backstepCounter = 0;
@@ -181,7 +152,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
       case M_KEYMAP:
           if (record->event.pressed) {
-              SEND_STRING("https://raw.githubusercontent.com/dlford/qmk_firmware/master/keyboards/crkbd/keymaps/dlford/legends.svg");
+              SEND_STRING("https://raw.githubusercontent.com/dlford/qmk_firmware/dlford_crkbd/keyboards/crkbd/keymaps/dlford/legends.svg");
           }
           return false;
       case M_EXIT:
@@ -299,9 +270,11 @@ void oled_render_layer_state(void) {
 void dynamic_macro_record_start_user(void) {
     is_macro_recording = true;
 }
+
 void dynamic_macro_record_end_user(int8_t direction) {
     is_macro_recording = false;
 }
+
 void oled_render_dynamic_macro_status(void) {
     if (is_macro_recording) {
         oled_write_ln_P(PSTR("Macro Recording..."), false);
@@ -313,22 +286,11 @@ void oled_render_dynamic_macro_status(void) {
 void oled_render_caps_lock_status(void) {
     if (host_keyboard_led_state().caps_lock) {
         oled_write_ln_P(PSTR("CAPS LOCK"), false);
-    } else if (caps_word_enabled) {
+    } else if (caps_word_get()) {
         oled_write_ln_P(PSTR("CAPS word"), false);
     } else {
         oled_write_ln_P(PSTR(""), false);
     }
-}
-
-// DLF Logo
-static void oled_render_logo(void) {
-    static const char PROGMEM raw_logo[] = {
-        0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,192,224,248, 60, 12, 12, 12, 12, 12, 12, 12, 12,196,240,248,252,252,252,124,124,124,252,252,248,248,224,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
-        0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,128,224,240,124, 31,  7,  1,  0,128,192,224,240,240,248,248,248,  0,255,255,255,255,255,254,252,248,248,  1,  3, 11, 59,251,225,128,  0,  0,  0,  0,  0,224,224,224,224,224,224,224,224,192,128,  0,  0,224,224,224,224,  0,  0,  0,  0,  0,  0,224,224, 96, 96, 96, 96, 96,  0,224,224, 96, 96, 96, 96, 96,224,224,  0,  0,224,224, 96, 96, 96, 96,224,224,  0,224,224,224, 96, 96, 96,224,224,192,128,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 
-        0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  1,  7, 31, 60,248,224,128,  0, 63,127,255,255,255,241,240,240,240,255,255,255,127, 63,  0,  0,  0,  0,128,192,240,124, 31,  7,  3,  0,  0,  0,  0,  0,255,255,255,255,225,225,251,255,255,127, 63,  0,255,255,255,255,224,224,224,224,224,  0,255,255, 12, 12, 12, 12,  0,  0,255,255,128,128,128,128,128,255,255,  0,  0,255,255, 28, 28, 60,252,255,207,  0,255,255,255,128,128,128,192,255,255,127,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 
-        0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  3, 15, 30, 60, 48, 48, 49, 49, 51, 51, 51, 51, 49, 49, 48, 48, 48, 48, 48, 56, 62, 15,  3,  1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  1,  1,  1,  1,  1,  1,  1,  0,  0,  0,  0,  0,  0,  0,  1,  1,  1,  1,  1,  1,  1,  0,  1,  1,  0,  0,  0,  0,  0,  0,  1,  1,  1,  1,  1,  1,  1,  1,  1,  0,  0,  1,  1,  0,  0,  0,  0,  1,  1,  0,  1,  1,  1,  1,  1,  1,  1,  1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
-    };
-    oled_write_raw_P(raw_logo, sizeof(raw_logo));
 }
 
 bool oled_task_user(void) {
@@ -336,8 +298,6 @@ bool oled_task_user(void) {
         oled_render_layer_state();
         oled_render_dynamic_macro_status();
         oled_render_caps_lock_status();
-    } else {
-        oled_render_logo();
     }
     return false;
 }
@@ -372,7 +332,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 
 // Indicators
 void rgb_matrix_indicators_user(void) {
-    if (host_keyboard_led_state().caps_lock || caps_word_enabled) {
+    if (host_keyboard_led_state().caps_lock || caps_word_get()) {
         // Left master
         rgb_matrix_set_color(23, RGB_RED);
         rgb_matrix_set_color(22, RGB_RED);
