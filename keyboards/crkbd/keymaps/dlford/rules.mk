@@ -1,11 +1,7 @@
 # Includes
-SRC += features/caps_word.c
+# SRC += features/caps_word.c
 
-# MCU name
-MCU = kb2040
-
-# Bootloader selection
-BOOTLOADER = rp2040
+BOARD = GENERIC_RP_RP2040
 
 # Build Options
 #   change yes to no to disable

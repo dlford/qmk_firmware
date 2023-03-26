@@ -18,7 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include QMK_KEYBOARD_H
-#include "features/caps_word.h"
+// #include "features/caps_word.h"
 
 // Layers
 enum layers {
@@ -131,7 +131,7 @@ enum macro_events {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // Caps word
-    if (!process_caps_word(keycode, record)) { return false; }
+    // if (!process_caps_word(keycode, record)) { return false; }
 
     // RGB resume
     if (is_keyboard_master()) {
@@ -286,8 +286,10 @@ void oled_render_dynamic_macro_status(void) {
 void oled_render_caps_lock_status(void) {
     if (host_keyboard_led_state().caps_lock) {
         oled_write_ln_P(PSTR("CAPS LOCK"), false);
+    /*
     } else if (caps_word_get()) {
         oled_write_ln_P(PSTR("CAPS word"), false);
+    */
     } else {
         oled_write_ln_P(PSTR(""), false);
     }
@@ -330,8 +332,9 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     return state;
 }
 
+    /*
 // Indicators
-void rgb_matrix_indicators_user(void) {
+void rgb_matrix_indicators_user() {
     if (host_keyboard_led_state().caps_lock || caps_word_get()) {
         // Left master
         rgb_matrix_set_color(23, RGB_RED);
@@ -363,6 +366,7 @@ void rgb_matrix_indicators_user(void) {
         rgb_matrix_set_color(47, RGB_GREEN);
     }
 }
+    */
 
 // Quantum keys / Abbreviations
 enum custom_keycodes {
@@ -455,7 +459,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         //|--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
          LGUI_FIND,LALT_HOME,LCTL_PGUP,LSFT_PGDN,KC_END,                     KC_LEFT,RSFT_DOWN,RCTL_UP,RALT_RGHT,RGUI_F11,
         //|--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
-         DF_QWERTY,DF_COLEMAK,KC_VOLD, KC_VOLU, RESET,                        KC_MUTE, KC_MPLY, KC_MPRV, KC_MNXT, KC_F12,
+         DF_QWERTY,DF_COLEMAK,KC_VOLD, KC_VOLU, QK_BOOT,                      KC_MUTE, KC_MPLY, KC_MPRV, KC_MNXT, KC_F12,
         //|--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------|
                                         VVV,    TG(4),    VVV,         VVV,    VVV,     VVV
         //                           |--------+--------+--------|  |--------+--------+--------|
@@ -466,7 +470,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         //|--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
            LGUI_GRV,KC_LALT,LCTL_LBRC,LSFT_RBRC,KC_LPRN,                     KC_RPRN,RSFT_MINS,RCTL_EQL,RALT_BSLS,RGUI_QUOT,
         //|--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
-            KC_TILD, KC_CAPS, KC_LCBR, KC_RCBR,TG(_MOUSE),                    EEP_RST, KC_UNDS, KC_PLUS, KC_PIPE, KC_DQUO,
+            KC_TILD, KC_CAPS, KC_LCBR, KC_RCBR,TG(_MOUSE),                     EE_CLR, KC_UNDS, KC_PLUS, KC_PIPE, KC_DQUO,
         //|--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------|
                                         VVV,     VVV,     VVV,        VVV,    TG(4),    VVV
         //                           |--------+--------+--------|  |--------+--------+--------|
