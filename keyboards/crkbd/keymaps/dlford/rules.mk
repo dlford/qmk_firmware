@@ -2,10 +2,10 @@
 SRC += features/caps_word.c
 
 # MCU name
-MCU = atmega32u4
+MCU = kb2040
 
 # Bootloader selection
-BOOTLOADER = qmk-dfu
+BOOTLOADER = rp2040
 
 # Build Options
 #   change yes to no to disable
