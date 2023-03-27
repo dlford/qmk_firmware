@@ -34,6 +34,7 @@ static int default_speed = 50;
 static uint16_t secondary_animation = RGB_MATRIX_HUE_WAVE;
 static int secondary_speed = 150;
 static bool is_macro_recording = false;
+static bool is_caps_word_active = false;
 
 // Init
 void keyboard_post_init_user(void) {
@@ -76,7 +77,6 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
   }
 }
 
-/*
 // Combos
 enum combo_events {
     CAPS_COMBO,
@@ -91,12 +91,11 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
     switch(combo_index) {
         case CAPS_COMBO:
             if (pressed) {
-                caps_word_set(true);
+                caps_word_on();
             }
             break;
     }
 }
-*/
 
 // RGB timeout
 #define RGB_CUSTOM_TIMEOUT 5 // in minutes
@@ -131,7 +130,7 @@ enum macro_events {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // Caps word
-    // if (!process_caps_word(keycode, record)) { return false; }
+    if (!process_caps_word(keycode, record)) { return false; }
 
     // RGB resume
     if (is_keyboard_master()) {
@@ -286,13 +285,21 @@ void oled_render_dynamic_macro_status(void) {
 void oled_render_caps_lock_status(void) {
     if (host_keyboard_led_state().caps_lock) {
         oled_write_ln_P(PSTR("CAPS LOCK"), false);
-    /*
-    } else if (caps_word_get()) {
+    } else if (is_caps_word_active) {
         oled_write_ln_P(PSTR("CAPS word"), false);
-    */
     } else {
         oled_write_ln_P(PSTR(""), false);
     }
+}
+
+static void oled_render_logo(void) {
+    static const char PROGMEM raw_logo[] = {
+        0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,128,224,224, 96, 96, 96, 96, 96, 96,128,192,224,224,240,240,240,224,224,192,128,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+        0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,192,240, 60, 30,  7,  1,192,224,224,240,240,240,  0,255,255,255,255,249,241,241,  7,  7, 55,247,192,  0,  0,  0,  0,224,224,224,224,224,192,192,192,  0,192,224,224,224,  0,  0,  0,  0,224,224, 96, 96, 96, 96,  0,192,224, 96, 96, 96,224,192,192,192,224, 96, 96, 96,224,192,  0,224,224, 96, 96, 96,224,192,128,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+        0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  1,  3, 15, 60,240,224,134, 31, 63,127,255,249,248,248,127,127, 63, 31,  0,  0,128,224,248, 60, 15,  3,  1,  0,  0,  0,127,127,127,127,113,127,127, 63, 31, 31, 63,127,127,112,112,112,112,127,127,  6,  6,  6,  6,  0,127,127, 96, 96, 96,127,127, 63,127,127, 12, 12, 60,127,103,  0,127,127, 96, 96, 96,127, 63, 31,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+        0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  1,  7, 14, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 14,  7,  1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+    };
+    oled_write_raw_P(raw_logo, sizeof(raw_logo));
 }
 
 bool oled_task_user(void) {
@@ -300,6 +307,8 @@ bool oled_task_user(void) {
         oled_render_layer_state();
         oled_render_dynamic_macro_status();
         oled_render_caps_lock_status();
+    } else {
+        oled_render_logo();
     }
     return false;
 }
@@ -332,10 +341,13 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     return state;
 }
 
-    /*
+void caps_word_set_user(bool active) {
+    is_caps_word_active = active;
+}
+
 // Indicators
-void rgb_matrix_indicators_user() {
-    if (host_keyboard_led_state().caps_lock || caps_word_get()) {
+bool rgb_matrix_indicators_user() {
+    if (host_keyboard_led_state().caps_lock || is_caps_word_active) {
         // Left master
         rgb_matrix_set_color(23, RGB_RED);
         rgb_matrix_set_color(22, RGB_RED);
@@ -365,8 +377,9 @@ void rgb_matrix_indicators_user() {
         rgb_matrix_set_color(46, RGB_GREEN);
         rgb_matrix_set_color(47, RGB_GREEN);
     }
+
+    return true;
 }
-    */
 
 // Quantum keys / Abbreviations
 enum custom_keycodes {

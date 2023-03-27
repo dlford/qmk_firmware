@@ -1,7 +1,5 @@
-# Includes
-# SRC += features/caps_word.c
-
 BOARD = GENERIC_RP_RP2040
+CONVERT_TO = kb2040
 
 # Build Options
 #   change yes to no to disable
@@ -23,7 +21,8 @@ RGB_MATRIX_DRIVER = WS2812
 INDICATOR_LIGHTS = yes      # Enable indicator lights for caps lock, etc.
 # TAP_DANCE_ENABLE = yes      # Send different keycodes if tapped multiple times
 # KEY_OVERRIDE_ENABLE = yes   # Override key combos
-# COMBO_ENABLE = yes          # Custom key combos
+COMBO_ENABLE = yes          # Custom key combos
+CAPS_WORD_ENABLE = yes      # Caps Lock + Word = Upper Case
 
 # if firmware size over limit, try this option
 # LTO_ENABLE = yes

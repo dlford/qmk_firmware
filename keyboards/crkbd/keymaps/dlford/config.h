@@ -27,7 +27,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // #define MASTER_LEFT
 // #define MASTER_RIGHT
-#define EE_HANDS // ./util/docker_build.sh crkbd:dlford:dfu-split-[left|right]
+#define EE_HANDS // ./util/docker_build.sh crkbd:dlford:uf2-split-[left|right]
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET_TIMEOUT 250U
 
