@@ -434,16 +434,15 @@ bool rgb_matrix_indicators_user() {
         rgb_matrix_set_color(46, RGB_GREEN);
         rgb_matrix_set_color(47, RGB_GREEN);
     }
-    // TODO: Add indicator for mouse jiggling
     if (is_mouse_jiggle_active) {
         // Left master
-        // rgb_matrix_set_color(12, RGB_BLUE);
-        // rgb_matrix_set_color(13, RGB_BLUE);
-        // rgb_matrix_set_color(14, RGB_BLUE);
+        rgb_matrix_set_color(7, RGB_BLUE);
+        rgb_matrix_set_color(8, RGB_BLUE);
+        rgb_matrix_set_color(9, RGB_BLUE);
         // Right master
-        // rgb_matrix_set_color(29, RGB_BLUE);
-        // rgb_matrix_set_color(30, RGB_BLUE);
-        // rgb_matrix_set_color(31, RGB_BLUE);
+        rgb_matrix_set_color(34, RGB_BLUE);
+        rgb_matrix_set_color(35, RGB_BLUE);
+        rgb_matrix_set_color(36, RGB_BLUE);
     }
 
     return true;
