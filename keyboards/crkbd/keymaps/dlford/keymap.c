@@ -17,6 +17,8 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+// TODO: SaRcAsM mOdE
+
 #include QMK_KEYBOARD_H
 // #include "features/caps_word.h"
 
@@ -27,6 +29,7 @@ enum layers {
     _NAVIGATION,
     _SPECIAL,
     _MOUSE,
+    _MACRO,
 };
 
 static uint16_t default_animation = RGB_MATRIX_CYCLE_SPIRAL;
@@ -308,6 +311,9 @@ void oled_render_layer_state(void) {
         case _MOUSE:
             oled_write_ln_P(PSTR("Mouse"), false);
             break;
+        case _MACRO:
+            oled_write_ln_P(PSTR("Macro"), false);
+            break;
         default:
             if (default_layer_state - 1 == _COLEMAK) {
                 oled_write_ln_P(PSTR("Colemak"), false);
@@ -386,6 +392,11 @@ layer_state_t layer_state_set_user(layer_state_t state) {
             break;
         case _MOUSE:
             rgb_matrix_sethsv_noeeprom(HSV_GREEN);
+            rgb_matrix_set_speed_noeeprom(secondary_speed);
+            rgb_matrix_mode_noeeprom(secondary_animation);
+            break;
+        case _MACRO:
+            rgb_matrix_sethsv_noeeprom(HSV_RED);
             rgb_matrix_set_speed_noeeprom(secondary_speed);
             rgb_matrix_mode_noeeprom(secondary_animation);
             break;
@@ -540,9 +551,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         //|--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
          LGUI_FIND,LALT_HOME,LCTL_PGUP,LSFT_PGDN,KC_END,                     KC_LEFT,RSFT_DOWN,RCTL_UP,RALT_RGHT,RGUI_F11,
         //|--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
-         DF_QWERTY,DF_COLEMAK,KC_VOLD, KC_VOLU, QK_BOOT,                    M_ALT_TAB, KC_MPLY, KC_MPRV, KC_MNXT, KC_F12,
+         DF_QWERTY,DF_COLEMAK,KC_VOLD, KC_VOLU, TG(_MACRO),                 M_ALT_TAB, KC_MPLY, KC_MPRV, KC_MNXT, KC_F12,
         //|--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------|
-                                        VVV,    TG(4),    VVV,         VVV,    VVV,     VVV
+                                        VVV,  TG(_MOUSE), VVV,         VVV,    VVV,     VVV
         //                           |--------+--------+--------|  |--------+--------+--------|
     ),
     // < left thumb
@@ -552,9 +563,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         //|--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
            LGUI_GRV,KC_LALT,LCTL_LBRC,LSFT_RBRC,KC_LPRN,                     KC_RPRN,RSFT_MINS,RCTL_EQL,RALT_BSLS,RGUI_QUOT,
         //|--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
-            KC_TILD, KC_CAPS, KC_LCBR, KC_RCBR, M_ALT_TAB,                    EE_CLR, KC_UNDS, KC_PLUS, KC_PIPE, KC_DQUO,
+            KC_TILD, KC_CAPS, KC_LCBR, KC_RCBR, M_ALT_TAB,                TG(_MACRO),  KC_UNDS, KC_PLUS, KC_PIPE, KC_DQUO,
         //|--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------|
-                                        VVV,     VVV,     VVV,        VVV,    TG(4),    VVV
+                                        VVV,     VVV,     VVV,        VVV,  TG(_MOUSE),  VVV
         //                           |--------+--------+--------|  |--------+--------+--------|
     ),
     [_MOUSE] = LAYOUT_split_3x5_3(
@@ -563,9 +574,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         //|--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
             KC_WH_D, KC_MS_L, KC_MS_D, KC_MS_R, DM_PLY1,                      KC_WREF, KC_BTN1, KC_BTN2, KC_BTN3, KC_WBAK,
         //|--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
-           M_KEYMAP,KC_BTN3, KC_BTN2, KC_BTN1,  M_JIGL,                      M_JIGL,   M_EXIT,  XXX,     XXX,     XXX,
+             XXX,   KC_BTN3, KC_BTN2, KC_BTN1,  M_JIGL,                       M_JIGL,   XXX,     XXX,     XXX,     XXX,
         //|--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------|
-                                        VVV,    TG(4),    VVV,        VVV,    TG(4),    VVV
+                                        VVV,  TG(_MOUSE),  VVV,       VVV,  TG(_MOUSE),  VVV
+        //                           |--------+--------+--------|  |--------+--------+--------|
+    ),
+    [_MACRO] = LAYOUT_split_3x5_3(
+        //|--------------------------------------------|                    |--------------------------------------------|
+            XXX,     XXX,     XXX,     XXX,     XXX,                          XXX,     XXX,     XXX,     XXX,     XXX,
+        //|--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
+            XXX,     XXX,     XXX,     XXX,     XXX,                          XXX,     XXX,     XXX,     XXX,     XXX,
+        //|--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
+            XXX,    M_EXIT,   XXX,     XXX,     XXX,                          XXX,    M_KEYMAP,  XXX,     XXX,     XXX,
+        //|--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------|
+                                        XXX,  TG(_MACRO),  XXX,       XXX,  TG(_MACRO),  XXX
         //                           |--------+--------+--------|  |--------+--------+--------|
     ),
 };
