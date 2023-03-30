@@ -35,6 +35,8 @@ static uint16_t secondary_animation = RGB_MATRIX_HUE_WAVE;
 static int secondary_speed = 150;
 static bool is_macro_recording = false;
 static bool is_caps_word_active = false;
+bool is_alt_tab_active = false;
+uint16_t alt_tab_timer = 0;
 
 // Init
 void keyboard_post_init_user(void) {
@@ -118,6 +120,14 @@ void matrix_scan_user(void) {
           halfmin_counter = 0;
         }
     }
+
+    // Alt tab
+    if (is_alt_tab_active) {
+        if (timer_elapsed(alt_tab_timer) > 750) {
+            unregister_code(KC_LALT);
+            is_alt_tab_active = false;
+        }
+    }
 }
 
 // Macros
@@ -126,6 +136,7 @@ enum macro_events {
     M_EXIT,
     M_COMM,
     M_DOT,
+    M_ALT_TAB,
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -149,6 +160,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     static uint8_t backstepCounter = 0;
     static bool keyDown = false;
     switch (keycode) {
+      case M_ALT_TAB:
+          if (record->event.pressed) {
+              if (!is_alt_tab_active) {
+              is_alt_tab_active = true;
+              register_code(KC_LALT);
+              }
+              alt_tab_timer = timer_read();
+              register_code(KC_TAB);
+          } else {
+              unregister_code(KC_TAB);
+          }
+          break;
       case M_KEYMAP:
           if (record->event.pressed) {
               SEND_STRING("https://raw.githubusercontent.com/dlford/qmk_firmware/dlford_crkbd_rp2040/keyboards/crkbd/keymaps/dlford/legends.svg");
@@ -466,24 +489,26 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                        KC_ESC,  LT3_SPC, KC_BSPC,    KC_DEL, LT2_TAB,  KC_ENT
         //                           |--------+--------+--------|  |--------+--------+--------|
     ),
+    // right thumb >
     [_NAVIGATION] = LAYOUT_split_3x5_3(
         //|--------------------------------------------|                    |--------------------------------------------|
             CSA_F1,  CA_F2,   CS_F3,   KC_F4,   KC_F5,                        KC_F6,   KC_F7,   CS_F8,  CA_F9,   CSA_F10,
         //|--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
          LGUI_FIND,LALT_HOME,LCTL_PGUP,LSFT_PGDN,KC_END,                     KC_LEFT,RSFT_DOWN,RCTL_UP,RALT_RGHT,RGUI_F11,
         //|--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
-         DF_QWERTY,DF_COLEMAK,KC_VOLD, KC_VOLU, QK_BOOT,                      KC_MUTE, KC_MPLY, KC_MPRV, KC_MNXT, KC_F12,
+         DF_QWERTY,DF_COLEMAK,KC_VOLD, KC_VOLU, QK_BOOT,                    M_ALT_TAB, KC_MPLY, KC_MPRV, KC_MNXT, KC_F12,
         //|--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------|
                                         VVV,    TG(4),    VVV,         VVV,    VVV,     VVV
         //                           |--------+--------+--------|  |--------+--------+--------|
     ),
+    // < left thumb
     [_SPECIAL] = LAYOUT_split_3x5_3(
         //|--------------------------------------------|                    |--------------------------------------------|
             CSA_1,   CA_2,    CS_3,    KC_4,    KC_5,                         KC_6,    KC_7,    CS_8,    CA_9,    CSA_0,
         //|--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
            LGUI_GRV,KC_LALT,LCTL_LBRC,LSFT_RBRC,KC_LPRN,                     KC_RPRN,RSFT_MINS,RCTL_EQL,RALT_BSLS,RGUI_QUOT,
         //|--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
-            KC_TILD, KC_CAPS, KC_LCBR, KC_RCBR,TG(_MOUSE),                     EE_CLR, KC_UNDS, KC_PLUS, KC_PIPE, KC_DQUO,
+            KC_TILD, KC_CAPS, KC_LCBR, KC_RCBR, M_ALT_TAB,                    EE_CLR, KC_UNDS, KC_PLUS, KC_PIPE, KC_DQUO,
         //|--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------|
                                         VVV,     VVV,     VVV,        VVV,    TG(4),    VVV
         //                           |--------+--------+--------|  |--------+--------+--------|
