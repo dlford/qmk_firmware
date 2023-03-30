@@ -37,6 +37,10 @@ static bool is_macro_recording = false;
 static bool is_caps_word_active = false;
 bool is_alt_tab_active = false;
 uint16_t alt_tab_timer = 0;
+bool is_mouse_jiggle_active = false;
+bool mouse_jiggle_direction = false;
+uint16_t mouse_jiggle_frequency = 15000;
+uint16_t mouse_jiggle_timer = 0;
 
 // Init
 void keyboard_post_init_user(void) {
@@ -108,6 +112,7 @@ void matrix_scan_user(void) {
     if (is_keyboard_master()) {
         // idle_timer needs to be set one time
         if (idle_timer == 0) idle_timer = timer_read();
+        if (mouse_jiggle_timer == 0) mouse_jiggle_timer = timer_read();
 
         if (led_on && timer_elapsed(idle_timer) > 30000) {
           halfmin_counter++;
@@ -128,6 +133,23 @@ void matrix_scan_user(void) {
             is_alt_tab_active = false;
         }
     }
+
+    // Mouse jiggle
+    if (is_mouse_jiggle_active) {
+        if (timer_elapsed(mouse_jiggle_timer) > mouse_jiggle_frequency) {
+            mouse_jiggle_timer = timer_read();
+            if (mouse_jiggle_direction) {
+                tap_code(KC_MS_LEFT);
+                tap_code(KC_MS_LEFT);
+                tap_code(KC_MS_LEFT);
+            } else {
+                tap_code(KC_MS_RIGHT);
+                tap_code(KC_MS_RIGHT);
+                tap_code(KC_MS_RIGHT);
+            }
+            mouse_jiggle_direction = !mouse_jiggle_direction;
+        }
+    }
 }
 
 // Macros
@@ -137,6 +159,7 @@ enum macro_events {
     M_COMM,
     M_DOT,
     M_ALT_TAB,
+    M_JIGL,
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -170,6 +193,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
               register_code(KC_TAB);
           } else {
               unregister_code(KC_TAB);
+          }
+          break;
+      case M_JIGL:
+          if (record->event.pressed) {
+              is_mouse_jiggle_active = !is_mouse_jiggle_active;
           }
           break;
       case M_KEYMAP:
@@ -287,6 +315,12 @@ void oled_render_layer_state(void) {
                 oled_write_ln_P(PSTR("Qwerty"), false);
             }
     }
+
+    if (is_mouse_jiggle_active) {
+        oled_write_ln_P(PSTR("Mouse Jiggling..."), false);
+    } else {
+        oled_write_ln_P(PSTR(""), false);
+    }
 }
 
 void dynamic_macro_record_start_user(void) {
@@ -399,6 +433,17 @@ bool rgb_matrix_indicators_user() {
         rgb_matrix_set_color(45, RGB_GREEN);
         rgb_matrix_set_color(46, RGB_GREEN);
         rgb_matrix_set_color(47, RGB_GREEN);
+    }
+    // TODO: Add indicator for mouse jiggling
+    if (is_mouse_jiggle_active) {
+        // Left master
+        // rgb_matrix_set_color(12, RGB_BLUE);
+        // rgb_matrix_set_color(13, RGB_BLUE);
+        // rgb_matrix_set_color(14, RGB_BLUE);
+        // Right master
+        // rgb_matrix_set_color(29, RGB_BLUE);
+        // rgb_matrix_set_color(30, RGB_BLUE);
+        // rgb_matrix_set_color(31, RGB_BLUE);
     }
 
     return true;
@@ -519,7 +564,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         //|--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
             KC_WH_D, KC_MS_L, KC_MS_D, KC_MS_R, DM_PLY1,                      KC_WREF, KC_BTN1, KC_BTN2, KC_BTN3, KC_WBAK,
         //|--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
-           M_KEYMAP,KC_BTN3, KC_BTN2, KC_BTN1,  XXX,                          XXX,     M_EXIT,  XXX,     XXX,     XXX,
+           M_KEYMAP,KC_BTN3, KC_BTN2, KC_BTN1,  M_JIGL,                      M_JIGL,   M_EXIT,  XXX,     XXX,     XXX,
         //|--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------|
                                         VVV,    TG(4),    VVV,        VVV,    TG(4),    VVV
         //                           |--------+--------+--------|  |--------+--------+--------|
