@@ -30,6 +30,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define EE_HANDS // ./util/docker_build.sh crkbd:dlford:uf2-split-[left|right]
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET_TIMEOUT 250U
+#define UNICODE_SELECTED_MODES UNICODE_MODE_LINUX, UNICODE_MODE_WINCOMPOSE, UNICODE_MODE_MACOS
+#define UCIS_MAX_CODE_POINTS 24
 
 #define USE_SERIAL_PD2
 
