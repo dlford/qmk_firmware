@@ -190,7 +190,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
       case KC_A ... KC_Z:
           if (is_scsm_active && record->event.pressed) {
-              scsm_case ? tap_code16(S(keycode)) : tap_code(keycode);
+              if (scsm_case) {
+                    register_code(KC_LSFT);
+                    tap_code(keycode);
+                    unregister_code(KC_LSFT);
+              } else {
+                    tap_code(keycode);
+              }
               scsm_case = !scsm_case;
               return false;
           }
