@@ -18,17 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include QMK_KEYBOARD_H
-// #include "features/caps_word.h"
-
-// Layers
-enum layers {
-    _QWERTY = 0,
-    _COLEMAK,
-    _NAVIGATION,
-    _SPECIAL,
-    _MOUSE,
-    _MACRO,
-};
 
 static uint16_t default_animation = RGB_MATRIX_CYCLE_SPIRAL;
 static int default_speed = 50;
@@ -45,52 +34,134 @@ uint16_t mouse_jiggle_timer = 0;
 bool is_scsm_active = false;
 bool scsm_case = false;
 
-// Init
-void keyboard_post_init_user(void) {
-  rgb_matrix_mode_noeeprom(default_animation);
-  rgb_matrix_set_speed_noeeprom(default_speed);
-}
-
-// Permissive hold per key
-bool get_permissive_hold(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-    case LT(3, KC_SPC):
-      return true; // Enable permissive hold
-    case LT(2, KC_TAB):
-      return true;
-    default:
-      return false; // Disable permissive hold
-  }
-}
-
-// Tapping force hold per key
-bool get_tapping_force_hold(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-    case LT(3, KC_SPC):
-      return true; // Enable force hold
-    case LT(2, KC_TAB):
-      return true;
-    default:
-      return false; // Disable force hold
-  }
-}
-
-// Tapping term per key
-uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-    case C_S_T(KC_E):
-    case C_S_T(KC_I):
-      return 215;
-    default:
-      return 190;
-  }
-}
+// Layers
+enum layers {
+    _QWERTY = 0,
+    _COLEMAK,
+    _NAVIGATION,
+    _SPECIAL,
+    _MOUSE,
+    _MACRO,
+};
 
 // Combos
 enum combo_events {
     CAPS_COMBO,
     COMBO_LENGTH,
 };
+
+// Macros
+enum macro_events {
+    M_KEYMAP = SAFE_RANGE,
+    M_EXIT,
+    M_COMM,
+    M_DOT,
+    M_ALT_TAB,
+    M_JIGL,
+    M_SCSM,
+};
+
+// Quantum keys / Abbreviations
+enum custom_keycodes {
+    VVV = KC_TRNS,
+    XXX = KC_NO,
+    CSA_Q = MEH_T(KC_Q),
+    CSA_F1 = MEH_T(KC_F1),
+    CSA_1 = MEH_T(KC_1),
+    CA_W = LCA_T(KC_W),
+    CA_F2 = LCA_T(KC_F2),
+    CA_2 = LCA_T(KC_2),
+    CS_E = C_S_T(KC_E),
+    CS_F = C_S_T(KC_F),
+    CS_I = C_S_T(KC_I),
+    CS_U = C_S_T(KC_U),
+    CS_F3 = C_S_T(KC_F3),
+    CS_3 = C_S_T(KC_3),
+    CS_F8 = C_S_T(KC_F8),
+    CS_8 = C_S_T(KC_8),
+    CA_O = LCA_T(KC_O),
+    CA_Y = LCA_T(KC_Y),
+    CA_F9 = LCA_T(KC_F9),
+    CA_9 = LCA_T(KC_9),
+    CSA_P = MEH_T(KC_P),
+    CSA_SCLN = MEH_T(KC_SCLN),
+    CSA_F10 = MEH_T(KC_F10),
+    CSA_0 = MEH_T(KC_0),
+    LGUI_A = LGUI_T(KC_A),
+    LGUI_FIND = LGUI_T(KC_FIND),
+    LGUI_GRV = LGUI_T(KC_GRV),
+    LALT_S = LALT_T(KC_S),
+    LALT_R = LALT_T(KC_R),
+    LALT_HOME = LALT_T(KC_HOME),
+    LCTL_D = LCTL_T(KC_D),
+    LCTL_S = LCTL_T(KC_S),
+    LCTL_PGUP = LCTL_T(KC_PGUP),
+    LCTL_LBRC = LCTL_T(KC_LBRC),
+    LSFT_F = LSFT_T(KC_F),
+    _LSFT_T = LSFT_T(KC_T),
+    LSFT_PGDN = LSFT_T(KC_PGDN),
+    LSFT_RBRC = LSFT_T(KC_RBRC),
+    RSFT_J = RSFT_T(KC_J),
+    RSFT_N = RSFT_T(KC_N),
+    RSFT_DOWN = RSFT_T(KC_DOWN),
+    RSFT_MINS = RSFT_T(KC_MINS),
+    RCTL_K = RCTL_T(KC_K),
+    RCTL_E = RCTL_T(KC_E),
+    RCTL_UP = RCTL_T(KC_UP),
+    RCTL_EQL = RCTL_T(KC_EQL),
+    RALT_L = RALT_T(KC_L),
+    RALT_I = RALT_T(KC_I),
+    RALT_RGHT = RALT_T(KC_RGHT),
+    RALT_BSLS = RALT_T(KC_BSLS),
+    RGUI_SCLN = RGUI_T(KC_SCLN),
+    RGUI_O = RGUI_T(KC_O),
+    RGUI_F11 = RGUI_T(KC_F11),
+    RGUI_QUOT = RGUI_T(KC_QUOT),
+    LT3_SPC = LT(_SPECIAL, KC_SPC),
+    LT2_TAB = LT(_NAVIGATION,KC_TAB),
+    DF_QWERTY = DF(_QWERTY),
+    DF_COLEMAK = DF(_COLEMAK),
+};
+
+// Init
+void keyboard_post_init_user(void) {
+  rgb_matrix_mode_noeeprom(default_animation);
+  rgb_matrix_set_speed_noeeprom(default_speed);
+}
+
+// Ignore mod tap interrupt per key
+bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
+  switch (keycode) {
+    case LT3_SPC:
+    case LT2_TAB:
+      return true; // select hold action immediately
+    default:
+      return false; // Don't select hold action when another key is pressed
+  }
+}
+
+// Tapping force hold per key
+uint16_t get_quick_tap_term(uint16_t keycode, keyrecord_t *record) {
+  switch (keycode) {
+    case LT3_SPC:
+    case LT2_TAB:
+      return 0;
+    default:
+      return 120;
+  }
+}
+
+// Tapping term per key
+uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
+  switch (keycode) {
+    case CS_E:
+    case CS_I:
+      return 215;
+    default:
+      return 190;
+  }
+}
+
 uint16_t COMBO_LEN = COMBO_LENGTH;
 const uint16_t PROGMEM caps_combo[] = {KC_V, KC_M, COMBO_END};
 combo_t key_combos[] = {
@@ -155,17 +226,6 @@ void matrix_scan_user(void) {
     }
 }
 
-// Macros
-enum macro_events {
-    M_KEYMAP = SAFE_RANGE,
-    M_EXIT,
-    M_COMM,
-    M_DOT,
-    M_ALT_TAB,
-    M_JIGL,
-    M_SCSM,
-};
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // Caps word
     if (!process_caps_word(keycode, record)) { return false; }
@@ -190,13 +250,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
       case KC_A ... KC_Z:
           if (is_scsm_active && record->event.pressed) {
-              if (scsm_case) {
-                    register_code(KC_LSFT);
-                    tap_code(keycode);
-                    unregister_code(KC_LSFT);
-              } else {
-                    tap_code(keycode);
-              }
+              scsm_case ? tap_code16(S(keycode)) : tap_code(keycode);
               scsm_case = !scsm_case;
               return false;
           }
@@ -497,68 +551,6 @@ bool rgb_matrix_indicators_user() {
 
     return true;
 }
-
-// Quantum keys / Abbreviations
-enum custom_keycodes {
-    VVV = KC_TRNS,
-    XXX = KC_NO,
-    CSA_Q = MEH_T(KC_Q),
-    CSA_F1 = MEH_T(KC_F1),
-    CSA_1 = MEH_T(KC_1),
-    CA_W = LCA_T(KC_W),
-    CA_F2 = LCA_T(KC_F2),
-    CA_2 = LCA_T(KC_2),
-    CS_E = C_S_T(KC_E),
-    CS_F = C_S_T(KC_F),
-    CS_I = C_S_T(KC_I),
-    CS_U = C_S_T(KC_U),
-    CS_F3 = C_S_T(KC_F3),
-    CS_3 = C_S_T(KC_3),
-    CS_F8 = C_S_T(KC_F8),
-    CS_8 = C_S_T(KC_8),
-    CA_O = LCA_T(KC_O),
-    CA_Y = LCA_T(KC_Y),
-    CA_F9 = LCA_T(KC_F9),
-    CA_9 = LCA_T(KC_9),
-    CSA_P = MEH_T(KC_P),
-    CSA_SCLN = MEH_T(KC_SCLN),
-    CSA_F10 = MEH_T(KC_F10),
-    CSA_0 = MEH_T(KC_0),
-    LGUI_A = LGUI_T(KC_A),
-    LGUI_FIND = LGUI_T(KC_FIND),
-    LGUI_GRV = LGUI_T(KC_GRV),
-    LALT_S = LALT_T(KC_S),
-    LALT_R = LALT_T(KC_R),
-    LALT_HOME = LALT_T(KC_HOME),
-    LCTL_D = LCTL_T(KC_D),
-    LCTL_S = LCTL_T(KC_S),
-    LCTL_PGUP = LCTL_T(KC_PGUP),
-    LCTL_LBRC = LCTL_T(KC_LBRC),
-    LSFT_F = LSFT_T(KC_F),
-    _LSFT_T = LSFT_T(KC_T),
-    LSFT_PGDN = LSFT_T(KC_PGDN),
-    LSFT_RBRC = LSFT_T(KC_RBRC),
-    RSFT_J = RSFT_T(KC_J),
-    RSFT_N = RSFT_T(KC_N),
-    RSFT_DOWN = RSFT_T(KC_DOWN),
-    RSFT_MINS = RSFT_T(KC_MINS),
-    RCTL_K = RCTL_T(KC_K),
-    RCTL_E = RCTL_T(KC_E),
-    RCTL_UP = RCTL_T(KC_UP),
-    RCTL_EQL = RCTL_T(KC_EQL),
-    RALT_L = RALT_T(KC_L),
-    RALT_I = RALT_T(KC_I),
-    RALT_RGHT = RALT_T(KC_RGHT),
-    RALT_BSLS = RALT_T(KC_BSLS),
-    RGUI_SCLN = RGUI_T(KC_SCLN),
-    RGUI_O = RGUI_T(KC_O),
-    RGUI_F11 = RGUI_T(KC_F11),
-    RGUI_QUOT = RGUI_T(KC_QUOT),
-    LT3_SPC = LT(3,KC_SPC),
-    LT2_TAB = LT(2,KC_TAB),
-    DF_QWERTY = DF(0),
-    DF_COLEMAK = DF(1),
-};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_QWERTY] = LAYOUT_split_3x5_3(

@@ -35,9 +35,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define TAPPING_TOGGLE 2 // number of taps to toggle TT
 #define TAPPING_TERM_PER_KEY // milliseconds from tap to hold for mod tap per key
-#define IGNORE_MOD_TAP_INTERRUPT // ignore hold mod if another tap occurs within tapping term
-#define PERMISSIVE_HOLD_PER_KEY // activate mod top hold earlier if another key is pressed AND released per key
-#define TAPPING_FORCE_HOLD_PER_KEY // disable double tap hold key repeat per key
+#define HOLD_ON_OTHER_KEY_PRESS_PER_KEY // activate mod top hold earlier if another key is pressed per key
+#define QUICK_TAP_TERM_PER_KEY // disable double tap hold key repeat per key
 #define MK_KINETIC_SPEED
 #define MOUSEKEY_DELAY              100
 #define MOUSEKEY_INTERVAL           35
