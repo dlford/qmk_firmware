@@ -33,6 +33,13 @@ uint16_t mouse_jiggle_frequency = 15000;
 uint16_t mouse_jiggle_timer = 0;
 bool is_scsm_active = false;
 bool scsm_case = false;
+// password generator
+int rand_size = 32;
+char rand_numbers[10] = "0123456789";
+char rand_letters[26] = "abcdefghijklmnoqprstuvwyzx";
+char rand_LETTERS[26] = "ABCDEFGHIJKLMNOQPRSTUYWVZX";
+char rand_symbols[8] = "!@#$^&*?";
+char rand_password[32];
 
 // Layers
 enum layers {
@@ -59,6 +66,7 @@ enum macro_events {
     M_ALT_TAB,
     M_JIGL,
     M_SCSM,
+    M_RAND,
 };
 
 // Quantum keys / Abbreviations
@@ -252,6 +260,31 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           if (is_scsm_active && record->event.pressed) {
               scsm_case ? tap_code16(S(keycode)) : tap_code(keycode);
               scsm_case = !scsm_case;
+              return false;
+          }
+          break;
+      case M_RAND:
+          if (record->event.pressed) {
+              for(int i=0; i<rand_size; i++) {
+                int rand_type = rand() % 4;
+                switch (rand_type) {
+                  case 0:
+                    rand_password[i] = rand_numbers[rand() % 10];
+                    break;
+                  case 1:
+                    rand_password[i] = rand_letters[rand() % 26];
+                    break;
+                  case 2:
+                    rand_password[i] = rand_LETTERS[rand() % 26];
+                    break;
+                  case 3:
+                    rand_password[i] = rand_symbols[rand() % 8];
+                    break;
+                }
+              }
+              SEND_STRING(rand_password);
+              rand_password[0] = '\0';
+              layer_off(_MACRO);
               return false;
           }
           break;
@@ -614,7 +647,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         //|--------------------------------------------|                    |--------------------------------------------|
             XXX,     XXX,     XXX,     XXX,     XXX,                          XXX,     XXX,     XXX,     XXX,     XXX,
         //|--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
-            XXX,     XXX,     XXX,     M_SCSM,  XXX,                          XXX,     XXX,     XXX,     XXX,     XXX,
+            XXX,     XXX,     XXX,     M_SCSM,  XXX,                          XXX,     M_RAND,   XXX,     XXX,     XXX,
         //|--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
             XXX,    M_EXIT,   XXX,     XXX,     XXX,                          XXX,    M_KEYMAP,  XXX,     XXX,     XXX,
         //|--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------|

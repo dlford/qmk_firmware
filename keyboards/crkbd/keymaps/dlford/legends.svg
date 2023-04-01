@@ -7,7 +7,7 @@
    viewBox="0 0 254 113.715"
    version="1.1"
    id="svg5"
-   inkscape:version="1.1.2 (0a00cf5339, 2022-02-04)"
+   inkscape:version="1.2.2 (b0a8486541, 2022-12-01)"
    sodipodi:docname="legends.svg"
    inkscape:export-filename="/home/dan/Desktop/Keymap.png"
    inkscape:export-xdpi="96"
@@ -29,12 +29,12 @@
      showborder="true"
      inkscape:zoom="1.4142136"
      inkscape:cx="459.97295"
-     inkscape:cy="229.10259"
-     inkscape:window-width="1706"
-     inkscape:window-height="923"
+     inkscape:cy="238.64853"
+     inkscape:window-width="1920"
+     inkscape:window-height="1021"
      inkscape:window-x="0"
-     inkscape:window-y="0"
-     inkscape:window-maximized="1"
+     inkscape:window-y="34"
+     inkscape:window-maximized="0"
      inkscape:current-layer="layer1"
      fit-margin-top="0"
      fit-margin-left="0"
@@ -54,7 +54,9 @@
      inkscape:snap-center="true"
      inkscape:snap-text-baseline="true"
      inkscape:snap-page="true"
-     inkscape:snap-global="false" />
+     inkscape:snap-global="false"
+     inkscape:showpageshadow="2"
+     inkscape:deskcolor="#d1d1d1" />
   <defs
      id="defs2">
     <rect
@@ -2309,25 +2311,57 @@
          id="tspan107729">Macro</tspan></text>
     <text
        xml:space="preserve"
-       style="font-size:1.76159px;line-height:1;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#f70000;fill-opacity:1;stroke-width:0.264238"
-       x="-75.347153"
-       y="114.03757"
+       style="font-size:1.32751px;line-height:1;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#f70000;fill-opacity:1;stroke-width:0.199125"
+       x="-75.595772"
+       y="113.8632"
        id="text2719-0-6-6-1-4-3"><tspan
          sodipodi:role="line"
-         style="font-weight:bold;font-size:1.76159px;text-align:center;text-anchor:middle;fill:#f70000;fill-opacity:1;stroke-width:0.264238"
-         x="-75.347153"
-         y="114.03757"
+         style="font-weight:bold;font-size:1.32751px;text-align:center;text-anchor:middle;fill:#f70000;fill-opacity:1;stroke-width:0.199125"
+         x="-75.595772"
+         y="113.8632"
          id="tspan107729-7">Type &quot;exit&quot;</tspan><tspan
          sodipodi:role="line"
-         style="font-weight:bold;font-size:1.76159px;text-align:center;text-anchor:middle;fill:#f70000;fill-opacity:1;stroke-width:0.264238"
-         x="-75.347153"
-         y="115.79916"
+         style="font-weight:bold;font-size:1.32751px;text-align:center;text-anchor:middle;fill:#f70000;fill-opacity:1;stroke-width:0.199125"
+         x="-75.595772"
+         y="115.1907"
          id="tspan49079">and hit</tspan><tspan
          sodipodi:role="line"
-         style="font-weight:bold;font-size:1.76159px;text-align:center;text-anchor:middle;fill:#f70000;fill-opacity:1;stroke-width:0.264238"
-         x="-75.347153"
-         y="117.56075"
+         style="font-weight:bold;font-size:1.32751px;text-align:center;text-anchor:middle;fill:#f70000;fill-opacity:1;stroke-width:0.199125"
+         x="-75.595772"
+         y="116.51822"
          id="tspan26504">Enter</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:1.4949px;line-height:1;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#f70000;fill-opacity:1;stroke-width:0.224235"
+       x="-38.2006"
+       y="94.85762"
+       id="text2719-0-6-6-1-4-3-3"><tspan
+         sodipodi:role="line"
+         style="font-weight:bold;font-size:1.4949px;text-align:center;text-anchor:middle;fill:#f70000;fill-opacity:1;stroke-width:0.224235"
+         x="-38.2006"
+         y="94.85762"
+         id="tspan26504-5">SaRcAsM</tspan><tspan
+         sodipodi:role="line"
+         style="font-weight:bold;font-size:1.4949px;text-align:center;text-anchor:middle;fill:#f70000;fill-opacity:1;stroke-width:0.224235"
+         x="-38.2006"
+         y="96.352524"
+         id="tspan935">mOdE</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:1.4949px;line-height:1;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#f70000;fill-opacity:1;stroke-width:0.224235"
+       x="71.887306"
+       y="94.83149"
+       id="text2719-0-6-6-1-4-3-3-3"><tspan
+         sodipodi:role="line"
+         style="font-weight:bold;font-size:1.4949px;text-align:center;text-anchor:middle;fill:#f70000;fill-opacity:1;stroke-width:0.224235"
+         x="71.887306"
+         y="94.83149"
+         id="tspan935-6">Random</tspan><tspan
+         sodipodi:role="line"
+         style="font-weight:bold;font-size:1.4949px;text-align:center;text-anchor:middle;fill:#f70000;fill-opacity:1;stroke-width:0.224235"
+         x="71.887306"
+         y="96.326393"
+         id="tspan1480">Password</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:4.45425px;line-height:1.25;font-family:sans-serif;stroke-width:0.334068"
