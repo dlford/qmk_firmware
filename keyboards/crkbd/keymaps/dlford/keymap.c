@@ -425,13 +425,13 @@ void oled_render_layer_state(void) {
         default:
             if (default_layer_state - 1 == _COLEMAK) {
                 if (is_scsm_active) {
-                    oled_write_ln_P(PSTR("Colemak SCSM"), false);
+                    oled_write_ln_P(PSTR("CoLeMaK"), false);
                 } else {
                     oled_write_ln_P(PSTR("Colemak"), false);
                 }
             } else {
                 if (is_scsm_active) {
-                    oled_write_ln_P(PSTR("Qwerty SCSM"), false);
+                    oled_write_ln_P(PSTR("QwErTy"), false);
                 } else {
                     oled_write_ln_P(PSTR("Qwerty"), false);
                 }
