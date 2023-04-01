@@ -40,6 +40,17 @@ char rand_LETTERS[26] = "ABCDEFGHIJKLMNOQPRSTUYWVZX";
 char rand_symbols[8]  = "!@#$^&*?";
 char rand_password[32];
 
+// Unicode
+// clang-format off
+const ucis_symbol_t ucis_symbol_table[] = UCIS_TABLE(
+    UCIS_SYM("shrug", 0x00AF, 0x005C, 0x005F, 0x0028, 0x30C4, 0x0029, 0x005F, 0x002F, 0x00AF), // ¯\_(ツ)_/¯
+    UCIS_SYM("fliptable", 0x0028, 0x256F, 0x00B0, 0x25A1, 0x00B0, 0x0029, 0x256F, 0xFE35, 0x0020, 0x253B, 0x2501, 0x253B), // (╯°□°）╯︵ ┻━┻
+    UCIS_SYM("100", 0x1F4AF), // 💯
+    UCIS_SYM("rofl", 0x1F923), // 🤣
+    UCIS_SYM("poop", 0x1F4A9), // 💩
+);
+// clang-format on
+
 // Layers
 enum layers {
     _QWERTY = 0,
@@ -68,16 +79,6 @@ enum macro_events {
     M_RAND,
     M_UNI,
 };
-
-// clang-format off
-const ucis_symbol_t ucis_symbol_table[] = UCIS_TABLE(
-    UCIS_SYM("shrug", 0x00AF, 0x005C, 0x005F, 0x0028, 0x30C4, 0x0029, 0x005F, 0x002F, 0x00AF), // ¯\_(ツ)_/¯
-    UCIS_SYM("tableflip", 0x0028, 0x256F, 0x00B0, 0x25A1, 0x00B0, 0x0029, 0x256F, 0xFE35, 0x0020, 0x253B, 0x2501, 0x253B), // (╯°□°）╯︵ ┻━┻
-    UCIS_SYM("100", 0x1F4AF), // 💯
-    UCIS_SYM("rofl", 0x1F923), // 🤣
-    UCIS_SYM("poop", 0x1F4A9), // 💩
-);
-// clang-format on
 
 // Quantum keys / Abbreviations
 enum custom_keycodes {
