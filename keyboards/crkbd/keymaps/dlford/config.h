@@ -78,7 +78,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #  define ENABLE_RGB_MATRIX_CYCLE_OUT_IN_DUAL           // Full dual gradients scrolling out to in
 // #  define ENABLE_RGB_MATRIX_RAINBOW_MOVING_CHEVRON      // Full gradent Chevron shapped scrolling left to right
 // #  define ENABLE_RGB_MATRIX_CYCLE_PINWHEEL              // Full gradient spinning pinwheel around center of keyboard
-#  define ENABLE_RGB_MATRIX_CYCLE_SPIRAL                      // Full gradient spinning spiral around center of keyboard
+#  define ENABLE_RGB_MATRIX_CYCLE_SPIRAL                // Full gradient spinning spiral around center of keyboard
 // #  define ENABLE_RGB_MATRIX_DUAL_BEACON                 // Full gradient spinning around center of keyboard
 // #  define ENABLE_RGB_MATRIX_RAINBOW_BEACON              // Full tighter gradient spinning around center of keyboard
 // #  define ENABLE_RGB_MATRIX_RAINBOW_PINWHEELS           // Full dual gradients spinning two halfs of keyboard
@@ -86,7 +86,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #  define ENABLE_RGB_MATRIX_JELLYBEAN_RAINDROPS         // Randomly changes a single key's hue and saturation
 // #  define ENABLE_RGB_MATRIX_HUE_BREATHING               // Hue shifts up a slight ammount at the same time then shifts back
 // #  define ENABLE_RGB_MATRIX_HUE_PENDULUM                // Hue shifts up a slight ammount in a wave to the right then back to the left
-#  define ENABLE_RGB_MATRIX_HUE_WAVE                          // Hue shifts up a slight ammount and then back down in a wave to the right
+#  define ENABLE_RGB_MATRIX_HUE_WAVE                     // Hue shifts up a slight ammount and then back down in a wave to the right
+#  define ENABLE_RGB_MATRIX_PIXEL_FRACTAL                // Randomly changes a single key's hue and saturation
+// #  define ENABLE_RGB_MATRIX_PIXEL_RAIN                  // Randomly changes a single key's hue and saturation
+// #  define ENABLE_RGB_MATRIX_PIXEL_FLOW                  // Hue shifts up a slight ammount and then back down in a wave to the right
 // #    define RGB_MATRIX_FRAMEBUFFER_EFFECTS // Required for the following two effects
 // #  define ENABLE_RGB_MATRIX_TYPING_HEATMAP               // How hot is your WPM!
 // #  define ENABLE_RGB_MATRIX_DIGITAL_RAIN                 // That famous computer simulation

@@ -17,8 +17,6 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-// TODO: SaRcAsM mOdE
-
 #include QMK_KEYBOARD_H
 // #include "features/caps_word.h"
 
@@ -44,6 +42,8 @@ bool is_mouse_jiggle_active = false;
 bool mouse_jiggle_direction = false;
 uint16_t mouse_jiggle_frequency = 15000;
 uint16_t mouse_jiggle_timer = 0;
+bool is_scsm_active = false;
+bool scsm_case = false;
 
 // Init
 void keyboard_post_init_user(void) {
@@ -163,6 +163,7 @@ enum macro_events {
     M_DOT,
     M_ALT_TAB,
     M_JIGL,
+    M_SCSM,
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -185,7 +186,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     const uint8_t mods = get_mods();
     static uint8_t backstepCounter = 0;
     static bool keyDown = false;
+
     switch (keycode) {
+      case KC_A ... KC_Z:
+          if (is_scsm_active && record->event.pressed) {
+              scsm_case ? tap_code16(S(keycode)) : tap_code(keycode);
+              scsm_case = !scsm_case;
+              return false;
+          }
+          break;
       case M_ALT_TAB:
           if (record->event.pressed) {
               if (!is_alt_tab_active) {
@@ -201,11 +210,21 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       case M_JIGL:
           if (record->event.pressed) {
               is_mouse_jiggle_active = !is_mouse_jiggle_active;
+              layer_off(_MOUSE);
+              return false;
+          }
+          break;
+      case M_SCSM:
+          if (record->event.pressed) {
+              is_scsm_active = !is_scsm_active;
+              layer_off(_MACRO);
+              return false;
           }
           break;
       case M_KEYMAP:
           if (record->event.pressed) {
               SEND_STRING("https://raw.githubusercontent.com/dlford/qmk_firmware/dlford_crkbd_rp2040/keyboards/crkbd/keymaps/dlford/legends.svg");
+              layer_off(_MACRO);
           }
           return false;
       case M_EXIT:
@@ -316,9 +335,17 @@ void oled_render_layer_state(void) {
             break;
         default:
             if (default_layer_state - 1 == _COLEMAK) {
-                oled_write_ln_P(PSTR("Colemak"), false);
+                if (is_scsm_active) {
+                    oled_write_ln_P(PSTR("Colemak SCSM"), false);
+                } else {
+                    oled_write_ln_P(PSTR("Colemak"), false);
+                }
             } else {
-                oled_write_ln_P(PSTR("Qwerty"), false);
+                if (is_scsm_active) {
+                    oled_write_ln_P(PSTR("Qwerty SCSM"), false);
+                } else {
+                    oled_write_ln_P(PSTR("Qwerty"), false);
+                }
             }
     }
 
@@ -401,9 +428,15 @@ layer_state_t layer_state_set_user(layer_state_t state) {
             rgb_matrix_mode_noeeprom(secondary_animation);
             break;
         default:
-            rgb_matrix_sethsv_noeeprom(HSV_ORANGE);
-            rgb_matrix_set_speed_noeeprom(default_speed);
-            rgb_matrix_mode_noeeprom(default_animation);
+            if (is_scsm_active) {
+                rgb_matrix_sethsv_noeeprom(HSV_YELLOW);
+                rgb_matrix_set_speed_noeeprom(default_speed);
+                rgb_matrix_mode_noeeprom(RGB_MATRIX_PIXEL_FRACTAL);
+            } else {
+                rgb_matrix_sethsv_noeeprom(HSV_ORANGE);
+                rgb_matrix_set_speed_noeeprom(default_speed);
+                rgb_matrix_mode_noeeprom(default_animation);
+            }
             break;
     }
     return state;
@@ -583,7 +616,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         //|--------------------------------------------|                    |--------------------------------------------|
             XXX,     XXX,     XXX,     XXX,     XXX,                          XXX,     XXX,     XXX,     XXX,     XXX,
         //|--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
-            XXX,     XXX,     XXX,     XXX,     XXX,                          XXX,     XXX,     XXX,     XXX,     XXX,
+            XXX,     XXX,     XXX,     M_SCSM,  XXX,                          XXX,     XXX,     XXX,     XXX,     XXX,
         //|--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
             XXX,    M_EXIT,   XXX,     XXX,     XXX,                          XXX,    M_KEYMAP,  XXX,     XXX,     XXX,
         //|--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------|
