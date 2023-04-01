@@ -32,7 +32,6 @@ bool mouse_jiggle_direction = false;
 uint16_t mouse_jiggle_frequency = 15000;
 uint16_t mouse_jiggle_timer = 0;
 bool is_scsm_active = false;
-bool scsm_case = false;
 // password generator
 int rand_size = 32;
 char rand_numbers[10] = "0123456789";
@@ -255,14 +254,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     static uint8_t backstepCounter = 0;
     static bool keyDown = false;
 
+    if (is_scsm_active && record->event.pressed) {
+        tap_code(KC_CAPS);
+    }
+
     switch (keycode) {
-      case KC_A ... KC_Z:
-          if (is_scsm_active && record->event.pressed) {
-              scsm_case ? tap_code16(S(keycode)) : tap_code(keycode);
-              scsm_case = !scsm_case;
-              return false;
-          }
-          break;
       case M_RAND:
           if (record->event.pressed) {
               for(int i=0; i<rand_size; i++) {
