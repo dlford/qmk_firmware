@@ -46,9 +46,3 @@ LAYOUTS = split_3x5_3 split_3x6_3
 
 OLED_ENABLE = yes
 OLED_DRIVER = SSD1306
-
-# Link Time Optimization, saves space, disables some legacy features
-# Add the following to config.h to remove disabled features
-# #define NO_ACTION_FUNCTION
-# #define NO_ACTION_MACRO
-EXTRAFLAGS += -flto

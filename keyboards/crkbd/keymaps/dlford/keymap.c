@@ -18,7 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include QMK_KEYBOARD_H
-#include "keymap.h"
+#include "keycodes.h"
 #include "features/tap_rules.h"
 #include "features/mouse_jiggler.h"
 #include "features/sarcasm_mode.h"

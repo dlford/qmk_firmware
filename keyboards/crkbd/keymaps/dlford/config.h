@@ -21,43 +21,40 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-//#define USE_MATRIX_I2C
-
-/* Select hand configuration */
-
-// #define MASTER_LEFT
-// #define MASTER_RIGHT
 #define EE_HANDS // ./util/docker_build.sh crkbd:dlford:uf2-split-[left|right]
+
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET_TIMEOUT 150U
-
 #define USE_SERIAL_PD2
 
-#define TAPPING_TOGGLE 2 // number of taps to toggle TT
-#define TAPPING_TERM_PER_KEY // milliseconds from tap to hold for mod tap per key
+#define COMBO_TERM 30
+#define COMBO_STRICT_TIMER
+#define EXTRA_EXTRA_LONG_COMBOS
+#define TAPPING_TOGGLE 2                // number of taps to toggle TT
+#define TAPPING_TERM_PER_KEY            // milliseconds from tap to hold for mod tap per key
 #define HOLD_ON_OTHER_KEY_PRESS_PER_KEY // activate mod top hold earlier if another key is pressed per key
-#define QUICK_TAP_TERM_PER_KEY // disable double tap hold key repeat per key
+#define QUICK_TAP_TERM_PER_KEY          // disable double tap hold key repeat per key
 #define MK_KINETIC_SPEED
-#define MOUSEKEY_DELAY              100
-#define MOUSEKEY_INTERVAL           35
-#define MOUSEKEY_MOVE_DELTA         5
-#define MOUSEKEY_INITIAL_SPEED      1
-#define MOUSEKEY_DECELERATED_SPEED  10
-#define MOUSEKEY_BASE_SPEED         1200
-#define MOUSEKEY_ACCELERATED_SPEED  4800
+#define MOUSEKEY_DELAY 100
+#define MOUSEKEY_INTERVAL 35
+#define MOUSEKEY_MOVE_DELTA 5
+#define MOUSEKEY_INITIAL_SPEED 1
+#define MOUSEKEY_DECELERATED_SPEED 10
+#define MOUSEKEY_BASE_SPEED 1200
+#define MOUSEKEY_ACCELERATED_SPEED 4800
 
 #define OLED_FONT_H "keyboards/crkbd/lib/glcdfont.c"
 
 #ifdef RGB_MATRIX_ENABLE
 // #  define RGB_DISABLE_TIMEOUT 300000 // number of milliseconds to wait until disabling effects
 // #  define RGB_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
-#  define RGB_MATRIX_LED_PROCESS_LIMIT (DRIVER_LED_TOTAL + 4) / 5 // limits the number of LEDs to process in an animation per task run (increases keyboard responsiveness)
-#  define RGB_MATRIX_LED_FLUSH_LIMIT 16 // limits in milliseconds how frequently an animation will update the LEDs. 16 (16ms) is equivalent to limiting to 60fps (increases keyboard responsiveness)
-#  define RGB_MATRIX_MAXIMUM_BRIGHTNESS 150 // limits maximum brightness of LEDs to 150 out of 255. Higher may cause the controller to crash.
-#  define RGB_MATRIX_HUE_STEP 8
-#  define RGB_MATRIX_SAT_STEP 8
-#  define RGB_MATRIX_VAL_STEP 8
-#  define RGB_MATRIX_SPD_STEP 10
+#    define RGB_MATRIX_LED_PROCESS_LIMIT (DRIVER_LED_TOTAL + 4) / 5 // limits the number of LEDs to process in an animation per task run (increases keyboard responsiveness)
+#    define RGB_MATRIX_LED_FLUSH_LIMIT 16                           // limits in milliseconds how frequently an animation will update the LEDs. 16 (16ms) is equivalent to limiting to 60fps (increases keyboard responsiveness)
+#    define RGB_MATRIX_MAXIMUM_BRIGHTNESS 150                       // limits maximum brightness of LEDs to 150 out of 255. Higher may cause the controller to crash.
+#    define RGB_MATRIX_HUE_STEP 8
+#    define RGB_MATRIX_SAT_STEP 8
+#    define RGB_MATRIX_VAL_STEP 8
+#    define RGB_MATRIX_SPD_STEP 10
 
 // Enable animations
 // #  define ENABLE_RGB_MATRIX_ALPHAS_MODS                 // Static dual hue speed is hue for secondary hue
@@ -77,7 +74,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #  define ENABLE_RGB_MATRIX_CYCLE_OUT_IN_DUAL           // Full dual gradients scrolling out to in
 // #  define ENABLE_RGB_MATRIX_RAINBOW_MOVING_CHEVRON      // Full gradent Chevron shapped scrolling left to right
 // #  define ENABLE_RGB_MATRIX_CYCLE_PINWHEEL              // Full gradient spinning pinwheel around center of keyboard
-#  define ENABLE_RGB_MATRIX_CYCLE_SPIRAL                // Full gradient spinning spiral around center of keyboard
+#    define ENABLE_RGB_MATRIX_CYCLE_SPIRAL // Full gradient spinning spiral around center of keyboard
 // #  define ENABLE_RGB_MATRIX_DUAL_BEACON                 // Full gradient spinning around center of keyboard
 // #  define ENABLE_RGB_MATRIX_RAINBOW_BEACON              // Full tighter gradient spinning around center of keyboard
 // #  define ENABLE_RGB_MATRIX_RAINBOW_PINWHEELS           // Full dual gradients spinning two halfs of keyboard
@@ -85,8 +82,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #  define ENABLE_RGB_MATRIX_JELLYBEAN_RAINDROPS         // Randomly changes a single key's hue and saturation
 // #  define ENABLE_RGB_MATRIX_HUE_BREATHING               // Hue shifts up a slight ammount at the same time then shifts back
 // #  define ENABLE_RGB_MATRIX_HUE_PENDULUM                // Hue shifts up a slight ammount in a wave to the right then back to the left
-#  define ENABLE_RGB_MATRIX_HUE_WAVE                     // Hue shifts up a slight ammount and then back down in a wave to the right
-#  define ENABLE_RGB_MATRIX_PIXEL_FRACTAL                // Randomly changes a single key's hue and saturation
+#    define ENABLE_RGB_MATRIX_HUE_WAVE      // Hue shifts up a slight ammount and then back down in a wave to the right
+#    define ENABLE_RGB_MATRIX_PIXEL_FRACTAL // Randomly changes a single key's hue and saturation
 // #  define ENABLE_RGB_MATRIX_PIXEL_RAIN                  // Randomly changes a single key's hue and saturation
 // #  define ENABLE_RGB_MATRIX_PIXEL_FLOW                  // Hue shifts up a slight ammount and then back down in a wave to the right
 // #    define RGB_MATRIX_FRAMEBUFFER_EFFECTS // Required for the following two effects
@@ -107,19 +104,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #  define ENABLE_RGB_MATRIX_SOLID_SPLASH                // Hue & value pulse away from a single key hit then fades value out
 // #  define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH           // Hue & value pulse away from multiple key hits then fades value out
 #endif
-
-// Features I don't want, remove to save space
-// #define NO_ACTION_ONESHOT // Used by caps word
-#define NO_ACTION_FUNCTION
-#define NO_ACTION_MACRO
-#define NO_USB_STARTUP_CHECK
-#ifdef NKRO_ENABLE
-#  undef NKRO_ENABLE
-#endif
-
-#ifndef NO_DEBUG
-#  define NO_DEBUG
-#endif // !NO_DEBUG
-#if !defined(NO_PRINT) && !defined(CONSOLE_ENABLE)
-#  define NO_PRINT
-#endif // !NO_PRINT
