@@ -32,6 +32,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // TODO: WPM OLED
 #define SPLIT_WPM_ENABLE
 #define SPLIT_OLED_ENABLE
+#define SPLIT_USB_DETECT
 #define SPLIT_WATCHDOG_ENABLE
 
 #define COMBO_TERM 30
@@ -53,12 +54,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define OLED_FONT_H "keyboards/crkbd/lib/glcdfont.c"
 
 #ifdef RGB_MATRIX_ENABLE
-// TODO: default values, timeout, suspend, more animations
+// TODO: default values, timeout, more animations
 // #    define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_CYCLE_SPIRAL
 // #    define RGB_MATRIX_DEFAULT_HUE HSV_ORANGE
 // #    define RGB_MATRIX_DEFAULT_SPD 50
 // #    define RGB_MATRIX_TIMEOUT 300000
-// #    define RGB_DISABLE_WHEN_USB_SUSPENDED
+#    define RGB_DISABLE_WHEN_USB_SUSPENDED
 #    define ENABLE_RGB_MATRIX_FRAMEBUFFER_EFFECTS
 #    define ENABLE_RGB_MATRIX_KEYPRESSES
 #    define SPLIT_TRANSPORT_MIRROR
