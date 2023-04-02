@@ -47,13 +47,6 @@ enum layers {
     _NAVIGATION,
     _SPECIAL,
     _MOUSE,
-    _MACRO,
-};
-
-// Combos
-enum combo_events {
-    CAPS_COMBO,
-    COMBO_LENGTH,
 };
 
 // Macros
@@ -169,16 +162,126 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     }
 }
 
-uint16_t               COMBO_LEN    = COMBO_LENGTH;
-const uint16_t PROGMEM caps_combo[] = {KC_V, KC_M, COMBO_END};
-combo_t                key_combos[] = {
-    [CAPS_COMBO] = COMBO_ACTION(caps_combo),
+// Combos
+enum combo_events {
+    CAPS_COMBO,
+    QW_ESC_COMBO,
+    OP_BSPC_COMBO,
+    YSEMI_BSPC_COMBO,
+    ZX_EXIT_COMBO,
+    SA_SCSM_COMBO,
+    RA_SCSM_COMBO,
+    KM_KEYMAP_COMBO,
+    KM_KEYMAP2_COMBO,
+    PW_RAND_COMBO,
+    PW_RAND2_COMBO,
+    LSEMI_DEL_COMBO,
+    IO_DEL_COMBO,
+    COMBO_LENGTH,
 };
+
+// clang-format off
+uint16_t               COMBO_LEN          = COMBO_LENGTH;
+const uint16_t PROGMEM caps_combo[]       = {KC_V, KC_M, COMBO_END};
+const uint16_t PROGMEM qw_esc_combo[]     = {CSA_Q, CA_W, COMBO_END};
+const uint16_t PROGMEM op_bspc_combo[]    = {CA_O, CSA_P, COMBO_END};
+const uint16_t PROGMEM ysemi_bspc_combo[] = {CA_Y, CSA_SCLN, COMBO_END};
+const uint16_t PROGMEM zx_exit_combo[]    = {KC_Z, KC_X, COMBO_END};
+const uint16_t PROGMEM sa_scsm_combo[]    = {LGUI_A, LALT_S, COMBO_END};
+const uint16_t PROGMEM ra_scsm_combo[]    = {LGUI_A, LALT_R, COMBO_END};
+const uint16_t PROGMEM km_keymap_combo[]  = {RCTL_K, KC_M, COMBO_END};
+const uint16_t PROGMEM km_keymap2_combo[] = {KC_K, KC_M, COMBO_END};
+const uint16_t PROGMEM pw_rand_combo[]    = {CSA_P, CA_W, COMBO_END};
+const uint16_t PROGMEM pw_rand2_combo[]   = {KC_P, CA_W, COMBO_END};
+const uint16_t PROGMEM lsemi_del_combo[]  = {RALT_L, RGUI_SCLN, COMBO_END};
+const uint16_t PROGMEM io_del_combo[]     = {RALT_I, RGUI_O, COMBO_END};
+combo_t                key_combos[]       = {
+    [CAPS_COMBO]       = COMBO_ACTION(caps_combo),
+    [QW_ESC_COMBO]     = COMBO_ACTION(qw_esc_combo),
+    [OP_BSPC_COMBO]    = COMBO_ACTION(op_bspc_combo),
+    [YSEMI_BSPC_COMBO] = COMBO_ACTION(ysemi_bspc_combo),
+    [ZX_EXIT_COMBO]    = COMBO_ACTION(zx_exit_combo),
+    [SA_SCSM_COMBO]    = COMBO_ACTION(sa_scsm_combo),
+    [RA_SCSM_COMBO]    = COMBO_ACTION(ra_scsm_combo),
+    [KM_KEYMAP_COMBO]  = COMBO_ACTION(km_keymap_combo),
+    [KM_KEYMAP2_COMBO] = COMBO_ACTION(km_keymap2_combo),
+    [PW_RAND_COMBO]    = COMBO_ACTION(pw_rand_combo),
+    [PW_RAND2_COMBO]   = COMBO_ACTION(pw_rand2_combo),
+    [LSEMI_DEL_COMBO]  = COMBO_ACTION(lsemi_del_combo),
+    [IO_DEL_COMBO]     = COMBO_ACTION(io_del_combo),
+};
+// clang-format on
+
 void process_combo_event(uint16_t combo_index, bool pressed) {
     switch (combo_index) {
         case CAPS_COMBO:
             if (pressed) {
                 caps_word_on();
+            }
+            break;
+        case QW_ESC_COMBO:
+            if (pressed) {
+                tap_code(KC_ESC);
+            }
+            break;
+        case OP_BSPC_COMBO:
+        case YSEMI_BSPC_COMBO:
+            if (pressed) {
+                tap_code(KC_BSPC);
+            }
+            break;
+        case ZX_EXIT_COMBO:
+            if (pressed) {
+                SEND_STRING("exit");
+                tap_code(KC_ENT);
+            }
+            break;
+        case SA_SCSM_COMBO:
+        case RA_SCSM_COMBO:
+            if (pressed) {
+                is_scsm_active = !is_scsm_active;
+                // trigger RGB layer change
+                layer_on(_MOUSE);
+                layer_off(_MOUSE);
+                if (!is_scsm_active && host_keyboard_led_state().caps_lock) {
+                    tap_code(KC_CAPS);
+                }
+            }
+            break;
+        case KM_KEYMAP_COMBO:
+        case KM_KEYMAP2_COMBO:
+            if (pressed) {
+                SEND_STRING("https://raw.githubusercontent.com/dlford/qmk_firmware/dlford_crkbd_rp2040/keyboards/crkbd/keymaps/dlford/legends.svg");
+            }
+            break;
+        case PW_RAND_COMBO:
+        case PW_RAND2_COMBO:
+            if (pressed) {
+                for (int i = 0; i < rand_size; i++) {
+                    int rand_type = rand() % 4;
+                    switch (rand_type) {
+                        case 0:
+                            rand_password[i] = rand_numbers[rand() % 10];
+                            break;
+                        case 1:
+                            rand_password[i] = rand_letters[rand() % 26];
+                            break;
+                        case 2:
+                            rand_password[i] = rand_LETTERS[rand() % 26];
+                            break;
+                        case 3:
+                            rand_password[i] = rand_symbols[rand() % 8];
+                            break;
+                    }
+                }
+                SEND_STRING(rand_password);
+                rand_password[0] = '\0';
+            }
+            break;
+        case LSEMI_DEL_COMBO:
+        case IO_DEL_COMBO:
+            if (pressed) {
+                tap_code(KC_DEL);
             }
             break;
     }
@@ -261,31 +364,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
 
     switch (keycode) {
-        case M_RAND:
-            if (record->event.pressed) {
-                for (int i = 0; i < rand_size; i++) {
-                    int rand_type = rand() % 4;
-                    switch (rand_type) {
-                        case 0:
-                            rand_password[i] = rand_numbers[rand() % 10];
-                            break;
-                        case 1:
-                            rand_password[i] = rand_letters[rand() % 26];
-                            break;
-                        case 2:
-                            rand_password[i] = rand_LETTERS[rand() % 26];
-                            break;
-                        case 3:
-                            rand_password[i] = rand_symbols[rand() % 8];
-                            break;
-                    }
-                }
-                SEND_STRING(rand_password);
-                rand_password[0] = '\0';
-                layer_off(_MACRO);
-                return false;
-            }
-            break;
         case M_ALT_TAB:
             if (record->event.pressed) {
                 if (!is_alt_tab_active) {
@@ -305,25 +383,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 return false;
             }
             break;
-        case M_SCSM:
-            if (record->event.pressed) {
-                is_scsm_active = !is_scsm_active;
-                layer_off(_MACRO);
-                return false;
-            }
-            break;
-        case M_KEYMAP:
-            if (record->event.pressed) {
-                SEND_STRING("https://raw.githubusercontent.com/dlford/qmk_firmware/dlford_crkbd_rp2040/keyboards/crkbd/keymaps/dlford/legends.svg");
-                layer_off(_MACRO);
-            }
-            return false;
-        case M_EXIT:
-            if (record->event.pressed) {
-                SEND_STRING("exit");
-                tap_code(KC_ENT);
-            }
-            return false;
         case M_COMM:
             if (record->event.pressed) {
                 if ((mods & MOD_BIT(KC_LCTL)) && (mods & MOD_BIT(KC_LSFT) && (mods & MOD_BIT(KC_LALT)))) {
@@ -420,9 +479,6 @@ void oled_render_layer_state(void) {
         case _MOUSE:
             oled_write_ln_P(PSTR("Mouse"), false);
             break;
-        case _MACRO:
-            oled_write_ln_P(PSTR("Macro"), false);
-            break;
         default:
             if (default_layer_state - 1 == _COLEMAK) {
                 if (is_scsm_active) {
@@ -507,11 +563,6 @@ layer_state_t layer_state_set_user(layer_state_t state) {
             break;
         case _MOUSE:
             rgb_matrix_sethsv_noeeprom(HSV_GREEN);
-            rgb_matrix_set_speed_noeeprom(secondary_speed);
-            rgb_matrix_mode_noeeprom(secondary_animation);
-            break;
-        case _MACRO:
-            rgb_matrix_sethsv_noeeprom(HSV_RED);
             rgb_matrix_set_speed_noeeprom(secondary_speed);
             rgb_matrix_mode_noeeprom(secondary_animation);
             break;
@@ -611,7 +662,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		//|--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
 		 LGUI_FIND,LALT_HOME,LCTL_PGUP,LSFT_PGDN,KC_END,                     KC_LEFT,RSFT_DOWN,RCTL_UP,RALT_RGHT,RGUI_F11,
 		//|--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
-		 DF_QWERTY,DF_COLEMAK,KC_VOLD, KC_VOLU, TG(_MACRO),                 M_ALT_TAB, KC_MPLY, KC_MPRV, KC_MNXT, KC_F12,
+		 DF_QWERTY,DF_COLEMAK,KC_VOLD, KC_VOLU, QK_BOOT,                     M_ALT_TAB, KC_MPLY, KC_MPRV, KC_MNXT, KC_F12,
 		//|--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------|
 										VVV,  TG(_MOUSE), VVV,         VVV,    VVV,     VVV
 		//                           |--------+--------+--------|  |--------+--------+--------|
@@ -623,7 +674,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		//|--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
 		   LGUI_GRV,KC_LALT,LCTL_LBRC,LSFT_RBRC,KC_LPRN,                     KC_RPRN,RSFT_MINS,RCTL_EQL,RALT_BSLS,RGUI_QUOT,
 		//|--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
-			KC_TILD, KC_CAPS, KC_LCBR, KC_RCBR, M_ALT_TAB,                TG(_MACRO),  KC_UNDS, KC_PLUS, KC_PIPE, KC_DQUO,
+		   KC_TILD, KC_CAPS, KC_LCBR, KC_RCBR, M_ALT_TAB,                    QK_BOOT,  KC_UNDS, KC_PLUS, KC_PIPE, KC_DQUO,
 		//|--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------|
 										VVV,     VVV,     VVV,        VVV,  TG(_MOUSE),  VVV
 		//                           |--------+--------+--------|  |--------+--------+--------|
@@ -637,17 +688,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 			 XXX,   KC_BTN3, KC_BTN2, KC_BTN1,  M_JIGL,                       M_JIGL,   XXX,     XXX,     XXX,     XXX,
 		//|--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------|
 										VVV,  TG(_MOUSE),  VVV,       VVV,  TG(_MOUSE),  VVV
-		//                           |--------+--------+--------|  |--------+--------+--------|
-	),
-	[_MACRO] = LAYOUT_split_3x5_3(
-		//|--------------------------------------------|                    |--------------------------------------------|
-			XXX,     XXX,     XXX,     XXX,     XXX,                          XXX,     XXX,      XXX,     XXX,     XXX,
-		//|--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
-			XXX,     XXX,     XXX,     M_SCSM,  XXX,                          XXX,     M_RAND,   XXX,     XXX,     XXX,
-		//|--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
-			XXX,    M_EXIT,   XXX,     XXX,     XXX,                          XXX,    M_KEYMAP,  XXX,     XXX,     XXX,
-		//|--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------|
-										XXX,  TG(_MACRO),  XXX,       XXX,  TG(_MACRO),  XXX
 		//                           |--------+--------+--------|  |--------+--------+--------|
 	),
 };
