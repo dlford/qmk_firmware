@@ -23,6 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 enum combo_events {
     CAPS_COMBO,
+    CAPS2_COMBO,
     QW_ESC_COMBO,
     OP_BSPC_COMBO,
     YSEMI_BSPC_COMBO,
@@ -53,7 +54,9 @@ enum combo_events {
 };
 
 uint16_t               COMBO_LEN               = COMBO_LENGTH;
-const uint16_t PROGMEM caps_combo[]            = {KC_V, KC_M, COMBO_END};
+
+const uint16_t PROGMEM caps_combo[]            = {LSFT_F, RSFT_J, COMBO_END};
+const uint16_t PROGMEM caps2_combo[]           = {_LSFT_T, RSFT_N, COMBO_END};
 const uint16_t PROGMEM qw_esc_combo[]          = {CSA_Q, CA_W, COMBO_END};
 const uint16_t PROGMEM op_bspc_combo[]         = {CA_O, CSA_P, COMBO_END};
 const uint16_t PROGMEM ysemi_bspc_combo[]      = {CA_Y, CSA_SCLN, COMBO_END};
@@ -83,6 +86,7 @@ const uint16_t PROGMEM skinny_arrow2_combo[]   = {RSFT_N, KC_DOT, COMBO_END};
 
 combo_t key_combos[] = {
     [CAPS_COMBO]            = COMBO_ACTION(caps_combo),
+    [CAPS2_COMBO]           = COMBO_ACTION(caps2_combo),
     [QW_ESC_COMBO]          = COMBO_ACTION(qw_esc_combo),
     [OP_BSPC_COMBO]         = COMBO_ACTION(op_bspc_combo),
     [YSEMI_BSPC_COMBO]      = COMBO_ACTION(ysemi_bspc_combo),
@@ -114,6 +118,7 @@ combo_t key_combos[] = {
 void process_combo_event(uint16_t combo_index, bool pressed) {
     switch (combo_index) {
         case CAPS_COMBO:
+        case CAPS2_COMBO:
             if (pressed) {
                 caps_word_on();
             }
