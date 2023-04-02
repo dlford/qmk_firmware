@@ -49,6 +49,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define ENABLE_RGB_MATRIX_FRAMEBUFFER_EFFECTS
 #    define ENABLE_RGB_MATRIX_KEYPRESSES
 #    define ENABLE_RGB_MATRIX_KEYRELEASES
+#    define RGB_MATRIX_SOLID_REACTIVE_GRADIENT_MODE
 #    define ENABLE_RGB_MATRIX_SOLID_COLOR               // Static single hue, no speed support
 #    define ENABLE_RGB_MATRIX_ALPHAS_MODS               // Static dual hue, speed is hue for secondary hue
 #    define ENABLE_RGB_MATRIX_GRADIENT_UP_DOWN          // Static gradient top to bottom, speed controls how much gradient changes
