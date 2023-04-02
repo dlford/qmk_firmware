@@ -1,3 +1,13 @@
+SRC += features/random_password.c
+SRC += features/tap_rules.c
+SRC += features/combos.c
+SRC += features/mouse_jiggler.c
+SRC += features/sarcasm_mode.c
+SRC += features/rgb_timeout.c
+SRC += features/alt_tab.c
+SRC += features/oled.c
+SRC += features/rgb_matrix.c
+
 BOARD = GENERIC_RP_RP2040
 CONVERT_TO = kb2040
 
