@@ -32,6 +32,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // TODO: WPM OLED
 #define SPLIT_WPM_ENABLE
 #define SPLIT_OLED_ENABLE
+#define SPLIT_WATCHDOG_ENABLE
 
 #define COMBO_TERM 30
 #define COMBO_STRICT_TIMER
