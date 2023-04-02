@@ -23,7 +23,6 @@ INDICATOR_LIGHTS = yes      # Enable indicator lights for caps lock, etc.
 # KEY_OVERRIDE_ENABLE = yes   # Override key combos
 COMBO_ENABLE = yes          # Custom key combos
 CAPS_WORD_ENABLE = yes      # Caps Lock + Word = Upper Case
-UCIS_ENABLE = yes           # Unicode input
 
 # if firmware size over limit, try this option
 # LTO_ENABLE = yes

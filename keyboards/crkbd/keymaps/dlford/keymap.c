@@ -40,17 +40,6 @@ char rand_LETTERS[26] = "ABCDEFGHIJKLMNOQPRSTUYWVZX";
 char rand_symbols[8]  = "!@#$^&*?";
 char rand_password[32];
 
-// Unicode
-// clang-format off
-const ucis_symbol_t ucis_symbol_table[] = UCIS_TABLE(
-    UCIS_SYM("shrug", 0x00AF, 0x005C, 0x005F, 0x0028, 0x30C4, 0x0029, 0x005F, 0x002F, 0x00AF), // ¯\_(ツ)_/¯
-    UCIS_SYM("fliptable", 0x0028, 0x256F, 0x00B0, 0x25A1, 0x00B0, 0x0029, 0x256F, 0xFE35, 0x0020, 0x253B, 0x2501, 0x253B), // (╯°□°）╯︵ ┻━┻
-    UCIS_SYM("100", 0x1F4AF), // 💯
-    UCIS_SYM("rofl", 0x1F923), // 🤣
-    UCIS_SYM("poop", 0x1F4A9), // 💩
-);
-// clang-format on
-
 // Layers
 enum layers {
     _QWERTY = 0,
@@ -77,7 +66,6 @@ enum macro_events {
     M_JIGL,
     M_SCSM,
     M_RAND,
-    M_UNI,
 };
 
 // Quantum keys / Abbreviations
@@ -298,10 +286,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 return false;
             }
             break;
-        case M_UNI:
-            ucis_start();
-            layer_off(_MACRO);
-            return false;
         case M_ALT_TAB:
             if (record->event.pressed) {
                 if (!is_alt_tab_active) {
@@ -423,7 +407,6 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 }
 
 void oled_render_layer_state(void) {
-    oled_write_P(PSTR("Layer: "), false);
     switch (get_highest_layer(layer_state)) {
         case _COLEMAK:
             oled_write_ln_P(PSTR("Colemak"), false);
@@ -658,15 +641,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	),
 	[_MACRO] = LAYOUT_split_3x5_3(
 		//|--------------------------------------------|                    |--------------------------------------------|
-			XXX,     XXX,   UC_MAC,  UC_WINC,  UC_LINX,                       XXX,     XXX,     XXX,     XXX,     XXX,
+			XXX,     XXX,     XXX,     XXX,     XXX,                          XXX,     XXX,      XXX,     XXX,     XXX,
 		//|--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
 			XXX,     XXX,     XXX,     M_SCSM,  XXX,                          XXX,     M_RAND,   XXX,     XXX,     XXX,
 		//|--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
-			XXX,    M_EXIT,   XXX,     XXX,     M_UNI,                        M_UNI,  M_KEYMAP,  XXX,     XXX,     XXX,
+			XXX,    M_EXIT,   XXX,     XXX,     XXX,                          XXX,    M_KEYMAP,  XXX,     XXX,     XXX,
 		//|--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------|
 										XXX,  TG(_MACRO),  XXX,       XXX,  TG(_MACRO),  XXX
 		//                           |--------+--------+--------|  |--------+--------+--------|
 	),
 };
-
 // clang-format on
