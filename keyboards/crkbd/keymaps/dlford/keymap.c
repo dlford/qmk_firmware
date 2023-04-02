@@ -26,6 +26,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "features/alt_tab.h"
 #include "features/oled.h"
 #include "features/rgb_matrix.h"
+#include "features/custom_eeprom.h"
 
 bool is_macro_recording  = false;
 bool is_caps_word_active = false;
@@ -42,6 +43,15 @@ void dynamic_macro_record_end_user(int8_t direction) {
     is_macro_recording = false;
 }
 
+void eeconfig_init_user(void) {
+    eeconfig_init_custom_eeprom();
+}
+
+void keyboard_post_init_user(void) {
+    read_user_config();
+    keyboard_post_init_rgb_matrix();
+}
+
 void matrix_scan_user(void) {
     matrix_scan_rgb_timeout();
     matrix_scan_mouse_jiggler();
@@ -55,6 +65,29 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case M_ALT_TAB:
             start_alt_tab(record);
+            break;
+        case M_RGB_SPD:
+            if (record->event.pressed) {
+                if (keyboard_report->mods & MOD_BIT(KC_LSFT) || keyboard_report->mods & MOD_BIT(KC_RSFT)) {
+                    user_config.rgb_speed = (user_config.rgb_speed - 10) % 256;
+                    rgb_matrix_set_speed_noeeprom(user_config.rgb_speed);
+                    write_user_config();
+                } else {
+                    user_config.rgb_speed = (user_config.rgb_speed + 10) % 256;
+                    rgb_matrix_set_speed_noeeprom(user_config.rgb_speed);
+                    write_user_config();
+                }
+            }
+            break;
+        case M_RST_RGB:
+            if (record->event.pressed) {
+                layer_off(_MOUSE);
+                rgb_matrix_mode(RGB_MATRIX_CYCLE_SPIRAL);
+                rgb_matrix_sethsv(HSV_ORANGE);
+                user_config.rgb_speed = 50;
+                rgb_matrix_set_speed_noeeprom(user_config.rgb_speed);
+                write_user_config();
+            }
             break;
     }
 
@@ -104,7 +137,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		//|--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
 		 LGUI_FIND,LALT_HOME,LCTL_PGUP,LSFT_PGDN,KC_END,                     KC_LEFT,RSFT_DOWN,RCTL_UP,RALT_RGHT,RGUI_F11,
 		//|--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
-		    XXX,     XXX,    KC_VOLD, KC_VOLU, QK_BOOT,                     M_ALT_TAB, KC_MPLY, KC_MPRV, KC_MNXT, KC_F12,
+	     M_RGB_SPD, RGB_HUI, KC_VOLD, KC_VOLU,  RGB_MOD,                     M_ALT_TAB, KC_MPLY, KC_MPRV, KC_MNXT, KC_F12,
 		//|--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------|
 										VVV,  TG(_MOUSE), VVV,         VVV,    VVV,     VVV
 		//                           |--------+--------+--------|  |--------+--------+--------|
@@ -115,7 +148,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		//|--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
 			KC_WH_D, KC_MS_L, KC_MS_D, KC_MS_R, DM_PLY1,                      KC_WREF, KC_BTN1, KC_BTN2, KC_BTN3, KC_WBAK,
 		//|--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
-			 XXX,   KC_BTN3, KC_BTN2, KC_BTN1,  XXX,                          XXX,     XXX,     XXX,     XXX,     XXX,
+		    XXX,    KC_BTN3, KC_BTN2, KC_BTN1, M_RST_RGB,                     XXX,     XXX,     XXX,     XXX,     XXX,
 		//|--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------|
 										VVV,  TG(_MOUSE),  VVV,       VVV,  TG(_MOUSE),  VVV
 		//                           |--------+--------+--------|  |--------+--------+--------|

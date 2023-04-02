@@ -15,8 +15,30 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#pragma once
+#include QMK_KEYBOARD_H
+#include "eeconfig.h"
+#include "eeprom.h"
+#include "progmem.h"
 
-void          keyboard_post_init_rgb_matrix(void);
-layer_state_t layer_state_set_user(layer_state_t state);
-bool          rgb_matrix_indicators_user(void);
+typedef union {
+    uint32_t raw;
+    struct {
+        uint8_t rgb_speed : 8;
+    };
+} user_config_t;
+
+extern user_config_t user_config;
+
+void eeconfig_init_custom_eeprom(void) {
+    user_config.raw       = 0;
+    user_config.rgb_speed = 50;
+    eeconfig_update_user(user_config.raw);
+}
+
+void read_user_config(void) {
+    user_config.raw = eeconfig_read_user();
+}
+
+void write_user_config(void) {
+    eeconfig_update_user(user_config.raw);
+}

@@ -1,4 +1,6 @@
 /*
+This is the c configuration file for the keymap
+
 Copyright 2023 @dlford
 
 This program is free software: you can redistribute it and/or modify
@@ -17,6 +19,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-void          keyboard_post_init_rgb_matrix(void);
-layer_state_t layer_state_set_user(layer_state_t state);
-bool          rgb_matrix_indicators_user(void);
+typedef union {
+    uint32_t raw;
+    struct {
+        uint8_t rgb_speed : 8;
+    };
+} user_config_t;
+
+extern user_config_t user_config;
+
+void eeconfig_init_custom_eeprom(void);
+void read_user_config(void);
+void write_user_config(void);

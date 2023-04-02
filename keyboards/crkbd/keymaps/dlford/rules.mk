@@ -7,6 +7,7 @@ SRC += features/rgb_timeout.c
 SRC += features/alt_tab.c
 SRC += features/oled.c
 SRC += features/rgb_matrix.c
+SRC += features/custom_eeprom.c
 
 BOARD = GENERIC_RP_RP2040
 CONVERT_TO = kb2040

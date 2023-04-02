@@ -32,6 +32,8 @@ enum macro_events {
     M_KEYMAP = 0,
     M_EXIT,
     M_ALT_TAB,
+    M_RST_RGB,
+    M_RGB_SPD,
 };
 
 #define VVV KC_TRNS
