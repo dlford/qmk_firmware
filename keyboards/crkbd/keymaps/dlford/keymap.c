@@ -56,7 +56,6 @@ enum macro_events {
     M_COMM,
     M_DOT,
     M_ALT_TAB,
-    M_JIGL,
     M_SCSM,
     M_RAND,
 };
@@ -177,38 +176,41 @@ enum combo_events {
     PW_RAND2_COMBO,
     LSEMI_DEL_COMBO,
     IO_DEL_COMBO,
+    DOTSLASH_JIGGLE_COMBO,
     COMBO_LENGTH,
 };
 
 // clang-format off
-uint16_t               COMBO_LEN          = COMBO_LENGTH;
-const uint16_t PROGMEM caps_combo[]       = {KC_V, KC_M, COMBO_END};
-const uint16_t PROGMEM qw_esc_combo[]     = {CSA_Q, CA_W, COMBO_END};
-const uint16_t PROGMEM op_bspc_combo[]    = {CA_O, CSA_P, COMBO_END};
-const uint16_t PROGMEM ysemi_bspc_combo[] = {CA_Y, CSA_SCLN, COMBO_END};
-const uint16_t PROGMEM zx_exit_combo[]    = {KC_Z, KC_X, COMBO_END};
-const uint16_t PROGMEM sa_scsm_combo[]    = {LGUI_A, LALT_S, COMBO_END};
-const uint16_t PROGMEM ra_scsm_combo[]    = {LGUI_A, LALT_R, COMBO_END};
-const uint16_t PROGMEM km_keymap_combo[]  = {RCTL_K, KC_M, COMBO_END};
-const uint16_t PROGMEM km_keymap2_combo[] = {KC_K, KC_M, COMBO_END};
-const uint16_t PROGMEM pw_rand_combo[]    = {CSA_P, CA_W, COMBO_END};
-const uint16_t PROGMEM pw_rand2_combo[]   = {KC_P, CA_W, COMBO_END};
-const uint16_t PROGMEM lsemi_del_combo[]  = {RALT_L, RGUI_SCLN, COMBO_END};
-const uint16_t PROGMEM io_del_combo[]     = {RALT_I, RGUI_O, COMBO_END};
+uint16_t               COMBO_LEN               = COMBO_LENGTH;
+const uint16_t PROGMEM caps_combo[]            = {KC_V, KC_M, COMBO_END};
+const uint16_t PROGMEM qw_esc_combo[]          = {CSA_Q, CA_W, COMBO_END};
+const uint16_t PROGMEM op_bspc_combo[]         = {CA_O, CSA_P, COMBO_END};
+const uint16_t PROGMEM ysemi_bspc_combo[]      = {CA_Y, CSA_SCLN, COMBO_END};
+const uint16_t PROGMEM zx_exit_combo[]         = {KC_Z, KC_X, COMBO_END};
+const uint16_t PROGMEM sa_scsm_combo[]         = {LGUI_A, LALT_S, COMBO_END};
+const uint16_t PROGMEM ra_scsm_combo[]         = {LGUI_A, LALT_R, COMBO_END};
+const uint16_t PROGMEM km_keymap_combo[]       = {RCTL_K, KC_M, COMBO_END};
+const uint16_t PROGMEM km_keymap2_combo[]      = {KC_K, KC_M, COMBO_END};
+const uint16_t PROGMEM pw_rand_combo[]         = {CSA_P, CA_W, COMBO_END};
+const uint16_t PROGMEM pw_rand2_combo[]        = {KC_P, CA_W, COMBO_END};
+const uint16_t PROGMEM lsemi_del_combo[]       = {RALT_L, RGUI_SCLN, COMBO_END};
+const uint16_t PROGMEM io_del_combo[]          = {RALT_I, RGUI_O, COMBO_END};
+const uint16_t PROGMEM dotslash_jiggle_combo[] = {M_DOT, KC_SLSH, COMBO_END};
 combo_t                key_combos[]       = {
-    [CAPS_COMBO]       = COMBO_ACTION(caps_combo),
-    [QW_ESC_COMBO]     = COMBO_ACTION(qw_esc_combo),
-    [OP_BSPC_COMBO]    = COMBO_ACTION(op_bspc_combo),
-    [YSEMI_BSPC_COMBO] = COMBO_ACTION(ysemi_bspc_combo),
-    [ZX_EXIT_COMBO]    = COMBO_ACTION(zx_exit_combo),
-    [SA_SCSM_COMBO]    = COMBO_ACTION(sa_scsm_combo),
-    [RA_SCSM_COMBO]    = COMBO_ACTION(ra_scsm_combo),
-    [KM_KEYMAP_COMBO]  = COMBO_ACTION(km_keymap_combo),
-    [KM_KEYMAP2_COMBO] = COMBO_ACTION(km_keymap2_combo),
-    [PW_RAND_COMBO]    = COMBO_ACTION(pw_rand_combo),
-    [PW_RAND2_COMBO]   = COMBO_ACTION(pw_rand2_combo),
-    [LSEMI_DEL_COMBO]  = COMBO_ACTION(lsemi_del_combo),
-    [IO_DEL_COMBO]     = COMBO_ACTION(io_del_combo),
+    [CAPS_COMBO]            = COMBO_ACTION(caps_combo),
+    [QW_ESC_COMBO]          = COMBO_ACTION(qw_esc_combo),
+    [OP_BSPC_COMBO]         = COMBO_ACTION(op_bspc_combo),
+    [YSEMI_BSPC_COMBO]      = COMBO_ACTION(ysemi_bspc_combo),
+    [ZX_EXIT_COMBO]         = COMBO_ACTION(zx_exit_combo),
+    [SA_SCSM_COMBO]         = COMBO_ACTION(sa_scsm_combo),
+    [RA_SCSM_COMBO]         = COMBO_ACTION(ra_scsm_combo),
+    [KM_KEYMAP_COMBO]       = COMBO_ACTION(km_keymap_combo),
+    [KM_KEYMAP2_COMBO]      = COMBO_ACTION(km_keymap2_combo),
+    [PW_RAND_COMBO]         = COMBO_ACTION(pw_rand_combo),
+    [PW_RAND2_COMBO]        = COMBO_ACTION(pw_rand2_combo),
+    [LSEMI_DEL_COMBO]       = COMBO_ACTION(lsemi_del_combo),
+    [IO_DEL_COMBO]          = COMBO_ACTION(io_del_combo),
+    [DOTSLASH_JIGGLE_COMBO] = COMBO_ACTION(dotslash_jiggle_combo),
 };
 // clang-format on
 
@@ -282,6 +284,11 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
         case IO_DEL_COMBO:
             if (pressed) {
                 tap_code(KC_DEL);
+            }
+            break;
+        case DOTSLASH_JIGGLE_COMBO:
+            if (pressed) {
+                is_mouse_jiggle_active = !is_mouse_jiggle_active;
             }
             break;
     }
@@ -374,13 +381,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 register_code(KC_TAB);
             } else {
                 unregister_code(KC_TAB);
-            }
-            break;
-        case M_JIGL:
-            if (record->event.pressed) {
-                is_mouse_jiggle_active = !is_mouse_jiggle_active;
-                layer_off(_MOUSE);
-                return false;
             }
             break;
         case M_COMM:
@@ -685,7 +685,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		//|--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
 			KC_WH_D, KC_MS_L, KC_MS_D, KC_MS_R, DM_PLY1,                      KC_WREF, KC_BTN1, KC_BTN2, KC_BTN3, KC_WBAK,
 		//|--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
-			 XXX,   KC_BTN3, KC_BTN2, KC_BTN1,  M_JIGL,                       M_JIGL,   XXX,     XXX,     XXX,     XXX,
+			 XXX,   KC_BTN3, KC_BTN2, KC_BTN1,  XXX,                          XXX,     XXX,     XXX,     XXX,     XXX,
 		//|--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------|
 										VVV,  TG(_MOUSE),  VVV,       VVV,  TG(_MOUSE),  VVV
 		//                           |--------+--------+--------|  |--------+--------+--------|
