@@ -44,8 +44,8 @@ char rand_password[32];
 enum layers {
     _QWERTY = 0,
     _COLEMAK,
-    _NAVIGATION,
     _SPECIAL,
+    _NAVIGATION,
     _MOUSE,
 };
 
@@ -470,11 +470,11 @@ void oled_render_layer_state(void) {
         case _COLEMAK:
             oled_write_ln_P(PSTR("Colemak"), false);
             break;
-        case _NAVIGATION:
-            oled_write_ln_P(PSTR("Navigation"), false);
-            break;
         case _SPECIAL:
             oled_write_ln_P(PSTR("Special"), false);
+            break;
+        case _NAVIGATION:
+            oled_write_ln_P(PSTR("Navigation"), false);
             break;
         case _MOUSE:
             oled_write_ln_P(PSTR("Mouse"), false);
@@ -655,19 +655,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 									   KC_ESC,  LT3_SPC, KC_BSPC,    KC_DEL, LT2_TAB,  KC_ENT
 		//                           |--------+--------+--------|  |--------+--------+--------|
 	),
-	// right thumb >
-	[_NAVIGATION] = LAYOUT_split_3x5_3(
-		//|--------------------------------------------|                    |--------------------------------------------|
-			CSA_F1,  CA_F2,   CS_F3,   KC_F4,   KC_F5,                        KC_F6,   KC_F7,   CS_F8,  CA_F9,   CSA_F10,
-		//|--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
-		 LGUI_FIND,LALT_HOME,LCTL_PGUP,LSFT_PGDN,KC_END,                     KC_LEFT,RSFT_DOWN,RCTL_UP,RALT_RGHT,RGUI_F11,
-		//|--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
-		 DF_QWERTY,DF_COLEMAK,KC_VOLD, KC_VOLU, QK_BOOT,                     M_ALT_TAB, KC_MPLY, KC_MPRV, KC_MNXT, KC_F12,
-		//|--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------|
-										VVV,  TG(_MOUSE), VVV,         VVV,    VVV,     VVV
-		//                           |--------+--------+--------|  |--------+--------+--------|
-	),
-	// < left thumb
+	// left thumb
 	[_SPECIAL] = LAYOUT_split_3x5_3(
 		//|--------------------------------------------|                    |--------------------------------------------|
 			CSA_1,   CA_2,    CS_3,    KC_4,    KC_5,                         KC_6,    KC_7,    CS_8,    CA_9,    CSA_0,
@@ -677,6 +665,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		   KC_TILD, KC_CAPS, KC_LCBR, KC_RCBR, M_ALT_TAB,                    QK_BOOT,  KC_UNDS, KC_PLUS, KC_PIPE, KC_DQUO,
 		//|--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------|
 										VVV,     VVV,     VVV,        VVV,  TG(_MOUSE),  VVV
+		//                           |--------+--------+--------|  |--------+--------+--------|
+	),
+	// right thumb
+	[_NAVIGATION] = LAYOUT_split_3x5_3(
+		//|--------------------------------------------|                    |--------------------------------------------|
+			CSA_F1,  CA_F2,   CS_F3,   KC_F4,   KC_F5,                        KC_F6,   KC_F7,   CS_F8,  CA_F9,   CSA_F10,
+		//|--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
+		 LGUI_FIND,LALT_HOME,LCTL_PGUP,LSFT_PGDN,KC_END,                     KC_LEFT,RSFT_DOWN,RCTL_UP,RALT_RGHT,RGUI_F11,
+		//|--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
+		 DF_QWERTY,DF_COLEMAK,KC_VOLD, KC_VOLU, QK_BOOT,                     M_ALT_TAB, KC_MPLY, KC_MPRV, KC_MNXT, KC_F12,
+		//|--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------|
+										VVV,  TG(_MOUSE), VVV,         VVV,    VVV,     VVV
 		//                           |--------+--------+--------|  |--------+--------+--------|
 	),
 	[_MOUSE] = LAYOUT_split_3x5_3(
