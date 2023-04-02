@@ -62,64 +62,62 @@ enum macro_events {
 
 // Quantum keys / Abbreviations
 enum custom_keycodes {
-    VVV        = KC_TRNS,
-    XXX        = KC_NO,
-    CSA_Q      = MEH_T(KC_Q),
-    CSA_F1     = MEH_T(KC_F1),
-    CSA_1      = MEH_T(KC_1),
-    CA_W       = LCA_T(KC_W),
-    CA_F2      = LCA_T(KC_F2),
-    CA_2       = LCA_T(KC_2),
-    CS_E       = C_S_T(KC_E),
-    CS_F       = C_S_T(KC_F),
-    CS_I       = C_S_T(KC_I),
-    CS_U       = C_S_T(KC_U),
-    CS_F3      = C_S_T(KC_F3),
-    CS_3       = C_S_T(KC_3),
-    CS_F8      = C_S_T(KC_F8),
-    CS_8       = C_S_T(KC_8),
-    CA_O       = LCA_T(KC_O),
-    CA_Y       = LCA_T(KC_Y),
-    CA_F9      = LCA_T(KC_F9),
-    CA_9       = LCA_T(KC_9),
-    CSA_P      = MEH_T(KC_P),
-    CSA_SCLN   = MEH_T(KC_SCLN),
-    CSA_F10    = MEH_T(KC_F10),
-    CSA_0      = MEH_T(KC_0),
-    LGUI_A     = LGUI_T(KC_A),
-    LGUI_FIND  = LGUI_T(KC_FIND),
-    LGUI_GRV   = LGUI_T(KC_GRV),
-    LALT_S     = LALT_T(KC_S),
-    LALT_R     = LALT_T(KC_R),
-    LALT_HOME  = LALT_T(KC_HOME),
-    LCTL_D     = LCTL_T(KC_D),
-    LCTL_S     = LCTL_T(KC_S),
-    LCTL_PGUP  = LCTL_T(KC_PGUP),
-    LCTL_LBRC  = LCTL_T(KC_LBRC),
-    LSFT_F     = LSFT_T(KC_F),
-    _LSFT_T    = LSFT_T(KC_T),
-    LSFT_PGDN  = LSFT_T(KC_PGDN),
-    LSFT_RBRC  = LSFT_T(KC_RBRC),
-    RSFT_J     = RSFT_T(KC_J),
-    RSFT_N     = RSFT_T(KC_N),
-    RSFT_DOWN  = RSFT_T(KC_DOWN),
-    RSFT_MINS  = RSFT_T(KC_MINS),
-    RCTL_K     = RCTL_T(KC_K),
-    RCTL_E     = RCTL_T(KC_E),
-    RCTL_UP    = RCTL_T(KC_UP),
-    RCTL_EQL   = RCTL_T(KC_EQL),
-    RALT_L     = RALT_T(KC_L),
-    RALT_I     = RALT_T(KC_I),
-    RALT_RGHT  = RALT_T(KC_RGHT),
-    RALT_BSLS  = RALT_T(KC_BSLS),
-    RGUI_SCLN  = RGUI_T(KC_SCLN),
-    RGUI_O     = RGUI_T(KC_O),
-    RGUI_F11   = RGUI_T(KC_F11),
-    RGUI_QUOT  = RGUI_T(KC_QUOT),
-    LT3_SPC    = LT(_SPECIAL, KC_SPC),
-    LT2_TAB    = LT(_NAVIGATION, KC_TAB),
-    DF_QWERTY  = DF(_QWERTY),
-    DF_COLEMAK = DF(_COLEMAK),
+    VVV       = KC_TRNS,
+    XXX       = KC_NO,
+    CSA_Q     = MEH_T(KC_Q),
+    CSA_F1    = MEH_T(KC_F1),
+    CSA_1     = MEH_T(KC_1),
+    CA_W      = LCA_T(KC_W),
+    CA_F2     = LCA_T(KC_F2),
+    CA_2      = LCA_T(KC_2),
+    CS_E      = C_S_T(KC_E),
+    CS_F      = C_S_T(KC_F),
+    CS_I      = C_S_T(KC_I),
+    CS_U      = C_S_T(KC_U),
+    CS_F3     = C_S_T(KC_F3),
+    CS_3      = C_S_T(KC_3),
+    CS_F8     = C_S_T(KC_F8),
+    CS_8      = C_S_T(KC_8),
+    CA_O      = LCA_T(KC_O),
+    CA_Y      = LCA_T(KC_Y),
+    CA_F9     = LCA_T(KC_F9),
+    CA_9      = LCA_T(KC_9),
+    CSA_P     = MEH_T(KC_P),
+    CSA_SCLN  = MEH_T(KC_SCLN),
+    CSA_F10   = MEH_T(KC_F10),
+    CSA_0     = MEH_T(KC_0),
+    LGUI_A    = LGUI_T(KC_A),
+    LGUI_FIND = LGUI_T(KC_FIND),
+    LGUI_GRV  = LGUI_T(KC_GRV),
+    LALT_S    = LALT_T(KC_S),
+    LALT_R    = LALT_T(KC_R),
+    LALT_HOME = LALT_T(KC_HOME),
+    LCTL_D    = LCTL_T(KC_D),
+    LCTL_S    = LCTL_T(KC_S),
+    LCTL_PGUP = LCTL_T(KC_PGUP),
+    LCTL_LBRC = LCTL_T(KC_LBRC),
+    LSFT_F    = LSFT_T(KC_F),
+    _LSFT_T   = LSFT_T(KC_T),
+    LSFT_PGDN = LSFT_T(KC_PGDN),
+    LSFT_RBRC = LSFT_T(KC_RBRC),
+    RSFT_J    = RSFT_T(KC_J),
+    RSFT_N    = RSFT_T(KC_N),
+    RSFT_DOWN = RSFT_T(KC_DOWN),
+    RSFT_MINS = RSFT_T(KC_MINS),
+    RCTL_K    = RCTL_T(KC_K),
+    RCTL_E    = RCTL_T(KC_E),
+    RCTL_UP   = RCTL_T(KC_UP),
+    RCTL_EQL  = RCTL_T(KC_EQL),
+    RALT_L    = RALT_T(KC_L),
+    RALT_I    = RALT_T(KC_I),
+    RALT_RGHT = RALT_T(KC_RGHT),
+    RALT_BSLS = RALT_T(KC_BSLS),
+    RGUI_SCLN = RGUI_T(KC_SCLN),
+    RGUI_O    = RGUI_T(KC_O),
+    RGUI_F11  = RGUI_T(KC_F11),
+    RGUI_QUOT = RGUI_T(KC_QUOT),
+    LT3_SPC   = LT(_SPECIAL, KC_SPC),
+    LT2_TAB   = LT(_NAVIGATION, KC_TAB),
 };
 
 // Init
@@ -161,6 +159,8 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     }
 }
 
+// TODO: Move bracket macros to combos
+
 // Combos
 enum combo_events {
     CAPS_COMBO,
@@ -177,6 +177,7 @@ enum combo_events {
     LSEMI_DEL_COMBO,
     IO_DEL_COMBO,
     DOTSLASH_JIGGLE_COMBO,
+    CX_COLEMAK_COMBO,
     COMBO_LENGTH,
 };
 
@@ -196,6 +197,7 @@ const uint16_t PROGMEM pw_rand2_combo[]        = {KC_P, CA_W, COMBO_END};
 const uint16_t PROGMEM lsemi_del_combo[]       = {RALT_L, RGUI_SCLN, COMBO_END};
 const uint16_t PROGMEM io_del_combo[]          = {RALT_I, RGUI_O, COMBO_END};
 const uint16_t PROGMEM dotslash_jiggle_combo[] = {M_DOT, KC_SLSH, COMBO_END};
+const uint16_t PROGMEM cx_colemak_combo[]      = {KC_C, KC_X, COMBO_END};
 combo_t                key_combos[]       = {
     [CAPS_COMBO]            = COMBO_ACTION(caps_combo),
     [QW_ESC_COMBO]          = COMBO_ACTION(qw_esc_combo),
@@ -211,6 +213,7 @@ combo_t                key_combos[]       = {
     [LSEMI_DEL_COMBO]       = COMBO_ACTION(lsemi_del_combo),
     [IO_DEL_COMBO]          = COMBO_ACTION(io_del_combo),
     [DOTSLASH_JIGGLE_COMBO] = COMBO_ACTION(dotslash_jiggle_combo),
+    [CX_COLEMAK_COMBO]      = COMBO_ACTION(cx_colemak_combo),
 };
 // clang-format on
 
@@ -289,6 +292,15 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
         case DOTSLASH_JIGGLE_COMBO:
             if (pressed) {
                 is_mouse_jiggle_active = !is_mouse_jiggle_active;
+            }
+            break;
+        case CX_COLEMAK_COMBO:
+            if (pressed) {
+                if (default_layer_state - 1 == _COLEMAK) {
+                    set_single_persistent_default_layer(_QWERTY);
+                } else {
+                    set_single_persistent_default_layer(_COLEMAK);
+                }
             }
             break;
     }
@@ -674,7 +686,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		//|--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
 		 LGUI_FIND,LALT_HOME,LCTL_PGUP,LSFT_PGDN,KC_END,                     KC_LEFT,RSFT_DOWN,RCTL_UP,RALT_RGHT,RGUI_F11,
 		//|--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
-		 DF_QWERTY,DF_COLEMAK,KC_VOLD, KC_VOLU, QK_BOOT,                     M_ALT_TAB, KC_MPLY, KC_MPRV, KC_MNXT, KC_F12,
+		    XXX,     XXX,    KC_VOLD, KC_VOLU, QK_BOOT,                     M_ALT_TAB, KC_MPLY, KC_MPRV, KC_MNXT, KC_F12,
 		//|--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------|
 										VVV,  TG(_MOUSE), VVV,         VVV,    VVV,     VVV
 		//                           |--------+--------+--------|  |--------+--------+--------|

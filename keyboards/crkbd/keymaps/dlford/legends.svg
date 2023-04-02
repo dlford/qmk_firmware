@@ -220,11 +220,16 @@
          sodipodi:role="line"
          x="-5.5301466"
          y="120.91875"
+         id="tspan11577">c + x             Toggle Colemak</tspan><tspan
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:2.11667px;line-height:1.25;font-family:'Courier New';-inkscape-font-specification:'Courier New Bold';stroke-width:0.209324"
+         sodipodi:role="line"
+         x="-5.5301466"
+         y="123.56458"
          id="tspan8677">v + m             CAPS WORD</tspan><tspan
          style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:2.11667px;line-height:1.25;font-family:'Courier New';-inkscape-font-specification:'Courier New Bold';stroke-width:0.209324"
          sodipodi:role="line"
          x="-5.5301466"
-         y="122.66261"
+         y="125.30845"
          id="tspan8163" /></text>
     <text
        xml:space="preserve"
@@ -1738,18 +1743,6 @@
          y="125.90507">Z</tspan></text>
     <text
        xml:space="preserve"
-       style="font-size:2.22712px;line-height:1.25;font-family:sans-serif;fill:#0000ff;stroke-width:0.334068"
-       x="120.89056"
-       y="87.401283"
-       id="text2719-35-3-3-1"
-       transform="rotate(90)"><tspan
-         sodipodi:role="line"
-         id="tspan2717-62-6-7-2"
-         style="font-size:2.22712px;fill:#0000ff;stroke-width:0.334068"
-         x="120.89056"
-         y="87.401283">Qwerty</tspan></text>
-    <text
-       xml:space="preserve"
        style="font-size:3.56339px;line-height:1.25;font-family:sans-serif;fill:#7200ff;fill-opacity:1;stroke-width:0.334068"
        x="-100.91698"
        y="125.81743"
@@ -1826,18 +1819,6 @@
          style="font-size:4.45425px;fill:#d45500;stroke-width:0.334068"
          x="-75.406914"
          y="122.42598">X</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-size:2.22712px;line-height:1.25;font-family:sans-serif;fill:#0000ff;stroke-width:0.334068"
-       x="116.8994"
-       y="68.663849"
-       id="text2719-35-3-3-1-5"
-       transform="rotate(90)"><tspan
-         sodipodi:role="line"
-         id="tspan2717-62-6-7-2-6"
-         style="font-size:2.22712px;fill:#0000ff;stroke-width:0.334068"
-         x="116.8994"
-         y="68.663849">Colemak</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:2.22712px;line-height:1.25;font-family:sans-serif;fill:#7200ff;fill-opacity:1;stroke-width:0.334068"
@@ -2569,18 +2550,6 @@
        cx="58.250927"
        cy="153.54587"
        r="0.99517334" />
-    <circle
-       style="fill:#d45500;fill-opacity:1;stroke:#0000ff;stroke-width:0.289831;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       id="path211099-8"
-       cx="-67.940277"
-       cy="127.98129"
-       r="0.9655292" />
-    <circle
-       style="fill:#000000;fill-opacity:1;stroke:#0000ff;stroke-width:0.289831;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       id="path211099-8-8"
-       cx="-86.520782"
-       cy="130.53633"
-       r="0.9655292" />
     <g
        id="g351918"
        style="fill:#0000ff;fill-opacity:1"
