@@ -181,48 +181,68 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
             }
             break;
         case BR_WRAP_COMBO:
-            SEND_STRING("[]");
-            tap_code(KC_LEFT);
+            if (pressed) {
+                SEND_STRING("[]");
+                tap_code(KC_LEFT);
+            }
             break;
         case BR_WRAP_SEMI_COMBO:
-            SEND_STRING("[];");
-            tap_code(KC_LEFT);
-            tap_code(KC_LEFT);
+            if (pressed) {
+                SEND_STRING("[];");
+                tap_code(KC_LEFT);
+                tap_code(KC_LEFT);
+            }
             break;
         case CBR_WRAP_COMBO:
-            SEND_STRING("{}");
-            tap_code(KC_LEFT);
+            if (pressed) {
+                SEND_STRING("{}");
+                tap_code(KC_LEFT);
+            }
             break;
         case CBR_WRAP_SEMI_COMBO:
-            SEND_STRING("{};");
-            tap_code(KC_LEFT);
-            tap_code(KC_LEFT);
+            if (pressed) {
+                SEND_STRING("{};");
+                tap_code(KC_LEFT);
+                tap_code(KC_LEFT);
+            }
             break;
         case PRN_WRAP_COMBO:
-            SEND_STRING("()");
-            tap_code(KC_LEFT);
+            if (pressed) {
+                SEND_STRING("()");
+                tap_code(KC_LEFT);
+            }
             break;
         case PRN_WRAP_SEMI_COMBO:
-            SEND_STRING("();");
-            tap_code(KC_LEFT);
-            tap_code(KC_LEFT);
+            if (pressed) {
+                SEND_STRING("();");
+                tap_code(KC_LEFT);
+                tap_code(KC_LEFT);
+            }
             break;
         case ANG_WRAP_COMBO:
-            SEND_STRING("<>");
-            tap_code(KC_LEFT);
+            if (pressed) {
+                SEND_STRING("<>");
+                tap_code(KC_LEFT);
+            }
             break;
         case ANG_WRAP_SEMI_COMBO:
-            SEND_STRING("<>;");
-            tap_code(KC_LEFT);
-            tap_code(KC_LEFT);
+            if (pressed) {
+                SEND_STRING("<>;");
+                tap_code(KC_LEFT);
+                tap_code(KC_LEFT);
+            }
             break;
         case FAT_ARROW_COMBO:
         case FAT_ARROW2_COMBO:
-            SEND_STRING("=>");
+            if (pressed) {
+                SEND_STRING("=>");
+            }
             break;
         case SKINNY_ARROW_COMBO:
         case SKINNY_ARROW2_COMBO:
-            SEND_STRING("->");
+            if (pressed) {
+                SEND_STRING("->");
+            }
             break;
     }
 }
