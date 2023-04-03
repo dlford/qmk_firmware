@@ -101,6 +101,12 @@ bool rgb_matrix_indicators_user(void) {
 #else
     if (host_keyboard_led_state().caps_lock) {
 #endif
+#ifdef INDICATORS_USER_CAPS
+        for (int i = 0; i < sizeof(INDICATORS_USER_CAPS); i++) {
+            rgb_matrix_set_color(INDICATORS_USER_CAPS[i], RGB_RED);
+        }
+#endif
+        /*
         // Left master
         rgb_matrix_set_color(23, RGB_RED);
         rgb_matrix_set_color(22, RGB_RED);
@@ -109,6 +115,7 @@ bool rgb_matrix_indicators_user(void) {
         rgb_matrix_set_color(50, RGB_RED);
         rgb_matrix_set_color(49, RGB_RED);
         rgb_matrix_set_color(48, RGB_RED);
+        */
     }
     if (is_macro_recording) {
         // Left master

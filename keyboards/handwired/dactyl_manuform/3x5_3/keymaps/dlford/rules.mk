@@ -1,5 +1,6 @@
 # BOARD = GENERIC_RP_RP2040
 # CONVERT_TO = kb2040
+# TODO: Remove disabled features in config.h
 
 # Build Options
 #   change yes to no to disable
