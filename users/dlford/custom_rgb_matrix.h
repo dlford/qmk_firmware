@@ -1,3 +1,4 @@
+/*
 Copyright 2023 @dlford
 
 This program is free software: you can redistribute it and/or modify
@@ -12,3 +13,10 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+#pragma once
+
+void          keyboard_post_init_rgb_matrix(void);
+layer_state_t layer_state_set_user(layer_state_t state);
+bool          rgb_matrix_indicators_user(void);

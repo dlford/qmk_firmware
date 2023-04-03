@@ -1,3 +1,4 @@
+/*
 Copyright 2023 @dlford
 
 This program is free software: you can redistribute it and/or modify
@@ -12,3 +13,9 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+#pragma once
+
+oled_rotation_t oled_init_user(oled_rotation_t rotation);
+bool            oled_task_user(void);

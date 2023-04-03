@@ -18,20 +18,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include QMK_KEYBOARD_H
-#include "keycodes.h"
-#include "features/tap_rules.h"
-#include "features/mouse_jiggler.h"
-#include "features/sarcasm_mode.h"
-#include "features/alt_tab.h"
+#include "dlford.h"
+#include "tap_rules.h"
+#include "mouse_jiggler.h"
+#include "sarcasm_mode.h"
+#include "alt_tab.h"
 #ifdef RGB_MATRIX_ENABLE
-#    include "features/rgb_timeout.h"
+#    include "rgb_timeout.h"
 #endif // RGB_MATRIX_ENABLE
 #ifdef OLED_ENABLE
-#    include "features/oled.h"
+#    include "oled.h"
 #endif // OLED_ENABLE
 #ifdef RGB_MATRIX_ENABLE
-#    include "features/rgb_matrix.h"
-#    include "features/custom_eeprom.h"
+#    include "custom_rgb_matrix.h"
+#    include "custom_eeprom.h"
 #endif // RGB_MATRIX_ENABLE
 
 #ifdef DYNAMIC_MACRO_ENABLE
