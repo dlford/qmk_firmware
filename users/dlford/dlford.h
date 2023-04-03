@@ -32,8 +32,8 @@ enum layers {
     _MOUSE,
 };
 
-enum macro_events {
-    M_KEYMAP = 0,
+enum custom_keycodes {
+    M_KEYMAP = SAFE_RANGE,
     M_EXIT,
     M_ALT_TAB,
 #ifdef RGB_MATRIX_ENABLE
