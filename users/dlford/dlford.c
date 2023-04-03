@@ -38,9 +38,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    include "eeprom_user.h"
 #endif
 
-#ifdef DYNAMIC_MACRO_ENABLE
 bool is_macro_recording = false;
 
+#ifdef DYNAMIC_MACRO_ENABLE
 void dynamic_macro_record_start_user(void) {
     is_macro_recording = true;
 }
@@ -50,9 +50,9 @@ void dynamic_macro_record_end_user(int8_t direction) {
 }
 #endif
 
-#ifdef CAPS_WORD_ENABLE
 bool is_caps_word_active = false;
 
+#ifdef CAPS_WORD_ENABLE
 void caps_word_set_user(bool active) {
     is_caps_word_active = active;
 }
