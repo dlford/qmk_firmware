@@ -17,12 +17,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#ifdef DYNAMIC_MACRO_ENABLE
 bool is_macro_recording;
-#endif
-#ifdef CAPS_WORD_ENABLE
 bool is_caps_word_active;
-#endif
 
 enum layers {
     _QWERTY = 0,

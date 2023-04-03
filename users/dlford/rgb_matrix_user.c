@@ -116,11 +116,7 @@ __attribute__((weak)) bool rgb_matrix_indicators_keymap_custom(void) {
 }
 
 bool rgb_matrix_indicators_user(void) {
-    if (host_keyboard_led_state().caps_lock
-#ifdef CAPS_WORD_ENABLE
-        || is_caps_word_active
-#endif
-    ) {
+    if (host_keyboard_led_state().caps_lock || is_caps_word_active) {
         rgb_matrix_indicators_keymap_caps();
     }
     if (is_macro_recording) {
