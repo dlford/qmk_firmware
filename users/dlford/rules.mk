@@ -1,16 +1,16 @@
-SRC += features/tap_rules.c
-SRC += features/random_password.c
-SRC += features/mouse_jiggler.c
-SRC += features/sarcasm_mode.c
-SRC += features/alt_tab.c
-ifeq ($(strip $(OLED_ENABLE)), yes)
-	SRC += features/oled.c
+SRC += tap_rules.c
+SRC += random_password.c
+SRC += mouse_jiggler.c
+SRC += sarcasm_mode.c
+SRC += alt_tab.c
+ifdef OLED_ENABLE
+	SRC += oled.c
 endif
-ifeq ($(strip $(COMBO_ENABLE)), yes)
-	SRC += features/combos.c
+ifdef COMBO_ENABLE
+	SRC += combos.c
 endif
-ifeq ($(strip $(RGB_MATRIX_ENABLE)), yes)
-	SRC += features/rgb_timeout.c
-	SRC += features/rgb_matrix.c
-	SRC += features/custom_eeprom.c
+ifdef RGB_MATRIX_ENABLE
+	SRC += rgb_timeout.c
+	SRC += custom_rgb_matrix.c
+	SRC += custom_eeprom.c
 endif

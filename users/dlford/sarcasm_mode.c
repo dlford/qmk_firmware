@@ -1,3 +1,4 @@
+/*
 Copyright 2023 @dlford
 
 This program is free software: you can redistribute it and/or modify
@@ -12,3 +13,14 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+#include QMK_KEYBOARD_H
+
+bool is_scsm_active = false;
+
+void process_record_sarcasm_mode(keyrecord_t *record) {
+    if (is_scsm_active && record->event.pressed) {
+        tap_code(KC_CAPS);
+    }
+}

@@ -1,3 +1,4 @@
+/*
 Copyright 2023 @dlford
 
 This program is free software: you can redistribute it and/or modify
@@ -12,3 +13,10 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+#pragma once
+
+bool     get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record);
+uint16_t get_quick_tap_term(uint16_t keycode, keyrecord_t *record);
+uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record);

@@ -16,7 +16,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include QMK_KEYBOARD_H
-#include "../keycodes.h"
+#include "dlford.h"
 #include "mouse_jiggler.h"
 #include "sarcasm_mode.h"
 #include "random_password.h"
