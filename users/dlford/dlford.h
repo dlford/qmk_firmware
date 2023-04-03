@@ -19,10 +19,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #ifdef DYNAMIC_MACRO_ENABLE
 bool is_macro_recording;
-#endif // DYNAMIC_MACRO_ENABLE
+#endif
 #ifdef CAPS_WORD_ENABLE
 bool is_caps_word_active;
-#endif // CAPS_WORD_ENABLE
+#endif
 
 enum layers {
     _QWERTY = 0,
@@ -35,11 +35,13 @@ enum layers {
 enum custom_keycodes {
     M_KEYMAP = SAFE_RANGE,
     M_EXIT,
+#ifdef ALT_TAB_USER_ENABLE
     M_ALT_TAB,
+#endif
 #ifdef RGB_MATRIX_ENABLE
     M_RST_RGB,
     M_RGB_SPD,
-#endif // RGB_MATRIX_ENABLE
+#endif
 };
 
 #define VVV KC_TRNS

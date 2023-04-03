@@ -22,17 +22,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "tap_rules.h"
 #include "mouse_jiggler_user.h"
 #include "sarcasm_mode.h"
-#include "alt_tab_user.h"
+#ifdef ALT_TAB_USER_ENABLE
+#    include "alt_tab_user.h"
+#endif
 #ifdef RGB_MATRIX_ENABLE
 #    include "rgb_timeout_user.h"
-#endif // RGB_MATRIX_ENABLE
+#endif
 #ifdef OLED_ENABLE
 #    include "oled_user.h"
-#endif // OLED_ENABLE
+#endif
 #ifdef RGB_MATRIX_ENABLE
 #    include "rgb_matrix_user.h"
 #    include "eeprom_user.h"
-#endif // RGB_MATRIX_ENABLE
+#endif
 
 #ifdef DYNAMIC_MACRO_ENABLE
 bool is_macro_recording = false;
@@ -44,7 +46,7 @@ void dynamic_macro_record_start_user(void) {
 void dynamic_macro_record_end_user(int8_t direction) {
     is_macro_recording = false;
 }
-#endif // DYNAMIC_MACRO_ENABLE
+#endif
 
 #ifdef CAPS_WORD_ENABLE
 bool is_caps_word_active = false;
@@ -63,12 +65,12 @@ void keyboard_post_init_user(void) {
     read_user_config();
     keyboard_post_init_rgb_matrix();
 }
-#endif // RGB_MATRIX_ENABLE
+#endif
 
 void matrix_scan_user(void) {
 #ifdef RGB_MATRIX_ENABLE
     matrix_scan_rgb_matrix();
-#endif // RGB_MATRIX_ENABLE
+#endif
     matrix_scan_mouse_jiggler();
     matrix_scan_alt_tab();
 }
@@ -76,13 +78,15 @@ void matrix_scan_user(void) {
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #ifdef RGB_MATRIX_ENABLE
     process_record_rgb_timeout(record);
-#endif // RGB_MATRIX_ENABLE
+#endif
     process_record_sarcasm_mode(record);
 
     switch (keycode) {
+#ifdef ALT_TAB_USER_ENABLE
         case M_ALT_TAB:
             start_alt_tab(record);
             break;
+#endif
 #ifdef RGB_MATRIX_ENABLE
         case M_RGB_SPD:
             if (record->event.pressed) {
