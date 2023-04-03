@@ -33,6 +33,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 #ifdef RGB_MATRIX_ENABLE
 #    include "rgb_matrix_user.h"
+#endif
+#ifdef ALL_MATRIX_ANIMATIONS_USER_ENABLE
 #    include "eeprom_user.h"
 #endif
 
@@ -56,7 +58,7 @@ void caps_word_set_user(bool active) {
 }
 #endif
 
-#ifdef RGB_MATRIX_ENABLE
+#ifdef ALL_MATRIX_ANIMATIONS_USER_ENABLE
 void eeconfig_init_user(void) {
     eeconfig_init_custom_eeprom();
 }
@@ -87,7 +89,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             start_alt_tab(record);
             break;
 #endif
-#ifdef RGB_MATRIX_ENABLE
+#ifdef ALL_MATRIX_ANIMATIONS_USER_ENABLE
         case M_RGB_SPD:
             if (record->event.pressed) {
                 if (keyboard_report->mods & MOD_BIT(KC_LSFT) || keyboard_report->mods & MOD_BIT(KC_RSFT)) {
@@ -111,7 +113,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 write_user_config();
             }
             break;
-#endif // RGB_MATRIX_ENABLE
+#endif // ALL_MATRIX_ANIMATIONS_USER
     }
 
     return true;
