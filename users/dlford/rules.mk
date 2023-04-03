@@ -2,7 +2,9 @@ SRC += tap_rules.c
 SRC += pwgen_user.c
 SRC += mouse_jiggler_user.c
 SRC += sarcasm_mode.c
+ifdef ALT_TAB_USER_ENABLE
 SRC += alt_tab_user.c
+endif
 ifdef OLED_ENABLE
 	SRC += oled_user.c
 endif
