@@ -1,16 +1,16 @@
 SRC += tap_rules.c
-SRC += custom_random_password.c
-SRC += mouse_jiggler.c
+SRC += pwgen_user.c
+SRC += mouse_jiggler_user.c
 SRC += sarcasm_mode.c
-SRC += alt_tab.c
+SRC += alt_tab_user.c
 ifdef OLED_ENABLE
-	SRC += oled.c
+	SRC += oled_user.c
 endif
 ifdef COMBO_ENABLE
-	SRC += custom_combos.c
+	SRC += combos_user.c
 endif
 ifdef RGB_MATRIX_ENABLE
-	SRC += rgb_timeout.c
-	SRC += custom_rgb_matrix.c
-	SRC += custom_eeprom.c
+	SRC += rgb_timeout_user.c
+	SRC += rgb_matrix_user.c
+	SRC += eeprom_user.c
 endif
