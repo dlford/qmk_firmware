@@ -21,6 +21,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "sarcasm_mode.h"
 #include "pwgen_user.h"
 
+const char PROGMEM legends_url[] = "https://raw.githubusercontent.com/dlford/qmk_firmware/dlford/keyboards/crkbd/keymaps/dlford/legends.svg";
+
 enum combo_events {
 #ifdef CAPS_WORD_ENABLE
     CAPS_COMBO,
@@ -166,14 +168,14 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
         case KM_KEYMAP2_COMBO:
             // TODO: Make this adjustable?
             if (pressed) {
-                SEND_STRING("https://raw.githubusercontent.com/dlford/qmk_firmware/dlford/keyboards/crkbd/keymaps/dlford/legends.svg");
+                send_string(legends_url);
             }
             break;
         case PW_RAND_COMBO:
         case PW_RAND2_COMBO:
             if (pressed) {
                 gen_random_password();
-                SEND_STRING(random_password);
+                send_string(random_password);
             }
             break;
         case LSEMI_DEL_COMBO:

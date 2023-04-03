@@ -76,8 +76,10 @@ void oled_render_dynamic_macro_status(void) {
 void oled_render_caps_lock_status(void) {
     if (host_keyboard_led_state().caps_lock) {
         oled_write_ln_P(PSTR("CAPS LOCK"), false);
+#ifdef CAPS_WORD_ENABLE
     } else if (is_caps_word_active) {
         oled_write_ln_P(PSTR("CAPS word"), false);
+#endif
     } else {
         oled_write_ln_P(PSTR(""), false);
     }

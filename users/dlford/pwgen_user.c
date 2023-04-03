@@ -19,10 +19,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <time.h>
 
 char random_password[32];
-char rand_numbers[] = "0123456789";
-char rand_letters[] = "abcdefghijklmnoqprstuvwyzx";
-char rand_LETTERS[] = "ABCDEFGHIJKLMNOQPRSTUYWVZX";
-char rand_symbols[] = "!@#$^&*?";
+const char rand_numbers[] = "0123456789";
+const char rand_letters[] = "abcdefghijklmnoqprstuvwyzx";
+const char rand_LETTERS[] = "ABCDEFGHIJKLMNOQPRSTUYWVZX";
+const char rand_symbols[] = "!@#$^&*?";
 
 void gen_random_password(void) {
     // Seed the random-number generator

@@ -14,5 +14,7 @@ endif
 ifdef RGB_MATRIX_ENABLE
 	SRC += rgb_timeout_user.c
 	SRC += rgb_matrix_user.c
-	SRC += eeprom_user.c
+	ifdef ALL_MATRIX_ANIMATIONS_USER_ENABLE
+		SRC += eeprom_user.c
+	endif
 endif

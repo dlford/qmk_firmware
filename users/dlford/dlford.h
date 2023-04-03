@@ -38,7 +38,7 @@ enum custom_keycodes {
 #ifdef ALT_TAB_USER_ENABLE
     M_ALT_TAB,
 #endif
-#ifdef RGB_MATRIX_ENABLE
+#ifdef ALL_MATRIX_ANIMATIONS_USER_ENABLE
     M_RST_RGB,
     M_RGB_SPD,
 #endif
