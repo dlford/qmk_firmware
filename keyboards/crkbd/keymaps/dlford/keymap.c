@@ -16,6 +16,50 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "features_user.h"
 #include "dlford.h"
 
+void rgb_matrix_indicators_keymap_caps(void) {
+    // Left master
+    rgb_matrix_set_color(23, RGB_RED);
+    rgb_matrix_set_color(22, RGB_RED);
+    rgb_matrix_set_color(21, RGB_RED);
+    // Right master
+    rgb_matrix_set_color(50, RGB_RED);
+    rgb_matrix_set_color(49, RGB_RED);
+    rgb_matrix_set_color(48, RGB_RED);
+}
+
+void rgb_matrix_indicators_keymap_colemak(void) {
+    // Left master
+    rgb_matrix_set_color(18, RGB_GREEN);
+    rgb_matrix_set_color(19, RGB_GREEN);
+    rgb_matrix_set_color(20, RGB_GREEN);
+    // Right master
+    rgb_matrix_set_color(45, RGB_GREEN);
+    rgb_matrix_set_color(46, RGB_GREEN);
+    rgb_matrix_set_color(47, RGB_GREEN);
+}
+
+void rgb_matrix_indicators_keymap_dynamic_macro_recording(void) {
+    // Left master
+    rgb_matrix_set_color(6, RGB_ORANGE);
+    rgb_matrix_set_color(13, RGB_ORANGE);
+    rgb_matrix_set_color(14, RGB_ORANGE);
+    // Right master
+    rgb_matrix_set_color(33, RGB_ORANGE);
+    rgb_matrix_set_color(40, RGB_ORANGE);
+    rgb_matrix_set_color(41, RGB_ORANGE);
+}
+
+void rgb_matrix_indicators_keymap_mouse_jiggling(void) {
+    // Left master
+    rgb_matrix_set_color(7, RGB_BLUE);
+    rgb_matrix_set_color(8, RGB_BLUE);
+    rgb_matrix_set_color(9, RGB_BLUE);
+    // Right master
+    rgb_matrix_set_color(34, RGB_BLUE);
+    rgb_matrix_set_color(35, RGB_BLUE);
+    rgb_matrix_set_color(36, RGB_BLUE);
+}
+
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	[_QWERTY] = LAYOUT_split_3x5_3(
