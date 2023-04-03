@@ -95,58 +95,43 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     return state;
 }
 
+__attribute__((weak)) void rgb_matrix_indicators_keymap_caps(void) {
+    return;
+}
+
+__attribute__((weak)) void rgb_matrix_indicators_keymap_colemak(void) {
+    return;
+}
+
+__attribute__((weak)) void rgb_matrix_indicators_keymap_dynamic_macro_recording(void) {
+    return;
+}
+
+__attribute__((weak)) void rgb_matrix_indicators_keymap_mouse_jiggling(void) {
+    return;
+}
+
+__attribute__((weak)) bool rgb_matrix_indicators_keymap_custom(void) {
+    return true;
+}
+
 bool rgb_matrix_indicators_user(void) {
+    if (host_keyboard_led_state().caps_lock
 #ifdef CAPS_WORD_ENABLE
-    if (host_keyboard_led_state().caps_lock || is_caps_word_active) {
-#else
-    if (host_keyboard_led_state().caps_lock) {
+        || is_caps_word_active
 #endif
-#ifdef INDICATORS_USER_CAPS
-        for (int i = 0; i < sizeof(INDICATORS_USER_CAPS); i++) {
-            rgb_matrix_set_color(INDICATORS_USER_CAPS[i], RGB_RED);
-        }
-#endif
-        /*
-        // Left master
-        rgb_matrix_set_color(23, RGB_RED);
-        rgb_matrix_set_color(22, RGB_RED);
-        rgb_matrix_set_color(21, RGB_RED);
-        // Right master
-        rgb_matrix_set_color(50, RGB_RED);
-        rgb_matrix_set_color(49, RGB_RED);
-        rgb_matrix_set_color(48, RGB_RED);
-        */
+    ) {
+        rgb_matrix_indicators_keymap_caps();
     }
     if (is_macro_recording) {
-        // Left master
-        rgb_matrix_set_color(6, RGB_ORANGE);
-        rgb_matrix_set_color(13, RGB_ORANGE);
-        rgb_matrix_set_color(14, RGB_ORANGE);
-        // Right master
-        rgb_matrix_set_color(33, RGB_ORANGE);
-        rgb_matrix_set_color(40, RGB_ORANGE);
-        rgb_matrix_set_color(41, RGB_ORANGE);
+        rgb_matrix_indicators_keymap_dynamic_macro_recording();
     }
     if (default_layer_state - 1 == _COLEMAK) {
-        // Left master
-        rgb_matrix_set_color(18, RGB_GREEN);
-        rgb_matrix_set_color(19, RGB_GREEN);
-        rgb_matrix_set_color(20, RGB_GREEN);
-        // Right master
-        rgb_matrix_set_color(45, RGB_GREEN);
-        rgb_matrix_set_color(46, RGB_GREEN);
-        rgb_matrix_set_color(47, RGB_GREEN);
+        rgb_matrix_indicators_keymap_colemak();
     }
     if (is_mouse_jiggle_active) {
-        // Left master
-        rgb_matrix_set_color(7, RGB_BLUE);
-        rgb_matrix_set_color(8, RGB_BLUE);
-        rgb_matrix_set_color(9, RGB_BLUE);
-        // Right master
-        rgb_matrix_set_color(34, RGB_BLUE);
-        rgb_matrix_set_color(35, RGB_BLUE);
-        rgb_matrix_set_color(36, RGB_BLUE);
+        rgb_matrix_indicators_keymap_mouse_jiggling();
     }
 
-    return true;
+    return rgb_matrix_indicators_keymap_custom();
 }
