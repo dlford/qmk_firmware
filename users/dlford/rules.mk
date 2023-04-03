@@ -1,5 +1,5 @@
 SRC += tap_rules.c
-SRC += random_password.c
+SRC += custom_random_password.c
 SRC += mouse_jiggler.c
 SRC += sarcasm_mode.c
 SRC += alt_tab.c
@@ -7,7 +7,7 @@ ifdef OLED_ENABLE
 	SRC += oled.c
 endif
 ifdef COMBO_ENABLE
-	SRC += combos.c
+	SRC += custom_combos.c
 endif
 ifdef RGB_MATRIX_ENABLE
 	SRC += rgb_timeout.c
