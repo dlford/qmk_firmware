@@ -21,8 +21,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "progmem.h"
 #include "dlford.h"
 #include "sarcasm_mode.h"
-#include "mouse_jiggler.h"
-#include "custom_eeprom.h"
+#include "mouse_jiggler_user.h"
+#include "eeprom_user.h"
 
 uint16_t      layer_animation_mode  = RGB_MATRIX_HUE_WAVE;
 int           layer_animation_speed = 150;
