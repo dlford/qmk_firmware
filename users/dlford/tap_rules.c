@@ -16,7 +16,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include QMK_KEYBOARD_H
-#include "dlford.h"
+#include "custom_keycodes_user.h"
+#include "layers_user.h"
 
 // Ignore mod tap interrupt per key
 bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {

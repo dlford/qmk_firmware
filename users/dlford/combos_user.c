@@ -16,8 +16,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include QMK_KEYBOARD_H
-#include "dlford.h"
 #include "combos_user.h"
+#include "custom_keycodes_user.h"
+#include "layers_user.h"
 #include "mouse_jiggler_user.h"
 #include "sarcasm_mode.h"
 #include "pwgen_user.h"

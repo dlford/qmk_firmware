@@ -12,6 +12,15 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include QMK_KEYBOARD_H
+#include "custom_keycodes_user.h"
+#include "layers_user.h"
+#include "rgb_matrix_user.h"
+#include "rgb_timeout_user.h"
+#include "sarcasm_mode.h"
+#include "alt_tab_user.h"
+#include "eeprom_user.h"
+
 bool process_record_custom_keycodes_user(uint16_t keycode, keyrecord_t *record) {
 #ifdef RGB_MATRIX_ENABLE
     process_record_rgb_timeout(record);
