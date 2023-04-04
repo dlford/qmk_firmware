@@ -15,28 +15,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include QMK_KEYBOARD_H
 #include "custom_keycodes_user.h"
 #include "layers_user.h"
-#include "eeprom_user.h"
-#include "rgb_matrix_user.h"
 #include "alt_tab_user.h"
 #include "sarcasm_mode.h"
 #include "rgb_timeout_user.h"
-#include "mouse_jiggler_user.h"
+#include "eeprom_user.h"
 
-void eeconfig_init_user(void) {
-    eeconfig_init_custom_eeprom();
-}
-
-void keyboard_post_init_user(void) {
-    read_user_config();
-    keyboard_post_init_rgb_matrix();
-}
-
-void matrix_scan_user(void) {
-#ifdef RGB_MATRIX_ENABLE
-    matrix_scan_rgb_timeout();
-#endif
-    matrix_scan_mouse_jiggler();
-    matrix_scan_alt_tab();
+__attribute__((weak)) bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
+    return true;
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -74,5 +59,5 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             break;
     }
 
-    return true;
+    return process_record_keymap(keycode, record);
 }

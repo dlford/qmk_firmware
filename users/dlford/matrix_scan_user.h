@@ -17,5 +17,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-bool is_caps_word_active;
-void caps_word_set_user(bool active);
+void matrix_scan_user(void);

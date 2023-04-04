@@ -1,4 +1,6 @@
-SRC += process_records_user.c
+SRC += process_record_user.c
+SRC += keyboard_post_init_user.c
+SRC += matrix_scan_user.c
 SRC += tap_rules.c
 SRC += pwgen_user.c
 SRC += mouse_jiggler_user.c

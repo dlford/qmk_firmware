@@ -17,8 +17,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-void eeconfig_init_user(void);
-// void keyboard_post_init_user(void);
-
-void matrix_scan_user(void);
-// bool process_record_user(uint16_t keycode, keyrecord_t *record);
+bool process_record_user(uint16_t keycode, keyrecord_t *record);

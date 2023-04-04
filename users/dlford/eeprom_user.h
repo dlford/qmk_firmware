@@ -28,6 +28,6 @@ typedef union {
 
 extern user_config_t user_config;
 
-void eeconfig_init_custom_eeprom(void);
+void eeconfig_init_user(void);
 void read_user_config(void);
 void write_user_config(void);

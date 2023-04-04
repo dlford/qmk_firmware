@@ -19,7 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "custom_keycodes_user.h"
 #include "layers_user.h"
 
-// Ignore mod tap interrupt per key
+#ifdef HOLD_ON_OTHER_KEY_PRESS_PER_KEY
 bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case LT3_SPC:
@@ -29,8 +29,9 @@ bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
             return false; // Don't select hold action when another key is pressed
     }
 }
+#endif
 
-// Tapping force hold per key
+#ifdef QUICK_TAP_TERM_PER_KEY
 uint16_t get_quick_tap_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case LT3_SPC:
@@ -40,8 +41,9 @@ uint16_t get_quick_tap_term(uint16_t keycode, keyrecord_t *record) {
             return 120;
     }
 }
+#endif
 
-// Tapping term per key
+#ifdef TAPPING_TERM_PER_KEY
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case CS_E:
@@ -51,3 +53,4 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
             return 190;
     }
 }
+#endif

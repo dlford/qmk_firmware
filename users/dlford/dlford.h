@@ -18,7 +18,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 #include "layers_user.h"
-#include "process_records_user.h"
+#include "process_record_user.h"
+#include "keyboard_post_init_user.h"
+#include "matrix_scan_user.h"
 #include "tap_rules.h"
 #include "pwgen_user.h"
 #include "mouse_jiggler_user.h"
