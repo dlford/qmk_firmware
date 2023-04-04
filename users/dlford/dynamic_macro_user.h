@@ -18,6 +18,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 bool is_macro_recording;
-
-void dynamic_macro_record_start_user(void);
-void dynamic_macro_record_end_user(int8_t direction);

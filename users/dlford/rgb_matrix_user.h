@@ -17,6 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-void          keyboard_post_init_rgb_matrix(void);
-layer_state_t layer_state_set_user(layer_state_t state);
-bool          rgb_matrix_indicators_user(void);
+void keyboard_post_init_rgb_matrix(void);
+
+// TODO: __attribute__((weak)) entries to .h files

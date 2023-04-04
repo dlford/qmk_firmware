@@ -55,6 +55,8 @@ const uint16_t PROGMEM caps_combo[]  = {LSFT_F, RSFT_J, COMBO_END};
 const uint16_t PROGMEM caps2_combo[] = {_LSFT_T, RSFT_N, COMBO_END};
 #endif // CAPS_WORD_ENABLE
 
+uint16_t COMBO_LEN = COMBO_LENGTH;
+
 combo_t key_combos[COMBO_LENGTH] = {
     [QW_ESC_COMBO]          = COMBO_ACTION(qw_esc_combo),
     [OP_BSPC_COMBO]         = COMBO_ACTION(op_bspc_combo),
