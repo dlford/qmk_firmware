@@ -16,6 +16,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include QMK_KEYBOARD_H
+#include "layers_user.h"
 
 bool is_macro_recording = false;
 
@@ -34,5 +35,6 @@ __attribute__((weak)) void dynamic_macro_record_end_keymap(int8_t direction) {
 
 void dynamic_macro_record_end_user(int8_t direction) {
     is_macro_recording = false;
+    layer_off(_MOUSE);
     dynamic_macro_record_end_keymap(direction);
 }
