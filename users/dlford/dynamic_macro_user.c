@@ -19,10 +19,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 bool is_macro_recording = false;
 
+__attribute__((weak)) void dynamic_macro_record_start_keymap(void) {
+    return;
+}
+
 void dynamic_macro_record_start_user(void) {
     is_macro_recording = true;
+    dynamic_macro_record_start_keymap();
+}
+
+__attribute__((weak)) void dynamic_macro_record_end_keymap(int8_t direction) {
+    return;
 }
 
 void dynamic_macro_record_end_user(int8_t direction) {
     is_macro_recording = false;
+    dynamic_macro_record_end_keymap(direction);
 }

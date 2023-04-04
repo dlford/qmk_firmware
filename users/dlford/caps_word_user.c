@@ -19,6 +19,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 bool is_caps_word_active = false;
 
+__attribute__((weak)) void caps_word_set_keymap(bool active) {
+    return;
+}
+
 void caps_word_set_user(bool active) {
     is_caps_word_active = active;
+    return caps_word_set_keymap(active);
 }

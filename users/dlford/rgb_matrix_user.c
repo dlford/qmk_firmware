@@ -33,8 +33,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 rgb_config_t  rgb_matrix_config;
 user_config_t user_config;
 
+__attribute__((weak)) void matrix_init_keymap(void) {
+    return;
+}
+
 void matrix_init_user(void) {
     rgb_matrix_config.raw = eeprom_read_dword(EECONFIG_RGB_MATRIX);
+    return matrix_init_keymap();
 }
 
 void keyboard_post_init_rgb_matrix(void) {
@@ -49,6 +54,10 @@ void keyboard_post_init_rgb_matrix(void) {
         rgb_matrix_set_speed(user_config.rgb_speed);
         rgb_matrix_sethsv(rgb_matrix_config.hsv.h, rgb_matrix_config.hsv.s, rgb_matrix_config.hsv.v);
     }
+}
+
+__attribute__((weak)) layer_state_t layer_state_set_keymap(layer_state_t state) {
+    return state;
 }
 
 layer_state_t layer_state_set_user(layer_state_t state) {
@@ -82,7 +91,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
             }
             break;
     }
-    return state;
+    return layer_state_set_keymap(state);
 }
 
 __attribute__((weak)) void rgb_matrix_indicators_keymap_caps(void) {
@@ -103,7 +112,7 @@ __attribute__((weak)) void rgb_matrix_indicators_keymap_mouse_jiggling(void) {
     return;
 }
 
-__attribute__((weak)) bool rgb_matrix_indicators_keymap_custom(void) {
+__attribute__((weak)) bool rgb_matrix_indicators_keymap(void) {
     return true;
 }
 
@@ -127,5 +136,5 @@ bool rgb_matrix_indicators_user(void) {
         rgb_matrix_indicators_keymap_mouse_jiggling();
     }
 
-    return rgb_matrix_indicators_keymap_custom();
+    return rgb_matrix_indicators_keymap();
 }

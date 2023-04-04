@@ -53,7 +53,5 @@ enum combo_events {
 
 uint16_t COMBO_LEN;
 
-/*
-combo_t  key_combos[COMBO_LENGTH];
-void     process_combo_event(uint16_t combo_index, bool pressed);
-*/
+combo_t key_combos[COMBO_LENGTH];
+void    process_combo_event(uint16_t combo_index, bool pressed);

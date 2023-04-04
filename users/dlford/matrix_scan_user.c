@@ -1,21 +1,31 @@
 /*
 Copyright 2023 @dlford
-
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 2 of the License, or
 (at your option) any later version.
-
 This program is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
-
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#pragma once
+#include QMK_KEYBOARD_H
+#include "alt_tab_user.h"
+#include "rgb_timeout_user.h"
+#include "mouse_jiggler_user.h"
 
-bool is_caps_word_active;
-void caps_word_set_user(bool active);
+__attribute__((weak)) void matrix_scan_keymap(void) {
+    return;
+}
+
+void matrix_scan_user(void) {
+#ifdef RGB_MATRIX_ENABLE
+    matrix_scan_rgb_timeout();
+#endif
+    matrix_scan_mouse_jiggler();
+    matrix_scan_alt_tab();
+    matrix_scan_keymap();
+}

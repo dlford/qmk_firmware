@@ -29,7 +29,7 @@ typedef union {
 
 extern user_config_t user_config;
 
-void eeconfig_init_custom_eeprom(void) {
+void eeconfig_init_user(void) {
     user_config.raw       = 0;
     user_config.rgb_speed = 50;
     eeconfig_update_user(user_config.raw);

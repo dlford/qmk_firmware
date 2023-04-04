@@ -17,7 +17,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-/*
 oled_rotation_t oled_init_user(oled_rotation_t rotation);
 bool            oled_task_user(void);
-*/
