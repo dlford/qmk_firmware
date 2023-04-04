@@ -27,7 +27,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif // COMBO_ENABLE
 
 #ifdef SPLIT_KEYBOARD
-#    define MK_KINETIC_SPEED
 #    define SPLIT_LAYER_STATE_ENABLE
 #    define SPLIT_LED_STATE_ENABLE
 #    define SPLIT_MODS_ENABLE
@@ -40,6 +39,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif     // SPLIT_KEYBOARD
 
 #ifdef MOUSEKEY_ENABLE
+#    define MK_KINETIC_SPEED
 #    ifdef MOUSEKEY_DELAY
 #        undef MOUSEKEY_DELAY
 #    endif
