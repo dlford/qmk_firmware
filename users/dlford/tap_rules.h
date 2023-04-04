@@ -17,6 +17,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
+/*
 bool     get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record);
 uint16_t get_quick_tap_term(uint16_t keycode, keyrecord_t *record);
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record);
+*/
