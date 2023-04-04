@@ -12,24 +12,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-void eeconfig_init_user(void) {
-    eeconfig_init_custom_eeprom();
-}
-
-void keyboard_post_init_user(void) {
-    read_user_config();
-    keyboard_post_init_rgb_matrix();
-}
-
-void matrix_scan_user(void) {
-#ifdef RGB_MATRIX_ENABLE
-    matrix_scan_rgb_timeout();
-#endif
-    matrix_scan_mouse_jiggler();
-    matrix_scan_alt_tab();
-}
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+bool process_record_custom_keycodes_user(uint16_t keycode, keyrecord_t *record) {
 #ifdef RGB_MATRIX_ENABLE
     process_record_rgb_timeout(record);
 #endif

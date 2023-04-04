@@ -16,37 +16,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #pragma once
-#include "generic.h"
-#include "tap_rules.h"
-#include "mouse_jiggler_user.h"
-#include "sarcasm_mode.h"
-#include "pwgen_user.h"
-#include "alt_tab_user.h"
-#include "eeprom_user.h"
-#ifdef RGB_MATRIX_ENABLE
-#    include "rgb_timeout_user.h"
-#    include "rgb_matrix_user.h"
-#endif
-#ifdef OLED_ENABLE
-#    include "oled_user.h"
-#endif
-#ifdef DYNAMIC_MACRO_ENABLE
-#    include "dynamic_macro_user.h"
-#endif
-#ifdef CAPS_WORD_ENABLE
-#    include "caps_word_user.h"
-#endif
-#ifdef COMBO_ENABLE
-#    include "combos_user.h"
-#endif
 
-enum layers {
-    _QWERTY = 0,
-    _COLEMAK,
-    _SPECIAL,
-    _NAVIGATION,
-    _MOUSE,
-};
+bool process_record_custom_keycodes_user(uint16_t keycode, keyrecord_t *record);
 
 enum custom_keycodes {
     M_KEYMAP = SAFE_RANGE,

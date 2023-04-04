@@ -25,14 +25,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef CAPS_WORD_ENABLE
 #    include "caps_word_user.h"
 #endif
-#ifdef ALL_MATRIX_ANIMATIONS_USER_ENABLE
-#    include "eeconfig.h"
-#    include "eeprom.h"
-#    include "progmem.h"
-#    include "eeprom_user.h"
-#endif
+#include "eeconfig.h"
+#include "eeprom.h"
+#include "progmem.h"
+#include "eeprom_user.h"
 
-#ifdef ALL_MATRIX_ANIMATIONS_USER_ENABLE
 rgb_config_t  rgb_matrix_config;
 user_config_t user_config;
 
@@ -53,13 +50,6 @@ void keyboard_post_init_rgb_matrix(void) {
         rgb_matrix_sethsv(rgb_matrix_config.hsv.h, rgb_matrix_config.hsv.s, rgb_matrix_config.hsv.v);
     }
 }
-#else
-void keyboard_post_init_rgb_matrix(void) {
-    rgb_matrix_mode(RGB_MATRIX_CYCLE_SPIRAL);
-    rgb_matrix_set_speed(50);
-    rgb_matrix_sethsv(HSV_ORANGE);
-}
-#endif // ALL_MATRIX_ANIMATIONS_USER
 
 layer_state_t layer_state_set_user(layer_state_t state) {
     switch (get_highest_layer(state)) {
@@ -85,16 +75,10 @@ layer_state_t layer_state_set_user(layer_state_t state) {
                 rgb_matrix_mode_noeeprom(RGB_MATRIX_PIXEL_FRACTAL);
 
             } else {
-#ifdef ALL_MATRIX_ANIMATIONS_USER_ENABLE
                 rgb_matrix_config.raw = eeprom_read_dword(EECONFIG_RGB_MATRIX);
                 rgb_matrix_mode(rgb_matrix_config.mode);
                 rgb_matrix_set_speed(user_config.rgb_speed);
                 rgb_matrix_sethsv(rgb_matrix_config.hsv.h, rgb_matrix_config.hsv.s, rgb_matrix_config.hsv.v);
-#else
-                rgb_matrix_mode(RGB_MATRIX_CYCLE_SPIRAL);
-                rgb_matrix_set_speed(50);
-                rgb_matrix_sethsv(HSV_ORANGE);
-#endif
             }
             break;
     }
