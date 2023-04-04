@@ -16,15 +16,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include QMK_KEYBOARD_H
+#include "dlford.h"
+#include "sarcasm_mode.h"
+#include "mouse_jiggler_user.h"
+#ifdef DYNAMIC_MACRO_ENABLE
+#    include "dynamic_macro_user.h"
+#endif
+#ifdef CAPS_WORD_ENABLE
+#    include "caps_word_user.h"
+#endif
 #ifdef ALL_MATRIX_ANIMATIONS_USER_ENABLE
 #    include "eeconfig.h"
 #    include "eeprom.h"
 #    include "progmem.h"
 #    include "eeprom_user.h"
 #endif
-#include "dlford.h"
-#include "sarcasm_mode.h"
-#include "mouse_jiggler_user.h"
 
 #ifdef ALL_MATRIX_ANIMATIONS_USER_ENABLE
 rgb_config_t  rgb_matrix_config;
@@ -103,9 +109,11 @@ __attribute__((weak)) void rgb_matrix_indicators_keymap_colemak(void) {
     return;
 }
 
+#ifdef DYNAMIC_MACRO_ENABLE
 __attribute__((weak)) void rgb_matrix_indicators_keymap_dynamic_macro_recording(void) {
     return;
 }
+#endif
 
 __attribute__((weak)) void rgb_matrix_indicators_keymap_mouse_jiggling(void) {
     return;
@@ -116,12 +124,18 @@ __attribute__((weak)) bool rgb_matrix_indicators_keymap_custom(void) {
 }
 
 bool rgb_matrix_indicators_user(void) {
-    if (host_keyboard_led_state().caps_lock || is_caps_word_active) {
+    if (host_keyboard_led_state().caps_lock
+#ifdef CAPS_WORD_ENABLE
+        || is_caps_word_active
+#endif
+    ) {
         rgb_matrix_indicators_keymap_caps();
     }
+#ifdef DYNAMIC_MACRO_ENABLE
     if (is_macro_recording) {
         rgb_matrix_indicators_keymap_dynamic_macro_recording();
     }
+#endif
     if (default_layer_state - 1 == _COLEMAK) {
         rgb_matrix_indicators_keymap_colemak();
     }

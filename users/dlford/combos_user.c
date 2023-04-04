@@ -17,52 +17,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include QMK_KEYBOARD_H
 #include "dlford.h"
+#include "combos_user.h"
 #include "mouse_jiggler_user.h"
 #include "sarcasm_mode.h"
 #include "pwgen_user.h"
 
 const char PROGMEM legends_url[] = "https://raw.githubusercontent.com/dlford/qmk_firmware/dlford/keyboards/crkbd/keymaps/dlford/legends.svg";
 
-enum combo_events {
-#ifdef CAPS_WORD_ENABLE
-    CAPS_COMBO,
-    CAPS2_COMBO,
-#endif // CAPS_WORD_ENABLE
-    QW_ESC_COMBO,
-    OP_BSPC_COMBO,
-    YSEMI_BSPC_COMBO,
-    ZX_EXIT_COMBO,
-    SA_SCSM_COMBO,
-    RA_SCSM_COMBO,
-    KM_KEYMAP_COMBO,
-    KM_KEYMAP2_COMBO,
-    PW_RAND_COMBO,
-    PW_RAND2_COMBO,
-    LSEMI_DEL_COMBO,
-    IO_DEL_COMBO,
-    DOTSLASH_JIGGLE_COMBO,
-    CX_COLEMAK_COMBO,
-    BR_WRAP_COMBO,
-    BR_WRAP_SEMI_COMBO,
-    CBR_WRAP_COMBO,
-    CBR_WRAP_SEMI_COMBO,
-    PRN_WRAP_COMBO,
-    PRN_WRAP_SEMI_COMBO,
-    ANG_WRAP_COMBO,
-    ANG_WRAP_SEMI_COMBO,
-    FAT_ARROW_COMBO,
-    FAT_ARROW2_COMBO,
-    SKINNY_ARROW_COMBO,
-    SKINNY_ARROW2_COMBO,
-    COMBO_LENGTH,
-};
-
-uint16_t COMBO_LEN = COMBO_LENGTH;
-
-#ifdef CAPS_WORD_ENABLE
-const uint16_t PROGMEM caps_combo[]  = {LSFT_F, RSFT_J, COMBO_END};
-const uint16_t PROGMEM caps2_combo[] = {_LSFT_T, RSFT_N, COMBO_END};
-#endif // CAPS_WORD_ENABLE
 const uint16_t PROGMEM qw_esc_combo[]          = {CSA_Q, CA_W, COMBO_END};
 const uint16_t PROGMEM op_bspc_combo[]         = {CA_O, CSA_P, COMBO_END};
 const uint16_t PROGMEM ysemi_bspc_combo[]      = {CA_Y, CSA_SCLN, COMBO_END};
@@ -89,12 +50,12 @@ const uint16_t PROGMEM fat_arrow_combo[]       = {RCTL_K, KC_DOT, COMBO_END};
 const uint16_t PROGMEM fat_arrow2_combo[]      = {RCTL_E, KC_DOT, COMBO_END};
 const uint16_t PROGMEM skinny_arrow_combo[]    = {RSFT_J, KC_DOT, COMBO_END};
 const uint16_t PROGMEM skinny_arrow2_combo[]   = {RSFT_N, KC_DOT, COMBO_END};
-
-combo_t key_combos[] = {
 #ifdef CAPS_WORD_ENABLE
-    [CAPS_COMBO]  = COMBO_ACTION(caps_combo),
-    [CAPS2_COMBO] = COMBO_ACTION(caps2_combo),
+const uint16_t PROGMEM caps_combo[]  = {LSFT_F, RSFT_J, COMBO_END};
+const uint16_t PROGMEM caps2_combo[] = {_LSFT_T, RSFT_N, COMBO_END};
 #endif // CAPS_WORD_ENABLE
+
+combo_t key_combos[COMBO_LENGTH] = {
     [QW_ESC_COMBO]          = COMBO_ACTION(qw_esc_combo),
     [OP_BSPC_COMBO]         = COMBO_ACTION(op_bspc_combo),
     [YSEMI_BSPC_COMBO]      = COMBO_ACTION(ysemi_bspc_combo),
@@ -121,18 +82,14 @@ combo_t key_combos[] = {
     [FAT_ARROW2_COMBO]      = COMBO_ACTION(fat_arrow2_combo),
     [SKINNY_ARROW_COMBO]    = COMBO_ACTION(skinny_arrow_combo),
     [SKINNY_ARROW2_COMBO]   = COMBO_ACTION(skinny_arrow2_combo),
+#ifdef CAPS_WORD_ENABLE
+    [CAPS_COMBO]  = COMBO_ACTION(caps_combo),
+    [CAPS2_COMBO] = COMBO_ACTION(caps2_combo),
+#endif // CAPS_WORD_ENABLE
 };
 
 void process_combo_event(uint16_t combo_index, bool pressed) {
     switch (combo_index) {
-#ifdef CAPS_WORD_ENABLE
-        case CAPS_COMBO:
-        case CAPS2_COMBO:
-            if (pressed) {
-                caps_word_on();
-            }
-            break;
-#endif // CAPS_WORD_ENABLE
         case QW_ESC_COMBO:
             if (pressed) {
                 tap_code(KC_ESC);
@@ -262,5 +219,13 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
                 SEND_STRING("->");
             }
             break;
+#ifdef CAPS_WORD_ENABLE
+        case CAPS_COMBO:
+        case CAPS2_COMBO:
+            if (pressed) {
+                caps_word_on();
+            }
+            break;
+#endif // CAPS_WORD_ENABLE
     }
 }

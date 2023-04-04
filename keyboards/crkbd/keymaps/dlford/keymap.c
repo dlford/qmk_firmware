@@ -12,10 +12,13 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#define ALT_TAB_USER_ENABLE
+#define ALL_MATRIX_ANIMATIONS_USER_ENABLE
+
 #include QMK_KEYBOARD_H
-#include "features_user.h"
 #include "dlford.h"
 
+#ifdef OLED_ENABLE
 void rgb_matrix_indicators_keymap_caps(void) {
     // Left master
     rgb_matrix_set_color(23, RGB_RED);
@@ -59,6 +62,7 @@ void rgb_matrix_indicators_keymap_mouse_jiggling(void) {
     rgb_matrix_set_color(35, RGB_BLUE);
     rgb_matrix_set_color(36, RGB_BLUE);
 }
+#endif // OLED_ENABLE
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {

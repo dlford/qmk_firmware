@@ -16,9 +16,33 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #pragma once
-
-bool is_macro_recording;
-bool is_caps_word_active;
+#include "generic.h"
+#include "tap_rules.h"
+#include "mouse_jiggler_user.h"
+#include "sarcasm_mode.h"
+#include "pwgen_user.h"
+#ifdef ALT_TAB_USER_ENABLE
+#    include "alt_tab_user.h"
+#endif
+#ifdef RGB_MATRIX_ENABLE
+#    include "rgb_timeout_user.h"
+#    include "rgb_matrix_user.h"
+#endif
+#ifdef OLED_ENABLE
+#    include "oled_user.h"
+#endif
+#ifdef ALL_MATRIX_ANIMATIONS_USER_ENABLE
+#    include "eeprom_user.h"
+#endif
+#ifdef DYNAMIC_MACRO_ENABLE
+#    include "dynamic_macro_user.h"
+#endif
+#ifdef CAPS_WORD_ENABLE
+#    include "caps_word_user.h"
+#endif
+#ifdef COMBO_ENABLE
+#    include "combos_user.h"
+#endif
 
 enum layers {
     _QWERTY = 0,
