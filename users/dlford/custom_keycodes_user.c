@@ -17,16 +17,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "layers_user.h"
 #include "rgb_matrix_user.h"
 #include "rgb_timeout_user.h"
-#include "sarcasm_mode.h"
 #include "alt_tab_user.h"
 #include "eeprom_user.h"
 
 bool process_record_custom_keycodes_user(uint16_t keycode, keyrecord_t *record) {
-#ifdef RGB_MATRIX_ENABLE
-    process_record_rgb_timeout(record);
-#endif
-    process_record_sarcasm_mode(record);
-
     switch (keycode) {
         case M_ALT_TAB:
             start_alt_tab(record);
@@ -52,6 +46,7 @@ bool process_record_custom_keycodes_user(uint16_t keycode, keyrecord_t *record) 
                 user_config.rgb_speed = 50;
                 rgb_matrix_set_speed_noeeprom(user_config.rgb_speed);
                 write_user_config();
+                return false;
             }
             break;
     }
