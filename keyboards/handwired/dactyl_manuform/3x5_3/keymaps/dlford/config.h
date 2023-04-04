@@ -15,20 +15,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#define EE_HANDS // ./util/docker_build.sh crkbd:dlford:dfu-split-[left|right] (or avrdude-split[left|right])
+#define EE_HANDS
 
-// Features I don't want, remove to save space
-// #define NO_ACTION_ONESHOT // Used by caps word
-#define NO_ACTION_FUNCTION
-#define NO_ACTION_MACRO
-#define NO_USB_STARTUP_CHECK
-#ifdef NKRO_ENABLE
-#    undef NKRO_ENABLE
-#endif
-
-#ifndef NO_DEBUG
-#    define NO_DEBUG
-#endif // !NO_DEBUG
-#if !defined(NO_PRINT) && !defined(CONSOLE_ENABLE)
-#    define NO_PRINT
-#endif // !NO_PRINT
+#define RP2040_BOOTLOADER_DOUBLE_TAP_RESET
+#define RP2040_BOOTLOADER_DOUBLE_TAP_RESET_TIMEOUT 150U
