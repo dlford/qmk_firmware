@@ -12,6 +12,16 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include QMK_KEYBOARD_H
+#include "custom_keycodes_user.h"
+#include "layers_user.h"
+#include "eeprom_user.h"
+#include "rgb_matrix_user.h"
+#include "alt_tab_user.h"
+#include "sarcasm_mode.h"
+#include "rgb_timeout_user.h"
+#include "mouse_jiggler_user.h"
+
 void eeconfig_init_user(void) {
     eeconfig_init_custom_eeprom();
 }
