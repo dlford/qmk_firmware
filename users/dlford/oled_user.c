@@ -19,6 +19,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "dlford.h"
 #include "mouse_jiggler_user.h"
 #include "sarcasm_mode.h"
+#ifdef CAPS_WORD_ENABLE
+#    include "caps_word_user.h"
+#endif
+#ifdef DYNAMIC_MACRO_ENABLE
+#    include "dynamic_macro_user.h"
+#endif
 
 // OLEDs
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
@@ -65,6 +71,7 @@ void oled_render_layer_state(void) {
     }
 }
 
+#ifdef DYNAMIC_MACRO_ENABLE
 void oled_render_dynamic_macro_status(void) {
     if (is_macro_recording) {
         oled_write_ln_P(PSTR("Macro Recording..."), false);
@@ -72,12 +79,15 @@ void oled_render_dynamic_macro_status(void) {
         oled_write_ln_P(PSTR(""), false);
     }
 }
+#endif
 
 void oled_render_caps_lock_status(void) {
     if (host_keyboard_led_state().caps_lock) {
         oled_write_ln_P(PSTR("CAPS LOCK"), false);
+#ifdef CAPS_WORD_ENABLE
     } else if (is_caps_word_active) {
         oled_write_ln_P(PSTR("CAPS word"), false);
+#endif
     } else {
         oled_write_ln_P(PSTR(""), false);
     }
