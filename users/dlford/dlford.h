@@ -28,6 +28,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "alt_tab_user.h"
 #include "eeprom_user.h"
 #include "custom_keycodes_user.h"
+#include "wrappers.h"
 #ifdef OLED_ENABLE
 #    include "oled_user.h"
 #endif
