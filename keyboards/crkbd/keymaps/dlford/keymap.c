@@ -65,11 +65,36 @@ void rgb_matrix_indicators_keymap_mouse_jiggling(void) {
 
 #define LAYOUT_wrapper(...) LAYOUT_split_3x5_3(__VA_ARGS__)
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [_QWERTY]     = LAYOUT_wrapper(___QWERTY_1___, ___QWERTY_2___, ___QWERTY_3___, ___QWERTY_4___),
-    [_COLEMAK]    = LAYOUT_wrapper(___COLEMAK_1___, ___COLEMAK_2___, ___COLEMAK_3___, ___COLEMAK_4___),
-    [_SPECIAL]    = LAYOUT_wrapper(___SPECIAL_1___, ___SPECIAL_2___, ___SPECIAL_3___, ___SPECIAL_4___),
-    [_NAVIGATION] = LAYOUT_wrapper(___NAVIGATION_1___, ___NAVIGATION_2___, ___NAVIGATION_3___, ___NAVIGATION_4___),
-    [_MOUSE]      = LAYOUT_wrapper(___MOUSE_1___, ___MOUSE_2___, ___MOUSE_3___, ___MOUSE_4___),
+    [_QWERTY] = LAYOUT_wrapper(
+        ___QWERTY_L1___,                   ___QWERTY_R1___,
+        ___QWERTY_L2___,                   ___QWERTY_R2___,
+        ___QWERTY_L3___,                   ___QWERTY_R3___,
+        ___QWERTY_L4___,                   ___QWERTY_R4___
+    ),
+    [_COLEMAK] = LAYOUT_wrapper(
+        ___COLEMAK_L1___,                  ___COLEMAK_R1___,
+        ___COLEMAK_L2___,                  ___COLEMAK_R2___,
+        ___COLEMAK_L3___,                  ___COLEMAK_R3___,
+        ___COLEMAK_L4___,                  ___COLEMAK_R4___
+    ),
+    [_SPECIAL] = LAYOUT_wrapper(
+        ___SPECIAL_L1___,                  ___SPECIAL_R1___,
+        ___SPECIAL_L2___,                  ___SPECIAL_R2___,
+        ___SPECIAL_L3___,                  ___SPECIAL_R3___,
+        ___SPECIAL_L4___,                  ___SPECIAL_R4___
+    ),
+    [_NAVIGATION] = LAYOUT_wrapper(
+        ___NAVIGATION_L1___,               ___NAVIGATION_R1___,
+        ___NAVIGATION_L2___,               ___NAVIGATION_R2___,
+        ___NAVIGATION_L3___,               ___NAVIGATION_R3___,
+        ___NAVIGATION_L4___,               ___NAVIGATION_R4___
+    ),
+    [_MOUSE] = LAYOUT_wrapper(
+        ___MOUSE_L1___,                    ___MOUSE_R1___,
+        ___MOUSE_L2___,                    ___MOUSE_R2___,
+        ___MOUSE_L3___,                    ___MOUSE_R3___,
+        ___MOUSE_L4___,                    ___MOUSE_R4___
+    ),
 };
 
 // clang-format on

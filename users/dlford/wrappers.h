@@ -23,55 +23,75 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // clang-format off
 
 //                             |--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
-#define ___QWERTY_1___           CSA_Q,   CA_W,    CS_E,    KC_R,    KC_T,                         KC_Y,    KC_U,    CS_I,    CA_O,    CSA_P
+#define ___QWERTY_L1___          CSA_Q,   CA_W,    CS_E,    KC_R,    KC_T
+#define ___QWERTY_R1___                                                                            KC_Y,    KC_U,    CS_I,    CA_O,    CSA_P
 //                             |--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
-#define ___QWERTY_2___           LGUI_A,  LALT_S,  LCTL_D,  LSFT_F,  KC_G,                         KC_H,    RSFT_J,  RCTL_K,  RALT_L, RGUI_SCLN
+#define ___QWERTY_L2___          LGUI_A,  LALT_S,  LCTL_D,  LSFT_F,  KC_G
+#define ___QWERTY_R2___                                                                           KC_H,    RSFT_J,  RCTL_K,  RALT_L, RGUI_SCLN
 //                             |--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
-#define ___QWERTY_3___           KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_N,    KC_M,   KC_COMM,  KC_DOT,  KC_SLSH
+#define ___QWERTY_L3___          KC_Z,    KC_X,    KC_C,    KC_V,    KC_B
+#define ___QWERTY_R3___                                                                            KC_N,    KC_M,   KC_COMM,  KC_DOT,  KC_SLSH
 //                             |--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
-#define ___QWERTY_4___                                     KC_ESC,  LT3_SPC, KC_BSPC,    KC_DEL,  LT2_TAB,  KC_ENT
+#define ___QWERTY_L4___                                    KC_ESC,  LT3_SPC, KC_BSPC
+#define ___QWERTY_R4___                                                                  KC_DEL,  LT2_TAB,  KC_ENT
 //                                                        |--------+--------+--------|  |--------+--------+--------|
 
 //                             |--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
-#define ___COLEMAK_1___          CSA_Q,   CA_W,    CS_F,    KC_P,    KC_G,                         KC_J,    KC_L,    CS_U,    CA_Y,    CSA_SCLN
+#define ___COLEMAK_L1___         CSA_Q,   CA_W,    CS_F,    KC_P,    KC_G
+#define ___COLEMAK_R1___                                                                           KC_J,    KC_L,    CS_U,    CA_Y,   CSA_SCLN
 //                             |--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
-#define ___COLEMAK_2___          LGUI_A,  LALT_R,  LCTL_S,  _LSFT_T, KC_D,                         KC_H,    RSFT_N,  RCTL_E,  RALT_I,  RGUI_O
+#define ___COLEMAK_L2___         LGUI_A,  LALT_R,  LCTL_S,  _LSFT_T, KC_D
+#define ___COLEMAK_R2___                                                                           KC_H,    RSFT_N,  RCTL_E,  RALT_I,  RGUI_O
 //                             |--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
-#define ___COLEMAK_3___          KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_K,    KC_M,   KC_COMM,  KC_DOT,  KC_SLSH
+#define ___COLEMAK_L3___         KC_Z,    KC_X,    KC_C,    KC_V,    KC_B
+#define ___COLEMAK_R3___                                                                           KC_K,    KC_M,   KC_COMM,  KC_DOT,  KC_SLSH
 //                             |--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
-#define ___COLEMAK_4___                                     KC_ESC,  LT3_SPC, KC_BSPC,    KC_DEL, LT2_TAB,  KC_ENT
+#define ___COLEMAK_L4___                                         ___QWERTY_L4___
+#define ___COLEMAK_R4___                                                                       ___QWERTY_R4___
 //                                                        |--------+--------+--------|  |--------+--------+--------|
 
 // left thumb
 //                             |--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
-#define ___SPECIAL_1___          CSA_1,   CA_2,    CS_3,    KC_4,    KC_5,                         KC_6,    KC_7,    CS_8,    CA_9,    CSA_0
+#define ___SPECIAL_L1___         CSA_1,   CA_2,    CS_3,    KC_4,    KC_5
+#define ___SPECIAL_R1___                                                                           KC_6,    KC_7,    CS_8,    CA_9,    CSA_0
 //                             |--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
-#define ___SPECIAL_2___          LGUI_GRV,KC_LALT,LCTL_LBRC,LSFT_RBRC,KC_LPRN,                     KC_RPRN,RSFT_MINS,RCTL_EQL,RALT_BSLS,RGUI_QUOT
+#define ___SPECIAL_L2___         LGUI_GRV,KC_LALT,LCTL_LBRC,LSFT_RBRC,KC_LPRN
+#define ___SPECIAL_R2___                                                                           KC_RPRN,RSFT_MINS,RCTL_EQL,RALT_BSLS,RGUI_QUOT
 //                             |--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
-#define ___SPECIAL_3___          KC_TILD, KC_CAPS, KC_LCBR, KC_RCBR, M_ALT_TAB,                    QK_BOOT,  KC_UNDS, KC_PLUS, KC_PIPE, KC_DQUO
+#define ___SPECIAL_L3___         KC_TILD, KC_CAPS, KC_LCBR, KC_RCBR, M_ALT_TAB
+#define ___SPECIAL_R3___                                                                           QK_BOOT,  KC_UNDS, KC_PLUS, KC_PIPE, KC_DQUO
 //                             |--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
-#define ___SPECIAL_4___                                      VVV,     VVV,     VVV,        VVV,  TG(_MOUSE),  VVV
+#define ___SPECIAL_L4___                                     VVV,     VVV,     VVV
+#define ___SPECIAL_R4___                                                                   VVV,  TG(_MOUSE),  VVV
 //                                                        |--------+--------+--------|  |--------+--------+--------|
 
 // right thumb
 //                             |--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
-#define ___NAVIGATION_1___       CSA_F1,  CA_F2,   CS_F3,   KC_F4,   KC_F5,                        KC_F6,   KC_F7,   CS_F8,  CA_F9,   CSA_F10
+#define ___NAVIGATION_L1___      CSA_F1,  CA_F2,   CS_F3,   KC_F4,   KC_F5
+#define ___NAVIGATION_R1___                                                                        KC_F6,   KC_F7,   CS_F8,  CA_F9,   CSA_F10
 //                             |--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
-#define ___NAVIGATION_2___    LGUI_FIND,LALT_HOME,LCTL_PGUP,LSFT_PGDN,KC_END,                     KC_LEFT,RSFT_DOWN,RCTL_UP,RALT_RGHT,RGUI_F11
+#define ___NAVIGATION_L2___   LGUI_FIND,LALT_HOME,LCTL_PGUP,LSFT_PGDN,KC_END
+#define ___NAVIGATION_R2___                                                                       KC_LEFT,RSFT_DOWN,RCTL_UP,RALT_RGHT,RGUI_F11
 //                             |--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
-#define ___NAVIGATION_3___     M_RGB_SPD, RGB_HUI, KC_VOLD, KC_VOLU,  RGB_MOD,                     M_ALT_TAB, KC_MPLY, KC_MPRV, KC_MNXT, KC_F12
+#define ___NAVIGATION_L3___    M_RGB_SPD, RGB_HUI, KC_VOLD, KC_VOLU,  RGB_MOD
+#define ___NAVIGATION_R3___                                                                        M_ALT_TAB, KC_MPLY, KC_MPRV, KC_MNXT, KC_F12
 //                             |--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
-#define ___NAVIGATION_4___                                   VVV,  TG(_MOUSE), VVV,         VVV,    VVV,     VVV
+#define ___NAVIGATION_L4___                                  VVV,  TG(_MOUSE), VVV
+#define ___NAVIGATION_R4___                                                                 VVV,    VVV,     VVV
 //                                                        |--------+--------+--------|  |--------+--------+--------|
 
 //                             |--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
-#define ___MOUSE_1___           KC_WH_U, KC_WH_L, KC_MS_U, KC_WH_R, DM_REC1,                      KC_WSTP, KC_ACL2, KC_ACL1, KC_ACL0, KC_WFWD
+#define ___MOUSE_L1___          KC_WH_U, KC_WH_L, KC_MS_U, KC_WH_R, DM_REC1
+#define ___MOUSE_R1___                                                                            KC_WSTP, KC_ACL2, KC_ACL1, KC_ACL0, KC_WFWD
 //                             |--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
-#define ___MOUSE_2___           KC_WH_D, KC_MS_L, KC_MS_D, KC_MS_R, DM_PLY1,                      KC_WREF, KC_BTN1, KC_BTN2, KC_BTN3, KC_WBAK
+#define ___MOUSE_L2___          KC_WH_D, KC_MS_L, KC_MS_D, KC_MS_R, DM_PLY1
+#define ___MOUSE_R2___                                                                            KC_WREF, KC_BTN1, KC_BTN2, KC_BTN3, KC_WBAK
 //                             |--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
-#define ___MOUSE_3___           XXX,    KC_BTN3, KC_BTN2, KC_BTN1, M_RST_RGB,                     XXX,     XXX,     XXX,     XXX,     XXX
+#define ___MOUSE_L3___            XXX,   KC_BTN3, KC_BTN2, KC_BTN1, M_RST_RGB
+#define ___MOUSE_R3___                                                                              XXX,     XXX,     XXX,     XXX,     XXX
 //                             |--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
-#define ___MOUSE_4___                                       VVV,  TG(_MOUSE),  VVV,       VVV,  TG(_MOUSE),  VVV
+#define ___MOUSE_L4___                                      VVV,  TG(_MOUSE),  VVV
+#define ___MOUSE_R4___                                                                    VVV,  TG(_MOUSE),  VVV
 //                                                        |--------+--------+--------|  |--------+--------+--------|
 
 // clang-format on
