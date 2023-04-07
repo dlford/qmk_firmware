@@ -23,7 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "sarcasm_mode.h"
 #include "pwgen_user.h"
 
-const char PROGMEM legends_url[] = "https://raw.githubusercontent.com/dlford/qmk_firmware/dlford/keyboards/crkbd/keymaps/dlford/legends.svg";
+const char PROGMEM legends_url[] = "https://raw.githubusercontent.com/dlford/qmk_firmware/dlford/users/dlford/keymap_3x5_3.svg";
 
 const uint16_t PROGMEM qw_esc_combo[]          = {CSA_Q, CA_W, COMBO_END};
 const uint16_t PROGMEM op_bspc_combo[]         = {CA_O, CSA_P, COMBO_END};
