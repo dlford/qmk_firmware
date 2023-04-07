@@ -23,9 +23,13 @@ enum custom_keycodes {
     M_KEYMAP = SAFE_RANGE,
     M_EXIT,
     M_ALT_TAB,
-    M_RST_RGB,
+    M_RGB_RST,
+    M_RGB_STP,
     M_RGB_SPD,
+    M_RGB_HUE,
     M_LLOCK,
+    M_SKN_ARW,
+    M_FAT_ARW,
 };
 
 #define VVV KC_TRNS

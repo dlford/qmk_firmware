@@ -15,7 +15,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include QMK_KEYBOARD_H
 #include "dlford.h"
 
-#ifdef OLED_ENABLE
+#ifdef RGB_MATRIX_ENABLE
 void rgb_matrix_indicators_keymap_caps(void) {
     rgb_matrix_set_color(3, RGB_RED);
     rgb_matrix_set_color(21, RGB_RED);
@@ -35,7 +35,7 @@ void rgb_matrix_indicators_keymap_mouse_jiggling(void) {
     rgb_matrix_set_color(15, RGB_BLUE);
     rgb_matrix_set_color(33, RGB_BLUE);
 }
-#endif // OLED_ENABLE
+#endif // RGB_MATRIX_ENABLE
 
 // clang-format off
 

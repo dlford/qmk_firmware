@@ -19,6 +19,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "rgb_timeout_user.h"
 #include "alt_tab_user.h"
 #include "eeprom_user.h"
+#include "eeprom.h"
+#include "progmem.h"
+
+rgb_config_t  rgb_matrix_config;
+user_config_t user_config;
 
 bool process_record_custom_keycodes_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
@@ -27,18 +32,59 @@ bool process_record_custom_keycodes_user(uint16_t keycode, keyrecord_t *record) 
             break;
         case M_RGB_SPD:
             if (record->event.pressed) {
-                if (keyboard_report->mods & MOD_BIT(KC_LSFT) || keyboard_report->mods & MOD_BIT(KC_RSFT)) {
-                    user_config.rgb_speed = (user_config.rgb_speed - 10) % 256;
+                rgb_matrix_config.raw = eeprom_read_dword(EECONFIG_RGB_MATRIX);
+                rgb_matrix_mode_noeeprom(rgb_matrix_config.mode);
+                rgb_matrix_set_speed_noeeprom(user_config.rgb_speed);
+                rgb_matrix_sethsv_noeeprom(rgb_matrix_config.hsv.h, rgb_matrix_config.hsv.s, rgb_matrix_config.hsv.v);
+                if (keyboard_report->mods & MOD_MASK_SHIFT) {
+                    if (user_config.rgb_speed <= 5) {
+                        user_config.rgb_speed = 0;
+                    } else {
+                        user_config.rgb_speed -= 5;
+                    }
                     rgb_matrix_set_speed_noeeprom(user_config.rgb_speed);
                     write_user_config();
                 } else {
-                    user_config.rgb_speed = (user_config.rgb_speed + 10) % 256;
+                    if (user_config.rgb_speed >= 250) {
+                        user_config.rgb_speed = 255;
+                    } else {
+                        user_config.rgb_speed += 5;
+                    }
                     rgb_matrix_set_speed_noeeprom(user_config.rgb_speed);
                     write_user_config();
                 }
+                return false;
             }
             break;
-        case M_RST_RGB:
+        case M_RGB_HUE:
+            if (record->event.pressed) {
+                rgb_matrix_config.raw = eeprom_read_dword(EECONFIG_RGB_MATRIX);
+                rgb_matrix_mode_noeeprom(rgb_matrix_config.mode);
+                rgb_matrix_set_speed_noeeprom(user_config.rgb_speed);
+                rgb_matrix_sethsv_noeeprom(rgb_matrix_config.hsv.h, rgb_matrix_config.hsv.s, rgb_matrix_config.hsv.v);
+                if (keyboard_report->mods & MOD_MASK_SHIFT) {
+                    rgb_matrix_decrease_hue();
+                } else {
+                    rgb_matrix_increase_hue();
+                }
+                return false;
+            }
+            break;
+        case M_RGB_STP:
+            if (record->event.pressed) {
+                rgb_matrix_config.raw = eeprom_read_dword(EECONFIG_RGB_MATRIX);
+                rgb_matrix_mode_noeeprom(rgb_matrix_config.mode);
+                rgb_matrix_set_speed_noeeprom(user_config.rgb_speed);
+                rgb_matrix_sethsv_noeeprom(rgb_matrix_config.hsv.h, rgb_matrix_config.hsv.s, rgb_matrix_config.hsv.v);
+                if (keyboard_report->mods & MOD_MASK_SHIFT) {
+                    rgb_matrix_step_reverse();
+                } else {
+                    rgb_matrix_step();
+                }
+                return false;
+            }
+            break;
+        case M_RGB_RST:
             if (record->event.pressed) {
                 layer_off(_MOUSE);
                 rgb_matrix_mode(RGB_MATRIX_CYCLE_SPIRAL);
@@ -47,6 +93,16 @@ bool process_record_custom_keycodes_user(uint16_t keycode, keyrecord_t *record) 
                 rgb_matrix_set_speed_noeeprom(user_config.rgb_speed);
                 write_user_config();
                 return false;
+            }
+            break;
+        case M_SKN_ARW:
+            if (record->event.pressed) {
+                send_string("->");
+            }
+            break;
+        case M_FAT_ARW:
+            if (record->event.pressed) {
+                send_string("=>");
             }
             break;
     }

@@ -50,9 +50,9 @@ void keyboard_post_init_rgb_matrix(void) {
         rgb_matrix_set_speed_noeeprom(user_config.rgb_speed);
         write_user_config();
     } else {
-        rgb_matrix_mode(rgb_matrix_config.mode);
-        rgb_matrix_set_speed(user_config.rgb_speed);
-        rgb_matrix_sethsv(rgb_matrix_config.hsv.h, rgb_matrix_config.hsv.s, rgb_matrix_config.hsv.v);
+        rgb_matrix_mode_noeeprom(rgb_matrix_config.mode);
+        rgb_matrix_set_speed_noeeprom(user_config.rgb_speed);
+        rgb_matrix_sethsv_noeeprom(rgb_matrix_config.hsv.h, rgb_matrix_config.hsv.s, rgb_matrix_config.hsv.v);
     }
 }
 
@@ -90,9 +90,9 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 
             } else {
                 rgb_matrix_config.raw = eeprom_read_dword(EECONFIG_RGB_MATRIX);
-                rgb_matrix_mode(rgb_matrix_config.mode);
-                rgb_matrix_set_speed(user_config.rgb_speed);
-                rgb_matrix_sethsv(rgb_matrix_config.hsv.h, rgb_matrix_config.hsv.s, rgb_matrix_config.hsv.v);
+                rgb_matrix_mode_noeeprom(rgb_matrix_config.mode);
+                rgb_matrix_set_speed_noeeprom(user_config.rgb_speed);
+                rgb_matrix_sethsv_noeeprom(rgb_matrix_config.hsv.h, rgb_matrix_config.hsv.s, rgb_matrix_config.hsv.v);
             }
             break;
     }
