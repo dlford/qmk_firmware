@@ -62,7 +62,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ___SPECIAL_R3___                                                                           QK_BOOT,  KC_UNDS, KC_PLUS, KC_PIPE, KC_DQUO
 //                             |--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
 #define ___SPECIAL_L4___                                     VVV,     VVV,     VVV
-#define ___SPECIAL_R4___                                                                M_LLOCK,TG(_MOUSE),  VVV
+#define ___SPECIAL_R4___                                                                M_LLOCK,TG(_MOUSE),TG(_NUMPAD)
 //                                                        |--------+--------+--------|  |--------+--------+--------|
 
 // right thumb
@@ -76,7 +76,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ___NAVIGATION_L3___    M_RGB_SPD, RGB_HUI, KC_VOLD, KC_VOLU,  RGB_MOD
 #define ___NAVIGATION_R3___                                                                        M_ALT_TAB, KC_MPLY, KC_MPRV, KC_MNXT, KC_F12
 //                             |--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
-#define ___NAVIGATION_L4___                                  VVV, TG(_MOUSE),M_LLOCK
+#define ___NAVIGATION_L4___                             TG(_NUMPAD),TG(_MOUSE),M_LLOCK
 #define ___NAVIGATION_R4___                                                                 VVV,    VVV,     VVV
 //                                                        |--------+--------+--------|  |--------+--------+--------|
 
@@ -92,6 +92,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //                             |--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
 #define ___MOUSE_L4___                                      VVV,  TG(_MOUSE),  VVV
 #define ___MOUSE_R4___                                                                    VVV,  TG(_MOUSE),  VVV
+//                                                        |--------+--------+--------|  |--------+--------+--------|
+
+//                             |--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
+#define ___NUMPAD_L1___           XXX,    KC_PGDN, KC_UP,  KC_PGUP,  KC_ASTR
+#define ___NUMPAD_R1___                                                                           KC_HOME,  KC_7,    CS_8,    CA_9,    KC_0
+//                             |--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
+#define ___NUMPAD_L2___           XXX,   KC_LEFT, KC_DOWN, KC_RGHT, KC_MINS
+#define ___NUMPAD_R2___                                                                           KC_PLUS,  KC_4,    KC_5,    KC_6,    KC_COMM
+//                             |--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
+#define ___NUMPAD_L3___           XXX,     XXX,    KC_TAB,  KC_SPC, KC_SLSH
+#define ___NUMPAD_R3___                                                                           KC_END,   KC_1,    KC_2,    KC_3,    KC_DOT
+//                             |--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
+#define ___NUMPAD_L4___                                    KC_ESC,TG(_NUMPAD),KC_BSPC
+#define ___NUMPAD_R4___                                                                  KC_DEL,TG(_NUMPAD),KC_ENT
 //                                                        |--------+--------+--------|  |--------+--------+--------|
 
 // clang-format on
