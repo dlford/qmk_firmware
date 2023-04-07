@@ -126,9 +126,12 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
             break;
         case KM_KEYMAP_COMBO:
         case KM_KEYMAP2_COMBO:
-            // TODO: Make this adjustable?
             if (pressed) {
+#ifdef KEYMAP_SVG_URL
+                send_string(KEYMAP_SVG_URL);
+#else
                 send_string(legends_url);
+#endif
             }
             break;
         case PW_RAND_COMBO:
