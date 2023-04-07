@@ -58,6 +58,9 @@ void oled_render_layer_state(void) {
         case _MOUSE:
             oled_write_ln_P(PSTR("Mouse"), false);
             break;
+        case _NUMPAD:
+            oled_write_ln_P(PSTR("Number Pad"), false);
+            break;
         default:
             if (default_layer_state - 1 == _COLEMAK) {
                 if (is_scsm_active) {
