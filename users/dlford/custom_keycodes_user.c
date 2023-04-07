@@ -19,11 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "rgb_timeout_user.h"
 #include "alt_tab_user.h"
 #include "eeprom_user.h"
-#include "eeprom.h"
-#include "progmem.h"
-
-rgb_config_t  rgb_matrix_config;
-user_config_t user_config;
 
 bool process_record_custom_keycodes_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
@@ -32,10 +27,8 @@ bool process_record_custom_keycodes_user(uint16_t keycode, keyrecord_t *record) 
             break;
         case M_RGB_SPD:
             if (record->event.pressed) {
-                rgb_matrix_config.raw = eeprom_read_dword(EECONFIG_RGB_MATRIX);
-                rgb_matrix_mode_noeeprom(rgb_matrix_config.mode);
+                rgb_matrix_reload_from_eeprom();
                 rgb_matrix_set_speed_noeeprom(user_config.rgb_speed);
-                rgb_matrix_sethsv_noeeprom(rgb_matrix_config.hsv.h, rgb_matrix_config.hsv.s, rgb_matrix_config.hsv.v);
                 if (keyboard_report->mods & MOD_MASK_SHIFT) {
                     if (user_config.rgb_speed <= 5) {
                         user_config.rgb_speed = 0;
@@ -58,10 +51,8 @@ bool process_record_custom_keycodes_user(uint16_t keycode, keyrecord_t *record) 
             break;
         case M_RGB_HUE:
             if (record->event.pressed) {
-                rgb_matrix_config.raw = eeprom_read_dword(EECONFIG_RGB_MATRIX);
-                rgb_matrix_mode_noeeprom(rgb_matrix_config.mode);
+                rgb_matrix_reload_from_eeprom();
                 rgb_matrix_set_speed_noeeprom(user_config.rgb_speed);
-                rgb_matrix_sethsv_noeeprom(rgb_matrix_config.hsv.h, rgb_matrix_config.hsv.s, rgb_matrix_config.hsv.v);
                 if (keyboard_report->mods & MOD_MASK_SHIFT) {
                     rgb_matrix_decrease_hue();
                 } else {
@@ -72,10 +63,8 @@ bool process_record_custom_keycodes_user(uint16_t keycode, keyrecord_t *record) 
             break;
         case M_RGB_STP:
             if (record->event.pressed) {
-                rgb_matrix_config.raw = eeprom_read_dword(EECONFIG_RGB_MATRIX);
-                rgb_matrix_mode_noeeprom(rgb_matrix_config.mode);
+                rgb_matrix_reload_from_eeprom();
                 rgb_matrix_set_speed_noeeprom(user_config.rgb_speed);
-                rgb_matrix_sethsv_noeeprom(rgb_matrix_config.hsv.h, rgb_matrix_config.hsv.s, rgb_matrix_config.hsv.v);
                 if (keyboard_report->mods & MOD_MASK_SHIFT) {
                     rgb_matrix_step_reverse();
                 } else {

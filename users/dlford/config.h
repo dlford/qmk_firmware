@@ -111,8 +111,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define ENABLE_RGB_MATRIX_MULTISPLASH               // Full gradient & value pulse away from multiple key hits then fades value out
 #    define ENABLE_RGB_MATRIX_SOLID_SPLASH              // Hue & value pulse away from a single key hit then fades value out
 #    define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH         // Hue & value pulse away from multiple key hits then fades value out
-#else
-#    define ENABLE_RGB_MATRIX_CYCLE_SPIRAL  // Full gradient spinning spiral around center of keyboard
-#    define ENABLE_RGB_MATRIX_HUE_WAVE      // Hue shifts up a slight ammount and then back down in a wave to the right
-#    define ENABLE_RGB_MATRIX_PIXEL_FRACTAL // Single hue fractal filled keys pulsing horizontally out to edges
 #endif
