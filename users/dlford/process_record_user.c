@@ -19,6 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "sarcasm_mode.h"
 #include "rgb_timeout_user.h"
 #include "eeprom_user.h"
+#include "layer_lock.h"
 
 __attribute__((weak)) bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
     return true;
@@ -28,9 +29,14 @@ bool custom_keycodes_result       = true;
 bool process_record_keymap_result = true;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    if (!process_layer_lock(keycode, record, M_LLOCK)) {
+        return false;
+    }
+
 #ifdef RGB_MATRIX_ENABLE
     process_record_rgb_timeout(record);
 #endif
+
     process_record_sarcasm_mode(record);
     custom_keycodes_result       = process_record_custom_keycodes_user(keycode, record);
     process_record_keymap_result = process_record_keymap(keycode, record);

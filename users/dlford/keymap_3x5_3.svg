@@ -7,8 +7,8 @@
    viewBox="0 0 254 113.715"
    version="1.1"
    id="svg5"
-   inkscape:version="1.2.2 (b0a8486541, 2022-12-01)"
-   sodipodi:docname="legends.svg"
+   inkscape:version="1.1.2 (0a00cf5339, 2022-02-04)"
+   sodipodi:docname="keymap_3x5_3.svg"
    inkscape:export-filename="/home/dan/Desktop/Keymap.png"
    inkscape:export-xdpi="96"
    inkscape:export-ydpi="96"
@@ -29,12 +29,12 @@
      showborder="true"
      inkscape:zoom="1.4142136"
      inkscape:cx="475.5293"
-     inkscape:cy="238.64853"
-     inkscape:window-width="1920"
-     inkscape:window-height="1021"
+     inkscape:cy="303.70235"
+     inkscape:window-width="1616"
+     inkscape:window-height="872"
      inkscape:window-x="0"
-     inkscape:window-y="34"
-     inkscape:window-maximized="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
      inkscape:current-layer="layer1"
      fit-margin-top="0"
      fit-margin-left="0"
@@ -233,15 +233,15 @@
          id="tspan8163" /></text>
     <text
        xml:space="preserve"
-       style="font-size:4.45425px;line-height:1.25;font-family:sans-serif;stroke-width:0.334068"
-       x="36.695522"
-       y="157.6505"
+       style="font-size:2.52921px;line-height:1.25;font-family:sans-serif;stroke-width:0.18969"
+       x="41.873001"
+       y="156.93283"
        id="text2719-35-4-2-3-3"><tspan
          sodipodi:role="line"
          id="tspan2717-62-76-6-3-0"
-         style="font-size:4.45425px;stroke-width:0.334068"
-         x="36.695522"
-         y="157.6505">Delete</tspan></text>
+         style="font-size:2.52921px;stroke-width:0.18969"
+         x="41.873001"
+         y="156.93283">Delete</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:4.45425px;line-height:1.25;font-family:sans-serif;stroke-width:0.334068"
@@ -266,19 +266,19 @@
          y="143.69859">Enter</tspan></text>
     <text
        xml:space="preserve"
-       style="font-size:4.45425px;line-height:1;font-family:sans-serif;text-align:center;text-anchor:middle;stroke-width:0.334068"
-       x="-6.0721369"
-       y="155.54572"
+       style="font-size:3.03256px;line-height:1;font-family:sans-serif;text-align:center;text-anchor:middle;stroke-width:0.227442"
+       x="-7.8499551"
+       y="155.86435"
        id="text2719-35-4-2-3-6"><tspan
          sodipodi:role="line"
          id="tspan2717-62-76-6-3-4"
-         style="font-size:4.45425px;text-align:center;text-anchor:middle;stroke-width:0.334068"
-         x="-6.0721369"
-         y="155.54572">Back-</tspan><tspan
+         style="font-size:3.03256px;text-align:center;text-anchor:middle;stroke-width:0.227442"
+         x="-7.8499551"
+         y="155.86435">Back-</tspan><tspan
          sodipodi:role="line"
-         style="font-size:4.45425px;text-align:center;text-anchor:middle;stroke-width:0.334068"
-         x="-6.0721369"
-         y="159.99997"
+         style="font-size:3.03256px;text-align:center;text-anchor:middle;stroke-width:0.227442"
+         x="-7.8499551"
+         y="158.89691"
          id="tspan238528">Space</tspan></text>
     <text
        xml:space="preserve"
@@ -920,6 +920,18 @@
          x="143.02139"
          y="20.24308"
          id="tspan44072-0-7">Mouse</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:2.22712px;line-height:1;font-family:sans-serif;fill:#0000ff;stroke-width:0.334068"
+       x="150.65164"
+       y="0.75757718"
+       id="text2719-8-9-7"
+       transform="rotate(90)"><tspan
+         sodipodi:role="line"
+         style="font-weight:bold;font-size:2.22712px;fill:#0000ff;stroke-width:0.334068"
+         x="150.65164"
+         y="0.75757718"
+         id="tspan44072-0-7-5">Lock Nav</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:2.22712px;line-height:1;font-family:sans-serif;fill:#800000;stroke-width:0.334068"
@@ -2578,6 +2590,18 @@
          x="143.84853"
          y="-57.545811"
          id="tspan44072-0-7-6">Mouse</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:2.22712px;line-height:1;font-family:sans-serif;fill:#800080;stroke-width:0.334068"
+       x="148.42996"
+       y="-37.778309"
+       id="text2719-8-9-4-3"
+       transform="rotate(90)"><tspan
+         sodipodi:role="line"
+         style="font-weight:bold;font-size:2.22712px;fill:#800080;stroke-width:0.334068"
+         x="148.42996"
+         y="-37.778309"
+         id="tspan44072-0-7-6-6">Lock Special</tspan></text>
     <circle
        style="fill:#0000ff;fill-opacity:1;stroke:#800000;stroke-width:0.29873;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="path211099-9"

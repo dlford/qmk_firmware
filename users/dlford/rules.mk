@@ -8,6 +8,7 @@ SRC += sarcasm_mode.c
 SRC += alt_tab_user.c
 SRC += eeprom_user.c
 SRC += custom_keycodes_user.c
+SRC += layer_lock.c
 ifdef OLED_ENABLE
 	SRC += oled_user.c
 endif

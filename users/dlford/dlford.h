@@ -29,6 +29,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "eeprom_user.h"
 #include "custom_keycodes_user.h"
 #include "wrappers.h"
+#include "layer_lock.h"
 #ifdef OLED_ENABLE
 #    include "oled_user.h"
 #endif
