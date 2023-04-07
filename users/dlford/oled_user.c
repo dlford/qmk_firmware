@@ -19,6 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "layers_user.h"
 #include "mouse_jiggler_user.h"
 #include "sarcasm_mode.h"
+#include "layer_lock.h"
 #ifdef CAPS_WORD_ENABLE
 #    include "caps_word_user.h"
 #endif
@@ -33,16 +34,26 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     return rotation;
 }
 
+void oled_render_layer_lock_state(int highest_layer, char *layer_name) {
+    if (is_layer_locked(highest_layer)) {
+        oled_write_P(PSTR(layer_name), false);
+        oled_write_ln_P(PSTR(" LOCK"), false);
+    } else {
+        oled_write_ln_P(PSTR(layer_name), false);
+    }
+}
+
 void oled_render_layer_state(void) {
-    switch (get_highest_layer(layer_state)) {
+    int highest_layer = get_highest_layer(layer_state);
+    switch (highest_layer) {
         case _COLEMAK:
             oled_write_ln_P(PSTR("Colemak"), false);
             break;
         case _SPECIAL:
-            oled_write_ln_P(PSTR("Special"), false);
+            oled_render_layer_lock_state(highest_layer, "Special");
             break;
         case _NAVIGATION:
-            oled_write_ln_P(PSTR("Navigation"), false);
+            oled_render_layer_lock_state(highest_layer, "Navigation");
             break;
         case _MOUSE:
             oled_write_ln_P(PSTR("Mouse"), false);

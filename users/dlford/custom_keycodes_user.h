@@ -25,6 +25,7 @@ enum custom_keycodes {
     M_ALT_TAB,
     M_RST_RGB,
     M_RGB_SPD,
+    M_LLOCK,
 };
 
 #define VVV KC_TRNS
