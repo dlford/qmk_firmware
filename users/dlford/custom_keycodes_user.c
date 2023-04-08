@@ -13,6 +13,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include QMK_KEYBOARD_H
+#include "version.h"
 #include "custom_keycodes_user.h"
 #include "layers_user.h"
 #include "rgb_matrix_user.h"
@@ -40,6 +41,8 @@ bool process_record_custom_keycodes_user(uint16_t keycode, keyrecord_t *record) 
                     rgb_matrix_mode(RGB_MATRIX_SPLASH);
                     rgb_matrix_sethsv(HSV_BLUE);
                     write_user_config();
+                } else if (keyboard_report->mods & MOD_MASK_CTRL) {
+                    send_string_with_delay_P(PSTR(QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION ", Built on: " QMK_BUILDDATE), TAP_CODE_DELAY);
                 } else {
                     reset_keyboard();
                 }
