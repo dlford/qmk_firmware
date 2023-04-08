@@ -27,9 +27,9 @@
      inkscape:document-units="mm"
      showgrid="false"
      showborder="true"
-     inkscape:zoom="1.8952191"
-     inkscape:cx="382.2777"
-     inkscape:cy="301.0206"
+     inkscape:zoom="1.4463934"
+     inkscape:cx="325.98324"
+     inkscape:cy="240.94413"
      inkscape:window-width="1616"
      inkscape:window-height="872"
      inkscape:window-x="0"
@@ -244,7 +244,17 @@
          style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:2.11667px;line-height:1.25;font-family:'Courier New';-inkscape-font-specification:'Courier New Bold';stroke-width:0.209324"
          sodipodi:role="line"
          x="-5.5301466"
-         y="133.24596"
+         y="134.23203"
+         id="tspan3347">alt + RGB Mode    Reset RGB to Default</tspan><tspan
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:2.11667px;line-height:1.25;font-family:'Courier New';-inkscape-font-specification:'Courier New Bold';stroke-width:0.209324"
+         sodipodi:role="line"
+         x="-5.5301466"
+         y="136.87787"
+         id="tspan1586">shft + Flash      Reset EEPROM</tspan><tspan
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:2.11667px;line-height:1.25;font-family:'Courier New';-inkscape-font-specification:'Courier New Bold';stroke-width:0.209324"
+         sodipodi:role="line"
+         x="-5.5301466"
+         y="138.53763"
          id="tspan8163" /></text>
     <text
        xml:space="preserve"
@@ -2734,22 +2744,6 @@
          style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:3.56339px;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';fill:#bf9300;fill-opacity:1;stroke-width:0.334068"
          x="-22.616348"
          y="87.987541">*</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-size:1.59563px;line-height:1;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#008000;stroke-width:0.239344"
-       x="-15.353206"
-       y="129.76839"
-       id="text2719-0-74-9-5-3"><tspan
-         sodipodi:role="line"
-         style="font-weight:bold;font-size:1.59563px;text-align:center;text-anchor:middle;fill:#008000;stroke-width:0.239344"
-         x="-15.353206"
-         y="129.76839"
-         id="tspan372410-5-7">RGB</tspan><tspan
-         sodipodi:role="line"
-         style="font-weight:bold;font-size:1.59563px;text-align:center;text-anchor:middle;fill:#008000;stroke-width:0.239344"
-         x="-15.353206"
-         y="131.36401"
-         id="tspan912">Default</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:4.45425px;line-height:1.25;font-family:sans-serif;stroke-width:0.334068"

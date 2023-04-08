@@ -19,11 +19,31 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "rgb_timeout_user.h"
 #include "alt_tab_user.h"
 #include "eeprom_user.h"
+#include "split_util.h"
+
+bool is_left_hand;
 
 bool process_record_custom_keycodes_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case M_ALT_TAB:
             start_alt_tab(record);
+            break;
+        case M_QK_BOOT:
+            if (record->event.pressed) {
+                if (keyboard_report->mods & MOD_MASK_SHIFT) {
+                    is_left_hand = isLeftHand;
+                    eeconfig_init();
+                    eeconfig_update_handedness(is_left_hand);
+                    user_config.is_rgb_idle_enabled = true;
+                    user_config.rgb_speed           = 150;
+                    rgb_matrix_set_speed_noeeprom(user_config.rgb_speed);
+                    rgb_matrix_mode(RGB_MATRIX_SPLASH);
+                    rgb_matrix_sethsv(HSV_BLUE);
+                    write_user_config();
+                } else {
+                    reset_keyboard();
+                }
+            }
             break;
         case M_RGB_SPD:
             if (record->event.pressed) {
@@ -70,21 +90,16 @@ bool process_record_custom_keycodes_user(uint16_t keycode, keyrecord_t *record) 
                 } else if (keyboard_report->mods & MOD_MASK_CTRL) {
                     user_config.is_rgb_idle_enabled = !user_config.is_rgb_idle_enabled;
                     write_user_config();
+                } else if (keyboard_report->mods & MOD_MASK_ALT) {
+                    user_config.is_rgb_idle_enabled = true;
+                    user_config.rgb_speed           = 150;
+                    rgb_matrix_set_speed_noeeprom(user_config.rgb_speed);
+                    rgb_matrix_mode(RGB_MATRIX_SPLASH);
+                    rgb_matrix_sethsv(HSV_BLUE);
+                    write_user_config();
                 } else {
                     rgb_matrix_step();
                 }
-                return false;
-            }
-            break;
-        case M_RGB_RST:
-            if (record->event.pressed) {
-                layer_off(_MOUSE);
-                rgb_matrix_mode(RGB_MATRIX_SPLASH);
-                rgb_matrix_sethsv(HSV_BLUE);
-                user_config.is_rgb_idle_enabled = true;
-                user_config.rgb_speed           = 150;
-                rgb_matrix_set_speed_noeeprom(user_config.rgb_speed);
-                write_user_config();
                 return false;
             }
             break;

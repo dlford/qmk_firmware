@@ -43,17 +43,9 @@ void matrix_init_user(void) {
 }
 
 void keyboard_post_init_rgb_matrix(void) {
-    if (rgb_matrix_config.mode == 0) {
-        rgb_matrix_mode(RGB_MATRIX_SPLASH);
-        rgb_matrix_sethsv(HSV_BLUE);
-        user_config.rgb_speed = 150;
-        rgb_matrix_set_speed_noeeprom(user_config.rgb_speed);
-        write_user_config();
-    } else {
-        rgb_matrix_mode_noeeprom(rgb_matrix_config.mode);
-        rgb_matrix_set_speed_noeeprom(user_config.rgb_speed);
-        rgb_matrix_sethsv_noeeprom(rgb_matrix_config.hsv.h, rgb_matrix_config.hsv.s, rgb_matrix_config.hsv.v);
-    }
+    rgb_matrix_mode_noeeprom(rgb_matrix_config.mode);
+    rgb_matrix_set_speed_noeeprom(user_config.rgb_speed);
+    rgb_matrix_sethsv_noeeprom(rgb_matrix_config.hsv.h, rgb_matrix_config.hsv.s, rgb_matrix_config.hsv.v);
 }
 
 __attribute__((weak)) layer_state_t layer_state_set_keymap(layer_state_t state) {

@@ -59,7 +59,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ___SPECIAL_R2___                                                                           KC_RPRN,RSFT_MINS,RCTL_EQL,RALT_BSLS,RGUI_QUOT
 //                             |--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
 #define ___SPECIAL_L3___         KC_TILD, KC_CAPS, KC_LCBR, KC_RCBR, M_ALT_TAB
-#define ___SPECIAL_R3___                                                                           QK_BOOT,  KC_UNDS, KC_PLUS, KC_PIPE, KC_DQUO
+#define ___SPECIAL_R3___                                                                         M_QK_BOOT, KC_UNDS, KC_PLUS, KC_PIPE, KC_DQUO
 //                             |--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
 #define ___SPECIAL_L4___                                     VVV,     VVV,     VVV
 #define ___SPECIAL_R4___                                                                M_LLOCK,TG(_MOUSE),TG(_NUMPAD)
@@ -87,7 +87,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ___MOUSE_L2___          KC_WH_D, KC_MS_L, KC_MS_D, KC_MS_R, DM_PLY1
 #define ___MOUSE_R2___                                                                            KC_WREF, KC_BTN1, KC_BTN2, KC_BTN3, KC_WBAK
 //                             |--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
-#define ___MOUSE_L3___            XXX,   KC_BTN3, KC_BTN2, KC_BTN1,M_RGB_RST
+#define ___MOUSE_L3___            XXX,   KC_BTN3, KC_BTN2, KC_BTN1,  XXX
 #define ___MOUSE_R3___                                                                              XXX,     XXX,     XXX,     XXX,     XXX
 //                             |--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
 #define ___MOUSE_L4___                                      VVV,  TG(_MOUSE),  VVV
