@@ -38,7 +38,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 #ifdef RGB_MATRIX_ENABLE
 #    include "rgb_timeout_user.h"
-#    include "rgb_rest_mode_user.h"
+#    include "rgb_idle_mode_user.h"
 #    include "rgb_matrix_user.h"
 #endif
 #ifdef DYNAMIC_MACRO_ENABLE

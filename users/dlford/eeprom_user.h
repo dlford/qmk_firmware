@@ -26,7 +26,7 @@ typedef union {
     };
 } user_config_t;
 
-extern user_config_t user_config;
+user_config_t user_config;
 
 void eeconfig_init_user(void);
 void read_user_config(void);

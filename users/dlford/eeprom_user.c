@@ -16,18 +16,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include QMK_KEYBOARD_H
+#include "eeprom_user.h"
 #include "eeconfig.h"
 #include "eeprom.h"
 #include "progmem.h"
 
-typedef union {
-    uint32_t raw;
-    struct {
-        uint8_t rgb_speed : 8;
-    };
-} user_config_t;
-
-extern user_config_t user_config;
+user_config_t user_config;
 
 void eeconfig_init_user(void) {
     user_config.raw       = 0;

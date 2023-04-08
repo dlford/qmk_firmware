@@ -17,7 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "mouse_jiggler_user.h"
 #ifdef RGB_MATRIX_ENABLE
 #    include "rgb_timeout_user.h"
-#    include "rgb_rest_mode_user.h"
+#    include "rgb_idle_mode_user.h"
 #endif
 
 __attribute__((weak)) void matrix_scan_keymap(void) {
@@ -27,7 +27,7 @@ __attribute__((weak)) void matrix_scan_keymap(void) {
 void matrix_scan_user(void) {
 #ifdef RGB_MATRIX_ENABLE
     matrix_scan_rgb_timeout();
-    matrix_scan_rgb_rest_mode();
+    matrix_scan_rgb_idle_mode();
 #endif
     matrix_scan_mouse_jiggler();
     matrix_scan_alt_tab();

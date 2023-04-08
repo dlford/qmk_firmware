@@ -20,41 +20,41 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "rgb_matrix_user.h"
 #include "layers_user.h"
 
-int      rgb_rest_mode_user_timeout_seconds      = 2;
-uint16_t rgb_rest_mode_user_idle_timer           = 0;
-uint8_t  rgb_rest_mode_user_timer_second_counter = 0;
-bool     is_rgb_rest_mode_user_on                = true;
+int      rgb_idle_mode_user_timeout_seconds      = 2;
+uint16_t rgb_idle_mode_user_idle_timer           = 0;
+uint8_t  rgb_idle_mode_user_timer_second_counter = 0;
+bool     is_rgb_idle_mode_user_on                = true;
 
-void matrix_scan_rgb_rest_mode(void) {
+void matrix_scan_rgb_idle_mode(void) {
     if (is_keyboard_master()) {
-        if (rgb_rest_mode_user_idle_timer == 0) rgb_rest_mode_user_idle_timer = timer_read();
+        if (rgb_idle_mode_user_idle_timer == 0) rgb_idle_mode_user_idle_timer = timer_read();
 
-        if (is_rgb_rest_mode_user_on && timer_elapsed(rgb_rest_mode_user_idle_timer) > 1000) {
-            rgb_rest_mode_user_timer_second_counter++;
-            rgb_rest_mode_user_idle_timer = timer_read();
+        if (is_rgb_idle_mode_user_on && timer_elapsed(rgb_idle_mode_user_idle_timer) > 1000) {
+            rgb_idle_mode_user_timer_second_counter++;
+            rgb_idle_mode_user_idle_timer = timer_read();
         }
 
         // TODO: Check only run if default_layer is highest
-        if (is_rgb_rest_mode_user_on && (layer_state_is(_QWERTY) || layer_state_is(_COLEMAK)) && rgb_rest_mode_user_timer_second_counter >= rgb_rest_mode_user_timeout_seconds) {
+        if (is_rgb_idle_mode_user_on && (layer_state_is(_QWERTY) || layer_state_is(_COLEMAK)) && rgb_idle_mode_user_timer_second_counter >= rgb_idle_mode_user_timeout_seconds) {
             rgb_matrix_set_speed_noeeprom(250);
             rgb_matrix_mode_noeeprom(RGB_MATRIX_DIGITAL_RAIN);
             rgb_matrix_sethsv_noeeprom(HSV_GREEN);
-            is_rgb_rest_mode_user_on                = false;
-            rgb_rest_mode_user_timer_second_counter = 0;
+            is_rgb_idle_mode_user_on                = false;
+            rgb_idle_mode_user_timer_second_counter = 0;
         }
     }
 }
 
-void process_record_rgb_rest_mode(keyrecord_t *record) {
+void process_record_rgb_idle_mode(keyrecord_t *record) {
     if (is_keyboard_master()) {
         if (record->event.pressed) {
-            if (!is_rgb_rest_mode_user_on) {
+            if (!is_rgb_idle_mode_user_on) {
                 rgb_matrix_reload_from_eeprom();
                 rgb_matrix_set_speed_noeeprom(user_config.rgb_speed);
-                is_rgb_rest_mode_user_on = true;
+                is_rgb_idle_mode_user_on = true;
             }
         }
-        rgb_rest_mode_user_idle_timer           = timer_read();
-        rgb_rest_mode_user_timer_second_counter = 0;
+        rgb_idle_mode_user_idle_timer           = timer_read();
+        rgb_idle_mode_user_timer_second_counter = 0;
     }
 }

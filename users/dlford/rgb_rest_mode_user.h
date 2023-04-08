@@ -17,6 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-void matrix_scan_rgb_rest_mode(void);
-void process_record_rgb_rest_mode(keyrecord_t *record);
-void layer_state_set_rgb_rest_mode(layer_state_t state);
+void matrix_scan_rgb_idle_mode(void);
+void process_record_rgb_idle_mode(keyrecord_t *record);
+void layer_state_set_rgb_idle_mode(layer_state_t state);
