@@ -67,6 +67,9 @@ bool process_record_custom_keycodes_user(uint16_t keycode, keyrecord_t *record) 
                 rgb_matrix_set_speed_noeeprom(user_config.rgb_speed);
                 if (keyboard_report->mods & MOD_MASK_SHIFT) {
                     rgb_matrix_step_reverse();
+                } else if (keyboard_report->mods & MOD_MASK_CTRL) {
+                    user_config.is_rgb_idle_enabled = !user_config.is_rgb_idle_enabled;
+                    write_user_config();
                 } else {
                     rgb_matrix_step();
                 }
@@ -78,7 +81,8 @@ bool process_record_custom_keycodes_user(uint16_t keycode, keyrecord_t *record) 
                 layer_off(_MOUSE);
                 rgb_matrix_mode(RGB_MATRIX_SPLASH);
                 rgb_matrix_sethsv(HSV_BLUE);
-                user_config.rgb_speed = 150;
+                user_config.is_rgb_idle_enabled = true;
+                user_config.rgb_speed           = 150;
                 rgb_matrix_set_speed_noeeprom(user_config.rgb_speed);
                 write_user_config();
                 return false;

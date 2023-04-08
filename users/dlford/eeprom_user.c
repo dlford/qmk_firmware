@@ -24,8 +24,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 user_config_t user_config;
 
 void eeconfig_init_user(void) {
-    user_config.raw       = 0;
-    user_config.rgb_speed = 50;
+    user_config.raw                 = 0;
+    user_config.rgb_speed           = 50;
+    user_config.is_rgb_idle_enabled = true;
     eeconfig_update_user(user_config.raw);
 }
 

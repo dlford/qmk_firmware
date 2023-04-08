@@ -26,7 +26,7 @@ uint8_t  rgb_idle_mode_user_timer_second_counter = 0;
 bool     is_rgb_idle_mode_user_on                = true;
 
 void matrix_scan_rgb_idle_mode(void) {
-    if (is_keyboard_master()) {
+    if (is_keyboard_master() && user_config.is_rgb_idle_enabled) {
         if (rgb_idle_mode_user_idle_timer == 0) rgb_idle_mode_user_idle_timer = timer_read();
 
         if (is_rgb_idle_mode_user_on && timer_elapsed(rgb_idle_mode_user_idle_timer) > 1000) {
@@ -46,7 +46,7 @@ void matrix_scan_rgb_idle_mode(void) {
 }
 
 void process_record_rgb_idle_mode(keyrecord_t *record) {
-    if (is_keyboard_master()) {
+    if (is_keyboard_master() && user_config.is_rgb_idle_enabled) {
         if (record->event.pressed) {
             if (!is_rgb_idle_mode_user_on) {
                 rgb_matrix_reload_from_eeprom();

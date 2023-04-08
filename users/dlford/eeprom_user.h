@@ -23,6 +23,7 @@ typedef union {
     uint32_t raw;
     struct {
         uint8_t rgb_speed : 8;
+        bool    is_rgb_idle_enabled : 1;
     };
 } user_config_t;
 
