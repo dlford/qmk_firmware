@@ -76,9 +76,9 @@ bool process_record_custom_keycodes_user(uint16_t keycode, keyrecord_t *record) 
         case M_RGB_RST:
             if (record->event.pressed) {
                 layer_off(_MOUSE);
-                rgb_matrix_mode(RGB_MATRIX_CYCLE_SPIRAL);
-                rgb_matrix_sethsv(HSV_ORANGE);
-                user_config.rgb_speed = 50;
+                rgb_matrix_mode(RGB_MATRIX_SPLASH);
+                rgb_matrix_sethsv(HSV_BLUE);
+                user_config.rgb_speed = 150;
                 rgb_matrix_set_speed_noeeprom(user_config.rgb_speed);
                 write_user_config();
                 return false;

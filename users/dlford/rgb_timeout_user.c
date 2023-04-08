@@ -17,24 +17,24 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include QMK_KEYBOARD_H
 
-int      RGB_CUSTOM_TIMEOUT = 5;
-uint16_t idle_timer         = 0;
-uint8_t  halfmin_counter    = 0;
-bool     led_on             = true;
+int      RGB_CUSTOM_TIMEOUT          = 5;
+uint16_t rgb_timeout_user_idle_timer = 0;
+uint8_t  halfmin_counter             = 0;
+bool     is_rgb_timeout_user_on      = true;
 
 void matrix_scan_rgb_timeout(void) {
     if (is_keyboard_master()) {
-        if (idle_timer == 0) idle_timer = timer_read();
+        if (rgb_timeout_user_idle_timer == 0) rgb_timeout_user_idle_timer = timer_read();
 
-        if (led_on && timer_elapsed(idle_timer) > 30000) {
+        if (is_rgb_timeout_user_on && timer_elapsed(rgb_timeout_user_idle_timer) > 30000) {
             halfmin_counter++;
-            idle_timer = timer_read();
+            rgb_timeout_user_idle_timer = timer_read();
         }
 
-        if (led_on && halfmin_counter >= RGB_CUSTOM_TIMEOUT * 2) {
+        if (is_rgb_timeout_user_on && halfmin_counter >= RGB_CUSTOM_TIMEOUT * 2) {
             rgb_matrix_disable_noeeprom();
-            led_on          = false;
-            halfmin_counter = 0;
+            is_rgb_timeout_user_on = false;
+            halfmin_counter        = 0;
         }
     }
 }
@@ -42,12 +42,12 @@ void matrix_scan_rgb_timeout(void) {
 void process_record_rgb_timeout(keyrecord_t *record) {
     if (is_keyboard_master()) {
         if (record->event.pressed) {
-            if (led_on == false) {
+            if (is_rgb_timeout_user_on == false) {
                 rgb_matrix_enable_noeeprom();
-                led_on = true;
+                is_rgb_timeout_user_on = true;
             }
-            idle_timer      = timer_read();
-            halfmin_counter = 0;
+            rgb_timeout_user_idle_timer = timer_read();
+            halfmin_counter             = 0;
         }
     }
 }

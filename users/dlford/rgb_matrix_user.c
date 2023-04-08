@@ -44,9 +44,9 @@ void matrix_init_user(void) {
 
 void keyboard_post_init_rgb_matrix(void) {
     if (rgb_matrix_config.mode == 0) {
-        rgb_matrix_mode(RGB_MATRIX_CYCLE_SPIRAL);
-        rgb_matrix_sethsv(HSV_ORANGE);
-        user_config.rgb_speed = 50;
+        rgb_matrix_mode(RGB_MATRIX_SPLASH);
+        rgb_matrix_sethsv(HSV_BLUE);
+        user_config.rgb_speed = 150;
         rgb_matrix_set_speed_noeeprom(user_config.rgb_speed);
         write_user_config();
     } else {

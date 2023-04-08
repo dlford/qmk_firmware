@@ -17,6 +17,7 @@ ifdef COMBO_ENABLE
 endif
 ifdef RGB_MATRIX_ENABLE
 	SRC += rgb_timeout_user.c
+	SRC += rgb_rest_mode_user.c
 	SRC += rgb_matrix_user.c
 endif
 ifdef DYNAMIC_MACRO_ENABLE
