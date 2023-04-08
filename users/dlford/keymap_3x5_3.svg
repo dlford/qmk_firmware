@@ -255,11 +255,21 @@
          sodipodi:role="line"
          x="-5.5301466"
          y="139.52371"
-         id="tspan2863">ctrl + Flash      Type Build Info</tspan><tspan
+         id="tspan2863">ctrl + Flash      Type FW Build Command</tspan><tspan
          style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:2.11667px;line-height:1.25;font-family:'Courier New';-inkscape-font-specification:'Courier New Bold';stroke-width:0.209324"
          sodipodi:role="line"
          x="-5.5301466"
-         y="141.18347"
+         y="142.16954"
+         id="tspan7189">     + shft       Type Flash Command</tspan><tspan
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:2.11667px;line-height:1.25;font-family:'Courier New';-inkscape-font-specification:'Courier New Bold';stroke-width:0.209324"
+         sodipodi:role="line"
+         x="-5.5301466"
+         y="144.81538"
+         id="tspan7187">alt + Flash       Type Build Info</tspan><tspan
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:2.11667px;line-height:1.25;font-family:'Courier New';-inkscape-font-specification:'Courier New Bold';stroke-width:0.209324"
+         sodipodi:role="line"
+         x="-5.5301466"
+         y="146.47514"
          id="tspan8163" /></text>
     <text
        xml:space="preserve"

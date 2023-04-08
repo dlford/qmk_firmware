@@ -31,7 +31,22 @@ bool process_record_custom_keycodes_user(uint16_t keycode, keyrecord_t *record) 
             break;
         case M_QK_BOOT:
             if (record->event.pressed) {
-                if (keyboard_report->mods & MOD_MASK_SHIFT) {
+                uint8_t temp_mod = get_mods();
+                uint8_t temp_osm = get_oneshot_mods();
+                if (keyboard_report->mods & MOD_MASK_CTRL) {
+                    clear_mods();
+                    clear_oneshot_mods();
+                    send_string("make -j$(nproc) --output-sync " QMK_KEYBOARD ":" QMK_KEYMAP);
+                    if ((temp_mod | temp_osm) & MOD_MASK_SHIFT) {
+                        send_string(":flash");
+                    }
+                    set_mods(temp_mod);
+                } else if (keyboard_report->mods & MOD_MASK_ALT) {
+                    clear_mods();
+                    clear_oneshot_mods();
+                    send_string_with_delay_P(PSTR(QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION ", Built on: " QMK_BUILDDATE), TAP_CODE_DELAY);
+                    set_mods(temp_mod);
+                } else if (keyboard_report->mods & MOD_MASK_SHIFT) {
                     is_left_hand = isLeftHand;
                     eeconfig_init();
                     eeconfig_update_handedness(is_left_hand);
@@ -41,8 +56,6 @@ bool process_record_custom_keycodes_user(uint16_t keycode, keyrecord_t *record) 
                     rgb_matrix_mode(RGB_MATRIX_SPLASH);
                     rgb_matrix_sethsv(HSV_BLUE);
                     write_user_config();
-                } else if (keyboard_report->mods & MOD_MASK_CTRL) {
-                    send_string_with_delay_P(PSTR(QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION ", Built on: " QMK_BUILDDATE), TAP_CODE_DELAY);
                 } else {
                     reset_keyboard();
                 }
