@@ -19,8 +19,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
+#define EECONFIG_CUSTOM_USER_QWORD (uint16_t *)36
+
 typedef union {
-    uint32_t raw;
+    uint64_t raw;
     struct {
         uint8_t rgb_speed : 8;
         bool    is_rgb_idle_enabled : 1;

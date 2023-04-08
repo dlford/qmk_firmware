@@ -31,9 +31,9 @@ void eeconfig_init_user(void) {
 }
 
 void read_user_config(void) {
-    user_config.raw = eeconfig_read_user();
+    eeprom_read_block(&user_config, ((void*)EECONFIG_CUSTOM_USER_QWORD), sizeof(user_config_t));
 }
 
 void write_user_config(void) {
-    eeconfig_update_user(user_config.raw);
+    eeprom_update_block(&user_config, ((void*)EECONFIG_CUSTOM_USER_QWORD), sizeof(user_config_t));
 }
