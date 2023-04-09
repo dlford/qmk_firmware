@@ -29,6 +29,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "eeprom.h"
 #include "progmem.h"
 #include "eeprom_user.h"
+#include "rgb_idle_mode_user.h"
 
 rgb_config_t  rgb_matrix_config;
 user_config_t user_config;
@@ -109,6 +110,14 @@ __attribute__((weak)) void rgb_matrix_indicators_keymap_mouse_jiggling(void) {
     return;
 }
 
+__attribute__((weak)) void rgb_matrix_indicators_keymap_rgb_idle_changed_on(void) {
+    return;
+}
+
+__attribute__((weak)) void rgb_matrix_indicators_keymap_rgb_idle_changed_off(void) {
+    return;
+}
+
 __attribute__((weak)) bool rgb_matrix_indicators_keymap(void) {
     return true;
 }
@@ -131,6 +140,13 @@ bool rgb_matrix_indicators_user(void) {
     }
     if (is_mouse_jiggle_active) {
         rgb_matrix_indicators_keymap_mouse_jiggling();
+    }
+    if (rgb_idle_mode_user_toggled) {
+        if (user_config.is_rgb_idle_enabled) {
+            rgb_matrix_indicators_keymap_rgb_idle_changed_on();
+        } else {
+            rgb_matrix_indicators_keymap_rgb_idle_changed_off();
+        }
     }
 
     return rgb_matrix_indicators_keymap();

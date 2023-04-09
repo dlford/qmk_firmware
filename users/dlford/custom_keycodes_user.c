@@ -21,6 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "alt_tab_user.h"
 #include "eeprom_user.h"
 #include "split_util.h"
+#include "rgb_idle_mode_user.h"
 
 bool is_left_hand;
 
@@ -100,8 +101,7 @@ bool process_record_custom_keycodes_user(uint16_t keycode, keyrecord_t *record) 
                 if (keyboard_report->mods & MOD_MASK_SHIFT) {
                     rgb_matrix_step_reverse();
                 } else if (keyboard_report->mods & MOD_MASK_CTRL) {
-                    user_config.is_rgb_idle_enabled = !user_config.is_rgb_idle_enabled;
-                    write_user_config();
+                    toggle_rgb_idle_mode_user();
                 } else if (keyboard_report->mods & MOD_MASK_ALT) {
                     user_config.is_rgb_idle_enabled = true;
                     user_config.rgb_speed           = 150;

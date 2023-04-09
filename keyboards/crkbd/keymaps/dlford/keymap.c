@@ -16,6 +16,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "dlford.h"
 
 #ifdef RGB_MATRIX_ENABLE
+
 void rgb_matrix_indicators_keymap_caps(void) {
     // Left master
     rgb_matrix_set_color(23, RGB_RED);
@@ -59,6 +60,29 @@ void rgb_matrix_indicators_keymap_mouse_jiggling(void) {
     rgb_matrix_set_color(35, RGB_BLUE);
     rgb_matrix_set_color(36, RGB_BLUE);
 }
+
+void rgb_matrix_indicators_keymap_rgb_idle_changed_on(void) {
+    // Left master
+    rgb_matrix_set_color(23, RGB_GREEN);
+    rgb_matrix_set_color(22, RGB_GREEN);
+    rgb_matrix_set_color(21, RGB_GREEN);
+    // Right master
+    rgb_matrix_set_color(50, RGB_GREEN);
+    rgb_matrix_set_color(49, RGB_GREEN);
+    rgb_matrix_set_color(48, RGB_GREEN);
+}
+
+void rgb_matrix_indicators_keymap_rgb_idle_changed_off(void) {
+    // Left master
+    rgb_matrix_set_color(23, RGB_ORANGE);
+    rgb_matrix_set_color(22, RGB_ORANGE);
+    rgb_matrix_set_color(21, RGB_ORANGE);
+    // Right master
+    rgb_matrix_set_color(50, RGB_ORANGE);
+    rgb_matrix_set_color(49, RGB_ORANGE);
+    rgb_matrix_set_color(48, RGB_ORANGE);
+}
+
 #endif // RGB_MATRIX_ENABLE
 
 // clang-format off

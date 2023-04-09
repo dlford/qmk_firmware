@@ -20,14 +20,41 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "rgb_matrix_user.h"
 #include "layers_user.h"
 
-int      rgb_idle_mode_user_timeout_seconds      = 1;
+int rgb_idle_mode_user_timeout_seconds           = 1;
+int rgb_idle_mode_user_toggled_indicator_seconds = 2;
+
 uint16_t rgb_idle_mode_user_idle_timer           = 0;
 uint8_t  rgb_idle_mode_user_timer_second_counter = 0;
 bool     is_rgb_idle_mode_user_on                = true;
 
+bool     rgb_idle_mode_user_toggled                = false;
+uint16_t rgb_idle_mode_user_toggled_timer          = 0;
+uint8_t  rgb_idle_mode_user_toggled_second_counter = 0;
+
+void toggle_rgb_idle_mode_user(void) {
+    user_config.is_rgb_idle_enabled = !user_config.is_rgb_idle_enabled;
+    write_user_config();
+    rgb_idle_mode_user_toggled = true;
+}
+
 void matrix_scan_rgb_idle_mode(void) {
+    // This is used to show an indicator of a few seconds and then turn it off
+    // See rgb_matrix_user.c for the rest of the logic
+    if (is_keyboard_master() && rgb_idle_mode_user_toggled) {
+        if (rgb_idle_mode_user_toggled && timer_elapsed(rgb_idle_mode_user_toggled_timer) > 1000) {
+            rgb_idle_mode_user_toggled_second_counter++;
+            rgb_idle_mode_user_toggled_timer = timer_read();
+        }
+
+        if (rgb_idle_mode_user_toggled && rgb_idle_mode_user_toggled_second_counter >= rgb_idle_mode_user_toggled_indicator_seconds + 1) {
+            rgb_idle_mode_user_toggled                = false;
+            rgb_idle_mode_user_toggled_second_counter = 0;
+        }
+    }
+
     if (is_keyboard_master() && user_config.is_rgb_idle_enabled) {
         if (rgb_idle_mode_user_idle_timer == 0) rgb_idle_mode_user_idle_timer = timer_read();
+        if (rgb_idle_mode_user_toggled_timer == 0) rgb_idle_mode_user_toggled_timer = timer_read();
 
         if (is_rgb_idle_mode_user_on && timer_elapsed(rgb_idle_mode_user_idle_timer) > 1000) {
             rgb_idle_mode_user_timer_second_counter++;
