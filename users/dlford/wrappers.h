@@ -58,7 +58,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ___SPECIAL_L2___         LGUI_GRV,KC_LALT,LCTL_LBRC,LSFT_RBRC,KC_LPRN
 #define ___SPECIAL_R2___                                                                           KC_RPRN,RSFT_MINS,RCTL_EQL,RALT_BSLS,RGUI_QUOT
 //                             |--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
-#define ___SPECIAL_L3___         KC_TILD, KC_CAPS, KC_LCBR, KC_RCBR, M_ALT_TAB
+#define ___SPECIAL_L3___         KC_TILD, KC_CAPS, KC_LCBR, KC_RCBR,  XXX
 #define ___SPECIAL_R3___                                                                         M_QK_BOOT, KC_UNDS, KC_PLUS, KC_PIPE, KC_DQUO
 //                             |--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
 #define ___SPECIAL_L4___                                     VVV,     VVV,     VVV
@@ -74,7 +74,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ___NAVIGATION_R2___                                                                       KC_LEFT,RSFT_DOWN,RCTL_UP,RALT_RGHT,RGUI_F11
 //                             |--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
 #define ___NAVIGATION_L3___    M_RGB_SPD,M_RGB_HUE, KC_VOLD, KC_VOLU,M_RGB_STP
-#define ___NAVIGATION_R3___                                                                        M_ALT_TAB, KC_MPLY, KC_MPRV, KC_MNXT, KC_F12
+#define ___NAVIGATION_R3___                                                                         XXX,    KC_MPLY, KC_MPRV, KC_MNXT, KC_F12
 //                             |--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
 #define ___NAVIGATION_L4___                             TG(_NUMPAD),TG(_MOUSE),M_LLOCK
 #define ___NAVIGATION_R4___                                                                 VVV,    VVV,     VVV

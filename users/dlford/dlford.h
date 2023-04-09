@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "pwgen_user.h"
 #include "mouse_jiggler_user.h"
 #include "sarcasm_mode.h"
-#include "alt_tab_user.h"
 #include "eeprom_user.h"
 #include "custom_keycodes_user.h"
 #include "wrappers.h"

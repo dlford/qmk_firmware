@@ -5,7 +5,6 @@ SRC += tap_rules.c
 SRC += pwgen_user.c
 SRC += mouse_jiggler_user.c
 SRC += sarcasm_mode.c
-SRC += alt_tab_user.c
 SRC += eeprom_user.c
 SRC += custom_keycodes_user.c
 SRC += layer_lock.c

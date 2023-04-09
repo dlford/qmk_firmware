@@ -15,7 +15,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include QMK_KEYBOARD_H
 #include "custom_keycodes_user.h"
 #include "layers_user.h"
-#include "alt_tab_user.h"
 #include "sarcasm_mode.h"
 #ifdef RGB_MATRIX_ENABLE
 #    include "rgb_timeout_user.h"

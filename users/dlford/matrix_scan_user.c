@@ -13,7 +13,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include QMK_KEYBOARD_H
-#include "alt_tab_user.h"
 #include "mouse_jiggler_user.h"
 #ifdef RGB_MATRIX_ENABLE
 #    include "rgb_timeout_user.h"
@@ -30,6 +29,5 @@ void matrix_scan_user(void) {
     matrix_scan_rgb_idle_mode();
 #endif
     matrix_scan_mouse_jiggler();
-    matrix_scan_alt_tab();
     matrix_scan_keymap();
 }

@@ -22,7 +22,6 @@ bool process_record_custom_keycodes_user(uint16_t keycode, keyrecord_t *record);
 enum custom_keycodes {
     M_KEYMAP = SAFE_RANGE,
     M_EXIT,
-    M_ALT_TAB,
     M_RGB_STP,
     M_RGB_SPD,
     M_RGB_HUE,

@@ -18,7 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "layers_user.h"
 #include "rgb_matrix_user.h"
 #include "rgb_timeout_user.h"
-#include "alt_tab_user.h"
 #include "eeprom_user.h"
 #include "split_util.h"
 #include "rgb_idle_mode_user.h"
@@ -27,9 +26,6 @@ bool is_left_hand;
 
 bool process_record_custom_keycodes_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case M_ALT_TAB:
-            start_alt_tab(record);
-            break;
         case M_QK_BOOT:
             if (record->event.pressed) {
                 uint8_t temp_mod = get_mods();
