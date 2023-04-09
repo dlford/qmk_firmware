@@ -20,7 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "rgb_matrix_user.h"
 #include "layers_user.h"
 
-int      rgb_idle_mode_user_timeout_seconds      = 2;
+int      rgb_idle_mode_user_timeout_seconds      = 1;
 uint16_t rgb_idle_mode_user_idle_timer           = 0;
 uint8_t  rgb_idle_mode_user_timer_second_counter = 0;
 bool     is_rgb_idle_mode_user_on                = true;
