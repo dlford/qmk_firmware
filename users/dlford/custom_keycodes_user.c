@@ -36,17 +36,14 @@ bool process_record_custom_keycodes_user(uint16_t keycode, keyrecord_t *record) 
                 if (keyboard_report->mods & MOD_MASK_CTRL) {
                     clear_mods();
                     clear_oneshot_mods();
-                    send_string("make -j$(nproc) --output-sync " QMK_KEYBOARD ":" QMK_KEYMAP);
-                    if ((temp_mod | temp_osm) & MOD_MASK_SHIFT) {
-                        send_string(":flash");
-                    }
+                    send_string("make -j$(nproc) --output-sync " QMK_KEYBOARD ":" QMK_KEYMAP ":flash");
                     set_mods(temp_mod);
-                } else if (keyboard_report->mods & MOD_MASK_ALT) {
+                } else if (keyboard_report->mods & MOD_MASK_SHIFT) {
                     clear_mods();
                     clear_oneshot_mods();
                     send_string_with_delay_P(PSTR(QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION ", Built on: " QMK_BUILDDATE), TAP_CODE_DELAY);
                     set_mods(temp_mod);
-                } else if (keyboard_report->mods & MOD_MASK_SHIFT) {
+                } else if (keyboard_report->mods & MOD_MASK_ALT) {
                     is_left_hand = isLeftHand;
                     eeconfig_init();
                     eeconfig_update_handedness(is_left_hand);
