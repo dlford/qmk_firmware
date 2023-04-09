@@ -32,7 +32,6 @@ bool process_record_custom_keycodes_user(uint16_t keycode, keyrecord_t *record) 
         case M_QK_BOOT:
             if (record->event.pressed) {
                 uint8_t temp_mod = get_mods();
-                uint8_t temp_osm = get_oneshot_mods();
                 if (keyboard_report->mods & MOD_MASK_CTRL) {
                     clear_mods();
                     clear_oneshot_mods();
@@ -124,6 +123,18 @@ bool process_record_custom_keycodes_user(uint16_t keycode, keyrecord_t *record) 
         case M_FAT_ARW:
             if (record->event.pressed) {
                 send_string("=>");
+            }
+            break;
+        case KC_ESC:
+            if (record->event.pressed && (keyboard_report->mods & MOD_BIT(KC_LALT))) {
+                tap_code(KC_TAB);
+                return false;
+            }
+            break;
+        case KC_ENT:
+            if (record->event.pressed && (keyboard_report->mods & MOD_BIT(KC_RALT))) {
+                tap_code(KC_TAB);
+                return false;
             }
             break;
     }
