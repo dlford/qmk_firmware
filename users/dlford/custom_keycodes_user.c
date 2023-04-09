@@ -126,13 +126,13 @@ bool process_record_custom_keycodes_user(uint16_t keycode, keyrecord_t *record) 
             }
             break;
         case KC_ESC:
-            if (record->event.pressed && (keyboard_report->mods & MOD_BIT(KC_LALT))) {
+            if (record->event.pressed && (keyboard_report->mods & (MOD_BIT(KC_LALT) | MOD_BIT(KC_LGUI)))) {
                 tap_code(KC_TAB);
                 return false;
             }
             break;
         case KC_ENT:
-            if (record->event.pressed && (keyboard_report->mods & MOD_BIT(KC_RALT))) {
+            if (record->event.pressed && (keyboard_report->mods & (MOD_BIT(KC_RALT) | MOD_BIT(KC_RGUI)))) {
                 tap_code(KC_TAB);
                 return false;
             }
