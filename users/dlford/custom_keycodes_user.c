@@ -25,21 +25,22 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 bool is_left_hand;
 
 bool process_record_custom_keycodes_user(uint16_t keycode, keyrecord_t *record) {
+    uint8_t mods = get_mods();
+    uint8_t osm  = get_oneshot_mods();
     switch (keycode) {
         case M_QK_BOOT:
             if (record->event.pressed) {
-                uint8_t temp_mod = get_mods();
-                if (keyboard_report->mods & MOD_MASK_CTRL) {
+                if ((mods | osm) & MOD_MASK_CTRL) {
                     clear_mods();
                     clear_oneshot_mods();
                     send_string("make -j$(nproc) --output-sync " QMK_KEYBOARD ":" QMK_KEYMAP ":flash");
-                    set_mods(temp_mod);
-                } else if (keyboard_report->mods & MOD_MASK_SHIFT) {
+                    set_mods(mods);
+                } else if ((mods | osm) & MOD_MASK_SHIFT) {
                     clear_mods();
                     clear_oneshot_mods();
                     send_string_with_delay_P(PSTR(QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION ", Built on: " QMK_BUILDDATE), TAP_CODE_DELAY);
-                    set_mods(temp_mod);
-                } else if (keyboard_report->mods & MOD_MASK_ALT) {
+                    set_mods(mods);
+                } else if ((mods | osm) & MOD_MASK_ALT) {
                     is_left_hand = isLeftHand;
                     eeconfig_init();
                     eeconfig_update_handedness(is_left_hand);
@@ -58,7 +59,7 @@ bool process_record_custom_keycodes_user(uint16_t keycode, keyrecord_t *record) 
             if (record->event.pressed) {
                 rgb_matrix_reload_from_eeprom();
                 rgb_matrix_set_speed_noeeprom(user_config.rgb_speed);
-                if (keyboard_report->mods & MOD_MASK_SHIFT) {
+                if ((mods | osm) & MOD_MASK_SHIFT) {
                     if (user_config.rgb_speed <= 5) {
                         user_config.rgb_speed = 0;
                     } else {
@@ -82,7 +83,7 @@ bool process_record_custom_keycodes_user(uint16_t keycode, keyrecord_t *record) 
             if (record->event.pressed) {
                 rgb_matrix_reload_from_eeprom();
                 rgb_matrix_set_speed_noeeprom(user_config.rgb_speed);
-                if (keyboard_report->mods & MOD_MASK_SHIFT) {
+                if ((mods | osm) & MOD_MASK_SHIFT) {
                     rgb_matrix_decrease_hue();
                 } else {
                     rgb_matrix_increase_hue();
@@ -94,11 +95,11 @@ bool process_record_custom_keycodes_user(uint16_t keycode, keyrecord_t *record) 
             if (record->event.pressed) {
                 rgb_matrix_reload_from_eeprom();
                 rgb_matrix_set_speed_noeeprom(user_config.rgb_speed);
-                if (keyboard_report->mods & MOD_MASK_SHIFT) {
+                if ((mods | osm) & MOD_MASK_SHIFT) {
                     rgb_matrix_step_reverse();
-                } else if (keyboard_report->mods & MOD_MASK_CTRL) {
+                } else if ((mods | osm) & MOD_MASK_CTRL) {
                     toggle_rgb_idle_mode_user();
-                } else if (keyboard_report->mods & MOD_MASK_ALT) {
+                } else if ((mods | osm) & MOD_MASK_ALT) {
                     user_config.is_rgb_idle_enabled = true;
                     user_config.rgb_speed           = 150;
                     rgb_matrix_set_speed_noeeprom(user_config.rgb_speed);
@@ -122,13 +123,13 @@ bool process_record_custom_keycodes_user(uint16_t keycode, keyrecord_t *record) 
             }
             break;
         case KC_ESC:
-            if (record->event.pressed && (keyboard_report->mods & (MOD_BIT(KC_LALT) | MOD_BIT(KC_LGUI)))) {
+            if (record->event.pressed && ((mods | osm) & (MOD_BIT(KC_LALT) | MOD_BIT(KC_LGUI)))) {
                 tap_code(KC_TAB);
                 return false;
             }
             break;
         case KC_ENT:
-            if (record->event.pressed && (keyboard_report->mods & (MOD_BIT(KC_RALT) | MOD_BIT(KC_RGUI)))) {
+            if (record->event.pressed && ((mods | osm) & (MOD_BIT(KC_RALT) | MOD_BIT(KC_RGUI)))) {
                 tap_code(KC_TAB);
                 return false;
             }
