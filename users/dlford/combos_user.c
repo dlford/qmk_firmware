@@ -28,9 +28,9 @@ const char PROGMEM legends_url[] = "https://raw.githubusercontent.com/dlford/qmk
 const uint16_t PROGMEM qw_esc_combo[]          = {CSA_Q, CA_W, COMBO_END};
 const uint16_t PROGMEM op_bspc_combo[]         = {CA_O, CSA_P, COMBO_END};
 const uint16_t PROGMEM ysemi_bspc_combo[]      = {CA_Y, CSA_SCLN, COMBO_END};
-const uint16_t PROGMEM zx_exit_combo[]         = {KC_Z, KC_X, COMBO_END};
-const uint16_t PROGMEM sa_scsm_combo[]         = {LGUI_A, LALT_S, COMBO_END};
-const uint16_t PROGMEM ra_scsm_combo[]         = {LGUI_A, LALT_R, COMBO_END};
+const uint16_t PROGMEM qx_exit_combo[]         = {CSA_Q, KC_X, COMBO_END};
+const uint16_t PROGMEM sc_scsm_combo[]         = {KC_C, LALT_S, COMBO_END};
+const uint16_t PROGMEM sc_scsm2_combo[]        = {KC_C, LCTL_S, COMBO_END};
 const uint16_t PROGMEM km_keymap_combo[]       = {RCTL_K, KC_M, COMBO_END};
 const uint16_t PROGMEM km_keymap2_combo[]      = {KC_K, KC_M, COMBO_END};
 const uint16_t PROGMEM pw_rand_combo[]         = {CSA_P, CA_W, COMBO_END};
@@ -38,7 +38,7 @@ const uint16_t PROGMEM pw_rand2_combo[]        = {KC_P, CA_W, COMBO_END};
 const uint16_t PROGMEM lsemi_del_combo[]       = {RALT_L, RGUI_SCLN, COMBO_END};
 const uint16_t PROGMEM io_del_combo[]          = {RALT_I, RGUI_O, COMBO_END};
 const uint16_t PROGMEM dotslash_jiggle_combo[] = {KC_DOT, KC_SLSH, COMBO_END};
-const uint16_t PROGMEM cx_colemak_combo[]      = {KC_C, KC_X, COMBO_END};
+const uint16_t PROGMEM cm_colemak_combo[]      = {KC_C, KC_M, COMBO_END};
 const uint16_t PROGMEM br_wrap_combo[]         = {LCTL_LBRC, LSFT_RBRC, COMBO_END};
 const uint16_t PROGMEM br_wrap_semi_combo[]    = {LCTL_LBRC, LSFT_RBRC, RGUI_QUOT, COMBO_END};
 const uint16_t PROGMEM cbr_wrap_combo[]        = {KC_LCBR, KC_RCBR, COMBO_END};
@@ -62,9 +62,9 @@ combo_t key_combos[COMBO_LENGTH] = {
     [QW_ESC_COMBO]          = COMBO_ACTION(qw_esc_combo),
     [OP_BSPC_COMBO]         = COMBO_ACTION(op_bspc_combo),
     [YSEMI_BSPC_COMBO]      = COMBO_ACTION(ysemi_bspc_combo),
-    [ZX_EXIT_COMBO]         = COMBO_ACTION(zx_exit_combo),
-    [SA_SCSM_COMBO]         = COMBO_ACTION(sa_scsm_combo),
-    [RA_SCSM_COMBO]         = COMBO_ACTION(ra_scsm_combo),
+    [QX_EXIT_COMBO]         = COMBO_ACTION(qx_exit_combo),
+    [SC_SCSM_COMBO]         = COMBO_ACTION(sc_scsm_combo),
+    [SC_SCSM2_COMBO]        = COMBO_ACTION(sc_scsm2_combo),
     [KM_KEYMAP_COMBO]       = COMBO_ACTION(km_keymap_combo),
     [KM_KEYMAP2_COMBO]      = COMBO_ACTION(km_keymap2_combo),
     [PW_RAND_COMBO]         = COMBO_ACTION(pw_rand_combo),
@@ -72,7 +72,7 @@ combo_t key_combos[COMBO_LENGTH] = {
     [LSEMI_DEL_COMBO]       = COMBO_ACTION(lsemi_del_combo),
     [IO_DEL_COMBO]          = COMBO_ACTION(io_del_combo),
     [DOTSLASH_JIGGLE_COMBO] = COMBO_ACTION(dotslash_jiggle_combo),
-    [CX_COLEMAK_COMBO]      = COMBO_ACTION(cx_colemak_combo),
+    [CM_COLEMAK_COMBO]      = COMBO_ACTION(cm_colemak_combo),
     [BR_WRAP_COMBO]         = COMBO_ACTION(br_wrap_combo),
     [BR_WRAP_SEMI_COMBO]    = COMBO_ACTION(br_wrap_semi_combo),
     [CBR_WRAP_COMBO]        = COMBO_ACTION(cbr_wrap_combo),
@@ -104,14 +104,14 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
                 tap_code(KC_BSPC);
             }
             break;
-        case ZX_EXIT_COMBO:
+        case QX_EXIT_COMBO:
             if (pressed) {
                 SEND_STRING("exit");
                 tap_code(KC_ENT);
             }
             break;
-        case SA_SCSM_COMBO:
-        case RA_SCSM_COMBO:
+        case SC_SCSM_COMBO:
+        case SC_SCSM2_COMBO:
             if (pressed) {
                 is_scsm_active = !is_scsm_active;
 #ifdef RGB_MATRIX_ENABLE
@@ -152,7 +152,7 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
                 is_mouse_jiggle_active = !is_mouse_jiggle_active;
             }
             break;
-        case CX_COLEMAK_COMBO:
+        case CM_COLEMAK_COMBO:
             if (pressed) {
                 if (default_layer_state - 1 == _COLEMAK) {
                     set_single_persistent_default_layer(_QWERTY);
