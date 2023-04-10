@@ -33,7 +33,7 @@ bool process_record_custom_keycodes_user(uint16_t keycode, keyrecord_t *record) 
                 if ((mods | osm) & MOD_MASK_CTRL) {
                     clear_mods();
                     clear_oneshot_mods();
-                    send_string("make -j$(nproc) --output-sync " QMK_KEYBOARD ":" QMK_KEYMAP ":flash");
+                    send_string("qmk generate-version-h -q -o quantum/version.h && make -j$(nproc) --output-sync " QMK_KEYBOARD ":" QMK_KEYMAP ":flash");
                     set_mods(mods);
                 } else if ((mods | osm) & MOD_MASK_SHIFT) {
                     clear_mods();
