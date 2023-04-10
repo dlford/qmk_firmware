@@ -19,6 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "eeprom_user.h"
 #include "rgb_matrix_user.h"
 #include "layers_user.h"
+#include "sarcasm_mode.h"
 
 int rgb_idle_mode_user_timeout_seconds           = 1;
 int rgb_idle_mode_user_toggled_indicator_seconds = 2;
@@ -61,8 +62,8 @@ void matrix_scan_rgb_idle_mode(void) {
             rgb_idle_mode_user_idle_timer = timer_read();
         }
 
-        // TODO: Check only run if default_layer is highest
-        if (is_rgb_idle_mode_user_on && (layer_state_is(_QWERTY) || layer_state_is(_COLEMAK)) && rgb_idle_mode_user_timer_second_counter >= rgb_idle_mode_user_timeout_seconds) {
+        // TODO: Check only run if default_layer is highest, extend override control to keymap
+        if (is_rgb_idle_mode_user_on && !is_scsm_active && (layer_state_is(_QWERTY) || layer_state_is(_COLEMAK)) && rgb_idle_mode_user_timer_second_counter >= rgb_idle_mode_user_timeout_seconds) {
             rgb_matrix_set_speed_noeeprom(user_config.rgb_idle_speed);
             rgb_matrix_mode_noeeprom(user_config.rgb_idle_mode);
             rgb_matrix_sethsv_noeeprom(user_config.rgb_idle_hsv.h, user_config.rgb_idle_hsv.s, user_config.rgb_idle_hsv.v);

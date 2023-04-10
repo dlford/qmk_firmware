@@ -55,8 +55,6 @@ bool process_record_custom_keycodes_user(uint16_t keycode, keyrecord_t *record) 
             break;
         case M_RGB_SPD:
             if (record->event.pressed) {
-                rgb_matrix_reload_from_eeprom();
-                rgb_matrix_set_speed_noeeprom(user_config.rgb_speed);
                 if ((mods | osm) & MOD_MASK_ALT) {
                     rgb_matrix_mode_noeeprom(user_config.rgb_idle_mode);
                     rgb_matrix_set_speed_noeeprom(user_config.rgb_idle_speed);
@@ -69,20 +67,16 @@ bool process_record_custom_keycodes_user(uint16_t keycode, keyrecord_t *record) 
                     user_config.rgb_idle_speed = rgb_matrix_get_speed();
                     write_user_config();
                 } else if ((mods | osm) & MOD_MASK_SHIFT) {
-                    if (user_config.rgb_speed <= 5) {
-                        user_config.rgb_speed = 0;
-                    } else {
-                        user_config.rgb_speed -= 5;
-                    }
+                    rgb_matrix_reload_from_eeprom();
                     rgb_matrix_set_speed_noeeprom(user_config.rgb_speed);
+                    rgb_matrix_decrease_speed_noeeprom();
+                    user_config.rgb_speed = rgb_matrix_get_speed();
                     write_user_config();
                 } else {
-                    if (user_config.rgb_speed >= 250) {
-                        user_config.rgb_speed = 255;
-                    } else {
-                        user_config.rgb_speed += 5;
-                    }
+                    rgb_matrix_reload_from_eeprom();
                     rgb_matrix_set_speed_noeeprom(user_config.rgb_speed);
+                    rgb_matrix_increase_speed_noeeprom();
+                    user_config.rgb_speed = rgb_matrix_get_speed();
                     write_user_config();
                 }
                 return false;
