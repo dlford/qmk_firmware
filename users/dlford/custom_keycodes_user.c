@@ -116,7 +116,7 @@ bool process_record_custom_keycodes_user(uint16_t keycode, keyrecord_t *record) 
                 rgb_matrix_reload_from_eeprom();
                 rgb_matrix_set_speed_noeeprom(user_config.rgb_speed);
                 if ((mods | osm) & MOD_MASK_CTRL && (mods | osm) & MOD_MASK_ALT) {
-                    user_config.rgb_speed           = 50;
+                    user_config.rgb_speed           = 150;
                     user_config.is_rgb_idle_enabled = true;
                     user_config.rgb_idle_speed      = 50;
                     user_config.rgb_idle_mode       = RGB_MATRIX_DIGITAL_RAIN;

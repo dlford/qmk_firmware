@@ -25,7 +25,7 @@ user_config_t user_config;
 
 void eeconfig_init_user(void) {
     user_config.raw                 = 0;
-    user_config.rgb_speed           = 50;
+    user_config.rgb_speed           = 150;
     user_config.is_rgb_idle_enabled = true;
     user_config.rgb_idle_speed      = 50;
     user_config.rgb_idle_mode       = RGB_MATRIX_DIGITAL_RAIN;
