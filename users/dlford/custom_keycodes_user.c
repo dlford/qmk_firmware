@@ -30,17 +30,7 @@ bool process_record_custom_keycodes_user(uint16_t keycode, keyrecord_t *record) 
     switch (keycode) {
         case M_QK_BOOT:
             if (record->event.pressed) {
-                if ((mods | osm) & MOD_MASK_CTRL) {
-                    clear_mods();
-                    clear_oneshot_mods();
-                    send_string("qmk generate-version-h -q -o quantum/version.h && make -j$(nproc) --output-sync " QMK_KEYBOARD ":" QMK_KEYMAP ":flash");
-                    set_mods(mods);
-                } else if ((mods | osm) & MOD_MASK_SHIFT) {
-                    clear_mods();
-                    clear_oneshot_mods();
-                    send_string_with_delay_P(PSTR(QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION ", Built on: " QMK_BUILDDATE), TAP_CODE_DELAY);
-                    set_mods(mods);
-                } else if ((mods | osm) & MOD_MASK_ALT) {
+                if ((mods | osm) & MOD_MASK_ALT && (mods | osm) & MOD_MASK_CTRL) {
                     is_left_hand = isLeftHand;
                     eeconfig_init();
                     eeconfig_update_handedness(is_left_hand);
@@ -48,6 +38,16 @@ bool process_record_custom_keycodes_user(uint16_t keycode, keyrecord_t *record) 
                     rgb_matrix_set_speed_noeeprom(user_config.rgb_speed);
                     rgb_matrix_mode(RGB_MATRIX_SPLASH);
                     rgb_matrix_sethsv(HSV_BLUE);
+                } else if ((mods | osm) & MOD_MASK_SHIFT) {
+                    clear_mods();
+                    clear_oneshot_mods();
+                    send_string("qmk generate-version-h -q -o quantum/version.h && make -j$(nproc) --output-sync " QMK_KEYBOARD ":" QMK_KEYMAP ":flash");
+                    set_mods(mods);
+                } else if ((mods | osm) & MOD_MASK_ALT) {
+                    clear_mods();
+                    clear_oneshot_mods();
+                    send_string_with_delay_P(PSTR(QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION ", Built on: " QMK_BUILDDATE), TAP_CODE_DELAY);
+                    set_mods(mods);
                 } else {
                     reset_keyboard();
                 }
