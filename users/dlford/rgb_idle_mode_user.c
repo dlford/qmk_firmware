@@ -63,9 +63,9 @@ void matrix_scan_rgb_idle_mode(void) {
 
         // TODO: Check only run if default_layer is highest
         if (is_rgb_idle_mode_user_on && (layer_state_is(_QWERTY) || layer_state_is(_COLEMAK)) && rgb_idle_mode_user_timer_second_counter >= rgb_idle_mode_user_timeout_seconds) {
-            rgb_matrix_set_speed_noeeprom(250);
-            rgb_matrix_mode_noeeprom(RGB_MATRIX_DIGITAL_RAIN);
-            rgb_matrix_sethsv_noeeprom(HSV_GREEN);
+            rgb_matrix_set_speed_noeeprom(user_config.rgb_idle_speed);
+            rgb_matrix_mode_noeeprom(user_config.rgb_idle_mode);
+            rgb_matrix_sethsv_noeeprom(user_config.rgb_idle_hsv.h, user_config.rgb_idle_hsv.s, user_config.rgb_idle_hsv.v);
             is_rgb_idle_mode_user_on                = false;
             rgb_idle_mode_user_timer_second_counter = 0;
         }

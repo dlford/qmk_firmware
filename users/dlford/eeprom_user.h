@@ -26,6 +26,10 @@ typedef union {
     struct {
         uint8_t rgb_speed : 8;
         bool    is_rgb_idle_enabled : 1;
+        uint8_t rgb_idle_speed : 8;
+        uint8_t rgb_idle_mode : 6;
+        HSV     rgb_idle_hsv; // 24
+        // 47 / 64 bytes used
     };
 } user_config_t;
 
