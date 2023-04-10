@@ -23,17 +23,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 user_config_t user_config;
 
-// TODO: Plug rgb idle config in to the eeprom reset function and RGB reset function, set up controls
 void eeconfig_init_user(void) {
     user_config.raw                 = 0;
     user_config.rgb_speed           = 50;
     user_config.is_rgb_idle_enabled = true;
-    user_config.rgb_idle_speed      = 250;
+    user_config.rgb_idle_speed      = 50;
     user_config.rgb_idle_mode       = RGB_MATRIX_DIGITAL_RAIN;
     user_config.rgb_idle_hsv.h      = 85;
     user_config.rgb_idle_hsv.s      = 255;
     user_config.rgb_idle_hsv.v      = 255;
-    eeconfig_update_user(user_config.raw);
+    write_user_config();
 }
 
 void read_user_config(void) {

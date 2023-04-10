@@ -44,12 +44,10 @@ bool process_record_custom_keycodes_user(uint16_t keycode, keyrecord_t *record) 
                     is_left_hand = isLeftHand;
                     eeconfig_init();
                     eeconfig_update_handedness(is_left_hand);
-                    user_config.is_rgb_idle_enabled = true;
-                    user_config.rgb_speed           = 150;
+                    eeconfig_init_user();
                     rgb_matrix_set_speed_noeeprom(user_config.rgb_speed);
                     rgb_matrix_mode(RGB_MATRIX_SPLASH);
                     rgb_matrix_sethsv(HSV_BLUE);
-                    write_user_config();
                 } else {
                     reset_keyboard();
                 }
@@ -59,7 +57,18 @@ bool process_record_custom_keycodes_user(uint16_t keycode, keyrecord_t *record) 
             if (record->event.pressed) {
                 rgb_matrix_reload_from_eeprom();
                 rgb_matrix_set_speed_noeeprom(user_config.rgb_speed);
-                if ((mods | osm) & MOD_MASK_SHIFT) {
+                if ((mods | osm) & MOD_MASK_ALT) {
+                    rgb_matrix_mode_noeeprom(user_config.rgb_idle_mode);
+                    rgb_matrix_set_speed_noeeprom(user_config.rgb_idle_speed);
+                    rgb_matrix_sethsv_noeeprom(user_config.rgb_idle_hsv.h, user_config.rgb_idle_hsv.s, user_config.rgb_idle_hsv.v);
+                    if ((mods | osm) & MOD_MASK_SHIFT) {
+                        rgb_matrix_decrease_speed_noeeprom();
+                    } else {
+                        rgb_matrix_increase_speed_noeeprom();
+                    }
+                    user_config.rgb_idle_speed = rgb_matrix_get_speed();
+                    write_user_config();
+                } else if ((mods | osm) & MOD_MASK_SHIFT) {
                     if (user_config.rgb_speed <= 5) {
                         user_config.rgb_speed = 0;
                     } else {
@@ -83,7 +92,18 @@ bool process_record_custom_keycodes_user(uint16_t keycode, keyrecord_t *record) 
             if (record->event.pressed) {
                 rgb_matrix_reload_from_eeprom();
                 rgb_matrix_set_speed_noeeprom(user_config.rgb_speed);
-                if ((mods | osm) & MOD_MASK_SHIFT) {
+                if ((mods | osm) & MOD_MASK_ALT) {
+                    rgb_matrix_mode_noeeprom(user_config.rgb_idle_mode);
+                    rgb_matrix_set_speed_noeeprom(user_config.rgb_idle_speed);
+                    rgb_matrix_sethsv_noeeprom(user_config.rgb_idle_hsv.h, user_config.rgb_idle_hsv.s, user_config.rgb_idle_hsv.v);
+                    if ((mods | osm) & MOD_MASK_SHIFT) {
+                        rgb_matrix_decrease_hue_noeeprom();
+                    } else {
+                        rgb_matrix_increase_hue_noeeprom();
+                    }
+                    user_config.rgb_idle_hsv = rgb_matrix_get_hsv();
+                    write_user_config();
+                } else if ((mods | osm) & MOD_MASK_SHIFT) {
                     rgb_matrix_decrease_hue();
                 } else {
                     rgb_matrix_increase_hue();
@@ -95,17 +115,33 @@ bool process_record_custom_keycodes_user(uint16_t keycode, keyrecord_t *record) 
             if (record->event.pressed) {
                 rgb_matrix_reload_from_eeprom();
                 rgb_matrix_set_speed_noeeprom(user_config.rgb_speed);
-                if ((mods | osm) & MOD_MASK_SHIFT) {
-                    rgb_matrix_step_reverse();
-                } else if ((mods | osm) & MOD_MASK_CTRL) {
-                    toggle_rgb_idle_mode_user();
-                } else if ((mods | osm) & MOD_MASK_ALT) {
+                if ((mods | osm) & MOD_MASK_CTRL && (mods | osm) & MOD_MASK_ALT) {
+                    user_config.rgb_speed           = 50;
                     user_config.is_rgb_idle_enabled = true;
-                    user_config.rgb_speed           = 150;
+                    user_config.rgb_idle_speed      = 50;
+                    user_config.rgb_idle_mode       = RGB_MATRIX_DIGITAL_RAIN;
+                    user_config.rgb_idle_hsv.h      = 85;
+                    user_config.rgb_idle_hsv.s      = 255;
+                    user_config.rgb_idle_hsv.v      = 255;
+                    write_user_config();
                     rgb_matrix_set_speed_noeeprom(user_config.rgb_speed);
                     rgb_matrix_mode(RGB_MATRIX_SPLASH);
                     rgb_matrix_sethsv(HSV_BLUE);
+                } else if ((mods | osm) & MOD_MASK_ALT) {
+                    rgb_matrix_mode_noeeprom(user_config.rgb_idle_mode);
+                    rgb_matrix_set_speed_noeeprom(user_config.rgb_idle_speed);
+                    rgb_matrix_sethsv_noeeprom(user_config.rgb_idle_hsv.h, user_config.rgb_idle_hsv.s, user_config.rgb_idle_hsv.v);
+                    if ((mods | osm) & MOD_MASK_SHIFT) {
+                        rgb_matrix_step_reverse_noeeprom();
+                    } else {
+                        rgb_matrix_step_noeeprom();
+                    }
+                    user_config.rgb_idle_mode = rgb_matrix_get_mode();
                     write_user_config();
+                } else if ((mods | osm) & MOD_MASK_SHIFT) {
+                    rgb_matrix_step_reverse();
+                } else if ((mods | osm) & MOD_MASK_CTRL) {
+                    toggle_rgb_idle_mode_user();
                 } else {
                     rgb_matrix_step();
                 }
