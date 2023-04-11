@@ -38,6 +38,19 @@ void toggle_rgb_idle_mode_user(void) {
     rgb_idle_mode_user_toggled = true;
 }
 
+// Return true to prevent idle mode
+__attribute__((weak)) bool rgb_idle_user_interrupt_keymap(void) {
+    return false;
+}
+
+// TODO: Check only run if default_layer is highest
+bool rgb_idle_user_interrupt(void) {
+    if (is_scsm_active) return true;
+    if (layer_state_is(_QWERTY)) return true;
+    if (layer_state_is(_COLEMAK)) return true;
+    return rgb_idle_user_interrupt_keymap();
+}
+
 void matrix_scan_rgb_idle_mode(void) {
     // This is used to show an indicator of a few seconds and then turn it off
     // See rgb_matrix_user.c for the rest of the logic
@@ -62,8 +75,7 @@ void matrix_scan_rgb_idle_mode(void) {
             rgb_idle_mode_user_idle_timer = timer_read();
         }
 
-        // TODO: Check only run if default_layer is highest, extend override control to keymap
-        if (is_rgb_idle_mode_user_on && !is_scsm_active && (layer_state_is(_QWERTY) || layer_state_is(_COLEMAK)) && rgb_idle_mode_user_timer_second_counter >= rgb_idle_mode_user_timeout_seconds) {
+        if (is_rgb_idle_mode_user_on && rgb_idle_mode_user_timer_second_counter >= rgb_idle_mode_user_timeout_seconds && !rgb_idle_user_interrupt()) {
             rgb_matrix_set_speed_noeeprom(user_config.rgb_idle_speed);
             rgb_matrix_mode_noeeprom(user_config.rgb_idle_mode);
             rgb_matrix_sethsv_noeeprom(user_config.rgb_idle_hsv.h, user_config.rgb_idle_hsv.s, user_config.rgb_idle_hsv.v);
