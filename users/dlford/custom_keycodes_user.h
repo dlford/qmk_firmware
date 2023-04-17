@@ -29,6 +29,9 @@ enum custom_keycodes {
     M_SKN_ARW,
     M_FAT_ARW,
     M_QK_BOOT,
+    M_VDSL,
+    M_VDSR,
+    M_MNXT,
 };
 
 #define VVV KC_TRNS

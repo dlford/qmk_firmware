@@ -142,6 +142,39 @@ bool process_record_custom_keycodes_user(uint16_t keycode, keyrecord_t *record) 
                 return false;
             }
             break;
+        case M_VDSL:
+            if (record->event.pressed) {
+                clear_mods();
+                clear_oneshot_mods();
+                register_code(KC_LGUI);
+                register_code(KC_LCTL);
+                tap_code(KC_LEFT);
+                unregister_code(KC_LGUI);
+                unregister_code(KC_LCTL);
+                set_mods(mods);
+                return false;
+            }
+        case M_VDSR:
+            if (record->event.pressed) {
+                clear_mods();
+                clear_oneshot_mods();
+                register_code(KC_LGUI);
+                register_code(KC_LCTL);
+                tap_code(KC_RIGHT);
+                unregister_code(KC_LGUI);
+                unregister_code(KC_LCTL);
+                set_mods(mods);
+                return false;
+            }
+        case M_MNXT:
+            if (record->event.pressed) {
+                if ((mods | osm) & MOD_MASK_SHIFT) {
+                    tap_code(KC_MPRV);
+                } else {
+                    tap_code(KC_MNXT);
+                }
+                return false;
+            }
         case M_SKN_ARW:
             if (record->event.pressed) {
                 send_string("->");

@@ -74,7 +74,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ___NAVIGATION_R2___                                                                       KC_LEFT,RSFT_DOWN,RCTL_UP,RALT_RGHT,RGUI_F11
 //                             |--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
 #define ___NAVIGATION_L3___    M_RGB_SPD,M_RGB_HUE, KC_VOLD, KC_VOLU,M_RGB_STP
-#define ___NAVIGATION_R3___                                                                         XXX,    KC_MPLY, KC_MPRV, KC_MNXT, KC_F12
+#define ___NAVIGATION_R3___                                                                       KC_MPLY,  M_VDSL,  M_VDSR,  M_MNXT,  KC_F12
 //                             |--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
 #define ___NAVIGATION_L4___                             TG(_NUMPAD),TG(_MOUSE),M_LLOCK
 #define ___NAVIGATION_R4___                                                                 VVV,    VVV,     VVV
