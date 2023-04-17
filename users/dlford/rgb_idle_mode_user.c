@@ -46,8 +46,7 @@ __attribute__((weak)) bool rgb_idle_user_interrupt_keymap(void) {
 // TODO: Check only run if default_layer is highest
 bool rgb_idle_user_interrupt(void) {
     if (is_scsm_active) return true;
-    if (layer_state_is(_QWERTY)) return true;
-    if (layer_state_is(_COLEMAK)) return true;
+    if (!layer_state_is(_QWERTY) && !(layer_state_is(_COLEMAK))) return true;
     return rgb_idle_user_interrupt_keymap();
 }
 
