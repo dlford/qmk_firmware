@@ -38,7 +38,7 @@ uint16_t get_quick_tap_term(uint16_t keycode, keyrecord_t *record) {
         case LT2_TAB:
             return 0;
         default:
-            return 120;
+            return 65;
     }
 }
 #endif
@@ -48,6 +48,8 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case CS_E:
         case CS_I:
+        case CS_F:
+        case CS_U:
             return 215;
         default:
             return 190;
