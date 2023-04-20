@@ -90,3 +90,13 @@ enum custom_keycodes {
 #define RGUI_QUOT RGUI_T(KC_QUOT)
 #define LT3_SPC LT(_SPECIAL, KC_SPC)
 #define LT2_TAB LT(_NAVIGATION, KC_TAB)
+#ifdef SWAP_HANDS_ENABLE
+#    define SH_ESC SH_T(KC_ESC)
+#else
+#    define SH_ESC KC_ESC
+#endif
+#ifdef SWAP_HANDS_ENABLE
+#    define SH_ENT SH_T(KC_ENT)
+#else
+#    define SH_ENT KC_ENT
+#endif

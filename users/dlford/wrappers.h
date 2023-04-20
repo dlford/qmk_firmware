@@ -32,8 +32,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ___QWERTY_L3___          KC_Z,    KC_X,    KC_C,    KC_V,    KC_B
 #define ___QWERTY_R3___                                                                            KC_N,    KC_M,   KC_COMM,  KC_DOT,  KC_SLSH
 //                             |--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
-#define ___QWERTY_L4___                                    KC_ESC,  LT3_SPC, KC_BSPC
-#define ___QWERTY_R4___                                                                  KC_DEL,  LT2_TAB,  KC_ENT
+#define ___QWERTY_L4___                                    SH_ESC,  LT3_SPC, KC_BSPC
+#define ___QWERTY_R4___                                                                  KC_DEL,  LT2_TAB,  SH_ENT
 //                                                        |--------+--------+--------|  |--------+--------+--------|
 
 //                             |--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
@@ -104,8 +104,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ___NUMPAD_L3___           XXX,     XXX,    KC_TAB,  KC_SPC, KC_SLSH
 #define ___NUMPAD_R3___                                                                           KC_END,   KC_1,    KC_2,    KC_3,    KC_DOT
 //                             |--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
-#define ___NUMPAD_L4___                                    KC_ESC,TG(_NUMPAD),KC_BSPC
-#define ___NUMPAD_R4___                                                                  KC_DEL,TG(_NUMPAD),KC_ENT
+#define ___NUMPAD_L4___                                      VVV, TG(_NUMPAD), VVV
+#define ___NUMPAD_R4___                                                                    VVV, TG(_NUMPAD), VVV
 //                                                        |--------+--------+--------|  |--------+--------+--------|
 
 // clang-format on
