@@ -24,8 +24,6 @@ bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case LT3_SPC:
         case LT2_TAB:
-        case RSFT_J:
-        case LSFT_F:
             return true; // select hold action immediately
         default:
             return false; // Don't select hold action when another key is pressed
