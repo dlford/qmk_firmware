@@ -18,8 +18,26 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include QMK_KEYBOARD_H
 #include "raw_hid.h"
 
+bool is_notification_on  = false;
+bool is_hidraw_connected = false;
+
 void raw_hid_receive(uint8_t *data, uint8_t length) {
+    is_hidraw_connected = true;
+
     // uint8_t send_data[32] = {1};
     // raw_hid_send(send_data, sizeof(send_data));
     raw_hid_send(data, length);
+
+    /*
+    char *str = (char *)data;
+    if (strcmp(str, "toggle_notification") == 0) {
+        is_notification_on = !is_notification_on;
+    }
+
+    if (is_notification_on) {
+        send_string("notified!");
+    } else {
+        send_string("not notified!");
+    }
+    */
 }
