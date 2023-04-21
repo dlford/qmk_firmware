@@ -30,12 +30,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define SPLIT_LAYER_STATE_ENABLE
 #    define SPLIT_LED_STATE_ENABLE
 #    define SPLIT_MODS_ENABLE
-#    define SPLIT_WPM_ENABLE
+#    ifdef WPM_ENABLE
+#        define SPLIT_WPM_ENABLE
+#    endif
 #    define SPLIT_USB_DETECT
 #    define SPLIT_WATCHDOG_ENABLE
 #    ifdef OLED_ENABLE
 #        define SPLIT_OLED_ENABLE
-#    endif // OLED_ENABLE
+#    endif
 #endif     // SPLIT_KEYBOARD
 
 #ifdef MOUSEKEY_ENABLE
@@ -58,7 +60,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef OLED_ENABLE
 #    define SPLIT_OLED_ENABLE
 #    define OLED_FONT_H "keyboards/crkbd/lib/glcdfont.c"
-#endif // OLED_ENABLE
+#endif
 
 #ifdef RGB_MATRIX_ENABLE
 #    define RGB_DISABLE_WHEN_USB_SUSPENDED

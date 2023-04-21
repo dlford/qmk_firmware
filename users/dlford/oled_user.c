@@ -106,6 +106,7 @@ void oled_render_caps_lock_status(void) {
     }
 }
 
+#ifndef WPM_ENABLE
 static void oled_render_logo(void) {
     static const char PROGMEM raw_logo[] = {
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,  0,  0,   128, 224, 224, 96, 96,  96,  96,  96,  96,  128, 192, 224, 224, 240, 240, 240, 224, 224, 192, 128, 0, 0, 0, 0, 0, 0,   0,   0,   0,   0,   0,   0,   0,  0,  0,  0,  0,   0,   0,   0,   0,   0,   0,   0,   0, 0, 0, 0, 0, 0,   0,   0,  0,  0,  0,   0,   0,  0,   0,   0,  0,  0,  0,   0,   0, 0,   0,   0,  0,  0,  0,   0,  0,  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 192, 240, 60, 30, 7, 1, 192, 224, 224, 240, 240, 240, 0,  255, 255, 255, 255, 249, 241, 241, 7, 7, 55, 247, 192, 0, 0, 0, 0, 224, 224, 224, 224, 224, 192, 192, 192, 0, 192, 224, 224, 224, 0, 0, 0, 0, 224, 224, 96, 96, 96, 96, 0, 192, 224, 96, 96, 96, 224, 192, 192, 192, 224, 96, 96, 96, 224, 192, 0, 224, 224, 96, 96, 96, 224, 192, 128, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -113,6 +114,7 @@ static void oled_render_logo(void) {
     };
     oled_write_raw_P(raw_logo, sizeof(raw_logo));
 }
+#endif
 
 bool oled_task_user(void) {
     if (is_keyboard_master()) {
@@ -120,7 +122,12 @@ bool oled_task_user(void) {
         oled_render_dynamic_macro_status();
         oled_render_caps_lock_status();
     } else {
+#ifdef WPM_ENABLE
+        oled_write_P(PSTR("WPM: "), false);
+        oled_write_ln_P(get_u8_str(get_current_wpm(), '0'), false);
+#else
         oled_render_logo();
+#endif
     }
     return false;
 }
