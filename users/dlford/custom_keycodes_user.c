@@ -14,6 +14,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include QMK_KEYBOARD_H
 #include "version.h"
+#include "os_detection.h"
 #include "custom_keycodes_user.h"
 #include "layers_user.h"
 #include "rgb_matrix_user.h"
@@ -146,11 +147,17 @@ bool process_record_custom_keycodes_user(uint16_t keycode, keyrecord_t *record) 
             if (record->event.pressed) {
                 clear_mods();
                 clear_oneshot_mods();
-                register_code(KC_LGUI);
-                register_code(KC_LCTL);
-                tap_code(KC_LEFT);
-                unregister_code(KC_LGUI);
-                unregister_code(KC_LCTL);
+                if (detected_host_os() == OS_WINDOWS) {
+                    register_code(KC_LGUI);
+                    register_code(KC_LCTL);
+                    tap_code(KC_LEFT);
+                    unregister_code(KC_LGUI);
+                    unregister_code(KC_LCTL);
+                } else {
+                    register_code(KC_LGUI);
+                    tap_code(KC_LBRC);
+                    unregister_code(KC_LGUI);
+                }
                 set_mods(mods);
                 return false;
             }
@@ -158,11 +165,17 @@ bool process_record_custom_keycodes_user(uint16_t keycode, keyrecord_t *record) 
             if (record->event.pressed) {
                 clear_mods();
                 clear_oneshot_mods();
-                register_code(KC_LGUI);
-                register_code(KC_LCTL);
-                tap_code(KC_RIGHT);
-                unregister_code(KC_LGUI);
-                unregister_code(KC_LCTL);
+                if (detected_host_os() == OS_WINDOWS) {
+                    register_code(KC_LGUI);
+                    register_code(KC_LCTL);
+                    tap_code(KC_RIGHT);
+                    unregister_code(KC_LGUI);
+                    unregister_code(KC_LCTL);
+                } else {
+                    register_code(KC_LGUI);
+                    tap_code(KC_RBRC);
+                    unregister_code(KC_LGUI);
+                }
                 set_mods(mods);
                 return false;
             }
