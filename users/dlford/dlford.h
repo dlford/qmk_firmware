@@ -46,3 +46,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef CAPS_WORD_ENABLE
 #    include "caps_word_user.h"
 #endif
+#ifdef RAW_ENABLE
+#    include "hid_raw_user.h"
+#endif

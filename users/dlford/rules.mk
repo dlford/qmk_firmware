@@ -25,3 +25,6 @@ endif
 ifdef CAPS_WORD_ENABLE
 	SRC += caps_word_user.c
 endif
+ifdef RAW_ENABLE
+	SRC += hid_raw_user.c
+endif
