@@ -1,6 +1,8 @@
 BOARD = GENERIC_RP_RP2040
 CONVERT_TO = kb2040
 
+# TODO: Move some of these to userspace
+
 LTO_ENABLE = yes
 DYNAMIC_MACRO_ENABLE = yes
 COMBO_ENABLE = yes

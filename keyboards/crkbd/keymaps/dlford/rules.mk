@@ -3,6 +3,8 @@ CONVERT_TO = kb2040
 
 LAYOUTS = split_3x5_3 split_3x6_3
 
+# TODO: Move some of these to userspace
+
 # SWAP_HANDS_ENABLE = yes
 # RAW_ENABLE = yes
 # CONSOLE_ENABLE = yes

@@ -8,6 +8,12 @@ SRC += sarcasm_mode.c
 SRC += eeprom_user.c
 SRC += custom_keycodes_user.c
 SRC += layer_lock.c
+
+TAP_DANCE_ENABLE = yes
+SRC += tap_dance_user.c
+LEADER_ENABLE = yes
+SRC += leader_user.c
+
 ifdef OLED_ENABLE
 	SRC += oled_user.c
 endif

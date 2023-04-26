@@ -29,6 +29,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "custom_keycodes_user.h"
 #include "wrappers.h"
 #include "layer_lock.h"
+#include "tap_dance_user.h"
+#include "leader_user.h"
+
 #ifdef OLED_ENABLE
 #    include "oled_user.h"
 #endif

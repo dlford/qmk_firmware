@@ -20,6 +20,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define HOLD_ON_OTHER_KEY_PRESS_PER_KEY
 #define QUICK_TAP_TERM_PER_KEY
 
+#define LEADER_PER_KEY_TIMING
+#define LEADER_TIMEOUT 250
+
 #ifdef COMBO_ENABLE
 #    define COMBO_TERM 30
 #    define COMBO_STRICT_TIMER
@@ -38,7 +41,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    ifdef OLED_ENABLE
 #        define SPLIT_OLED_ENABLE
 #    endif
-#endif     // SPLIT_KEYBOARD
+#endif // SPLIT_KEYBOARD
 
 #ifdef MOUSEKEY_ENABLE
 #    define MK_KINETIC_SPEED
