@@ -13,17 +13,25 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include QMK_KEYBOARD_H
+#include "leader.h"
 #include "tap_dance_user.h"
 
 void dance_leader(tap_dance_state_t *state, void *user_data) {
-    if (state->count >= 3) {
-        leader_start();
-        reset_tap_dance(state);
-    } else {
-        tap_code(KC_C);
+    switch (state->count) {
+        case 1:
+            tap_code(KC_C);
+            break;
+        case 2:
+            tap_code(KC_C);
+            tap_code(KC_C);
+            break;
+        default:
+            leader_start();
+            reset_tap_dance(state);
+            break;
     }
 }
 
 tap_dance_action_t tap_dance_actions[] = {
-    [TD_C_LDR] = ACTION_TAP_DANCE_FN(dance_leader),
+    [C_LDR] = ACTION_TAP_DANCE_FN(dance_leader),
 };

@@ -16,6 +16,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #pragma once
+#include "tap_dance_user.h"
 
 bool process_record_custom_keycodes_user(uint16_t keycode, keyrecord_t *record);
 
@@ -90,6 +91,7 @@ enum custom_keycodes {
 #define RGUI_QUOT RGUI_T(KC_QUOT)
 #define LT3_SPC LT(_SPECIAL, KC_SPC)
 #define LT2_TAB LT(_NAVIGATION, KC_TAB)
+#define TD_C_LDR TD(C_LDR)
 #ifdef SWAP_HANDS_ENABLE
 #    define SH_ESC SH_T(KC_ESC)
 #else

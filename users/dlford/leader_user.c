@@ -13,7 +13,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include QMK_KEYBOARD_H
-#include "tap_dance_user.h"
+#include "custom_keycodes_user.h"
 
 bool is_leader_mode_active = false;
 

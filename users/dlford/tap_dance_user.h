@@ -18,5 +18,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 enum tap_dance_keycodes {
-    TD_C_LDR,
+    C_LDR,
 };
