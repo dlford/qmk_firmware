@@ -30,7 +30,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ___QWERTY_L2___          LGUI_A,  LALT_S,  LCTL_D,  LSFT_F,  KC_G
 #define ___QWERTY_R2___                                                                           KC_H,    RSFT_J,  RCTL_K,  RALT_L, RGUI_SCLN
 //                             |--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
-#define ___QWERTY_L3___          KC_Z,    KC_X,   TD_C_LDR,  KC_V,    KC_B
+// #define ___QWERTY_L3___          KC_Z,    KC_X,   TD_C_LDR,  KC_V,    KC_B
+#define ___QWERTY_L3___          KC_Z,    KC_X,     KC_C,    KC_V,    KC_B
 #define ___QWERTY_R3___                                                                            KC_N,    KC_M,   KC_COMM,  KC_DOT,  KC_SLSH
 //                             |--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
 #define ___QWERTY_L4___                                    SH_ESC,  LT3_SPC, KC_BSPC
@@ -44,7 +45,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ___COLEMAK_L2___         LGUI_A,  LALT_R,  LCTL_S,  _LSFT_T, KC_D
 #define ___COLEMAK_R2___                                                                           KC_H,    RSFT_N,  RCTL_E,  RALT_I,  RGUI_O
 //                             |--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
-#define ___COLEMAK_L3___         KC_Z,    KC_X,   TD_C_LDR,  KC_V,    KC_B
+// #define ___COLEMAK_L3___         KC_Z,    KC_X,   TD_C_LDR,  KC_V,    KC_B
+#define ___COLEMAK_L3___         KC_Z,    KC_X,    KC_C,    KC_V,    KC_B
 #define ___COLEMAK_R3___                                                                           KC_K,    KC_M,   KC_COMM,  KC_DOT,  KC_SLSH
 //                             |--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
 #define ___COLEMAK_L4___                                         ___QWERTY_L4___

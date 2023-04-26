@@ -17,8 +17,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 void dance_leader(tap_dance_state_t *state, void *user_data) {
     if (state->count >= 3) {
-        tap_code16(QK_LEAD);
+        leader_start();
         reset_tap_dance(state);
+    } else {
+        tap_code(KC_C);
     }
 }
 
