@@ -22,7 +22,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define DIODE_DIRECTION ROW2COL
 
-// WS2812 RGB LED strip input and number of LEDs
 #define RGB_DI_PIN F4
 #define RGB_MATRIX_LED_COUNT 36
 #define RGB_MATRIX_SPLIT \
@@ -35,3 +34,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define AUDIO_PIN B5
 
 #define SOFT_SERIAL_PIN D3
+#define SERIAL_PIO_USE_PIO1
