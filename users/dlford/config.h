@@ -37,6 +37,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #        define SPLIT_WPM_ENABLE
 #    endif
 #    define SPLIT_USB_DETECT
+#    define SPLIT_USB_TIMEOUT 2500
 #    define SPLIT_WATCHDOG_ENABLE
 #    ifdef OLED_ENABLE
 #        define SPLIT_OLED_ENABLE
