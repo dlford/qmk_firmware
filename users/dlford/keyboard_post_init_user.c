@@ -24,6 +24,10 @@ __attribute__((weak)) void keyboard_post_init_keymap(void) {
 }
 
 void keyboard_post_init_user(void) {
+#ifdef CONSOLE_ENABLE
+    debug_enable = true;
+#endif
+
     read_user_config();
     keyboard_post_init_rgb_matrix();
     keyboard_post_init_keymap();
