@@ -32,5 +32,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define OLED_DISPLAY_128X64
 
 #define AUDIO_PIN B5
+#define AUDIO_PWM_DRIVER PWMD4
+#define AUDIO_PWM_CHANNEL RP2040_PWM_CHANNEL_B
+#define AUDIO_INIT_DELAY
+// #define AUDIO_CLICKY
 
 #define SOFT_SERIAL_PIN D2
