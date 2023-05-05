@@ -23,6 +23,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "sarcasm_mode.h"
 #include "pwgen_user.h"
 
+#ifdef AUDIO_ENABLE
+__attribute((weak)) float password_song[][2] = SONG(ZELDA_PUZZLE_SONG);
+#endif
+
 const char PROGMEM legends_url[] = "https://raw.githubusercontent.com/dlford/qmk_firmware/dlford/users/dlford/keymap_3x5_3.svg";
 
 const uint16_t PROGMEM qw_esc_combo[]          = {CSA_Q, CA_W, COMBO_END};
@@ -137,6 +141,9 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
         case PW_RAND_COMBO:
         case PW_RAND2_COMBO:
             if (pressed) {
+#ifdef AUDIO_ENABLE
+                PLAY_SONG(password_song);
+#endif
                 gen_random_password();
                 send_string(random_password);
             }

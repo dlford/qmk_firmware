@@ -23,6 +23,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LEADER_PER_KEY_TIMING
 #define LEADER_TIMEOUT 250
 
+#ifdef AUDIO_ENABLE
+#    define STARTUP_SONG SONG(TERMINAL_SOUND)
+// #    define GOODBYE_SONG SONG(TERMINAL_SOUND)
+// #    define AUDIO_CLICKY
+// #    define AUDIO_CLICKY_DELAY_DURATION 0
+// #    define AUDIO_CLICKY_FREQ_DEFAULT 100.0f
+// #    define AUDIO_CLICKY_FREQ_MIN 61.0f
+// #    define AUDIO_CLICKY_FREQ_RANDOMNESS 0.2f
+// #    define AUDIO_CLICKY_FREQ_FACTOR 1.61803f
+// #    define STARTUP_SONG SONG(GUITAR_SOUND)
+#endif
+
 #ifdef COMBO_ENABLE
 #    define COMBO_TERM 30
 #    define COMBO_STRICT_TIMER
