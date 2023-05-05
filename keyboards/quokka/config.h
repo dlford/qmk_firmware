@@ -36,3 +36,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define AUDIO_PWM_CHANNEL RP2040_PWM_CHANNEL_B
 
 #define SOFT_SERIAL_PIN D2
+
+/*
+#define SERIAL_DEBUG
+#define SERIAL_USART_FULL_DUPLEX
+#define SERIAL_PIO_USE_PIO0
+#define SOFT_SERIAL_PIN D3
+#define SERIAL_USART_RX_PIN D2
+*/
