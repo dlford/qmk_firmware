@@ -34,8 +34,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    ifndef COMBO_SONG
 #        define COMBO_SONG SONG(COIN_SOUND)
 #    endif
-#    ifndef CAPS_ON_SONG
-#        define CAPS_ON_SONG SONG(CAPS_LOCK_ON_SOUND)
+#    ifndef CAPS_WORD_ON_SONG
+#        define CAPS_WORD_ON_SONG SONG(SONIC_RING)
 #    endif
 #    ifndef SCSM_ON_SONG
 #        define SCSM_ON_SONG SONG(NUM_LOCK_ON_SOUND)
@@ -60,7 +60,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    endif
 float password_song[][2]          = PASSWORD_SONG;
 float combo_song[][2]             = COMBO_SONG;
-float caps_on_song[][2]           = CAPS_ON_SONG;
+float caps_word_on_song[][2]      = CAPS_WORD_ON_SONG;
 float scsm_on_song[][2]           = SCSM_ON_SONG;
 float scsm_off_song[][2]          = SCSM_OFF_SONG;
 float keymap_link_song[][2]       = KEYMAP_LINK_SONG;
@@ -340,7 +340,7 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
         case CAPS2_COMBO:
             if (pressed) {
 #    ifdef AUDIO_ENABLE
-                PLAY_SONG(caps_on_song);
+                PLAY_SONG(caps_word_on_song);
 #    endif
                 caps_word_on();
             }

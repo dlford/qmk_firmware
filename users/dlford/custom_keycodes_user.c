@@ -39,10 +39,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    ifndef RESET_RGB_SONG
 #        define RESET_RGB_SONG SONG(PLANCK_SOUND)
 #    endif
+#    ifndef CAPS_ON_SONG
+#        define CAPS_ON_SONG SONG(CAPS_LOCK_ON_SOUND)
+#    endif
+#    ifndef CAPS_OFF_SONG
+#        define CAPS_OFF_SONG SONG(CAPS_LOCK_OFF_SOUND)
+#    endif
 float clicky_on_song[][2]    = CLICKY_ON_SONG;
 float clicky_off_song[][2]   = CLICKY_OFF_SONG;
 float reset_eeprom_song[][2] = RESET_EEPROM_SONG;
 float reset_rgb_song[][2]    = RESET_RGB_SONG;
+float caps_on_song[][2]      = CAPS_ON_SONG;
+float caps_off_song[][2]     = CAPS_OFF_SONG;
 #endif
 
 bool is_left_hand;
@@ -264,6 +272,17 @@ bool process_record_custom_keycodes_user(uint16_t keycode, keyrecord_t *record) 
                 tap_code(KC_TAB);
                 return false;
             }
+            break;
+        case KC_CAPS:
+#ifdef AUDIO_ENABLE
+            if (record->event.pressed) {
+                if (host_keyboard_led_state().caps_lock) {
+                    PLAY_SONG(caps_on_song);
+                } else {
+                    PLAY_SONG(caps_off_song);
+                }
+            }
+#endif
             break;
     }
 
