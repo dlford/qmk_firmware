@@ -33,6 +33,7 @@ enum custom_keycodes {
     M_VDSL,
     M_VDSR,
     M_MNXT,
+    M_AU,
 };
 
 #define VVV KC_TRNS

@@ -61,7 +61,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ___SPECIAL_L2___         LGUI_GRV,KC_LALT,LCTL_LBRC,LSFT_RBRC,KC_LPRN
 #define ___SPECIAL_R2___                                                                           KC_RPRN,RSFT_MINS,RCTL_EQL,RALT_BSLS,RGUI_QUOT
 //                             |--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
-#define ___SPECIAL_L3___         KC_TILD, KC_CAPS, KC_LCBR, KC_RCBR,  XXX
+#define ___SPECIAL_L3___         KC_TILD, KC_CAPS, KC_LCBR, KC_RCBR, M_AU
 #define ___SPECIAL_R3___                                                                         M_QK_BOOT, KC_UNDS, KC_PLUS, KC_PIPE, KC_DQUO
 //                             |--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
 #define ___SPECIAL_L4___                                     VVV,     VVV,     VVV

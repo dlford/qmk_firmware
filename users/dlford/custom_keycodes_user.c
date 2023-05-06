@@ -22,6 +22,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "eeprom_user.h"
 #include "split_util.h"
 #include "rgb_idle_mode_user.h"
+#ifdef AUDIO_ENABLE
+#    include "audio.h"
+#    ifdef AUDIO_CLICKY
+#        include "process_clicky.h"
+#    endif
+#    ifndef CLICKY_ON_SONG
+#        define CLICKY_ON_SONG SONG(ZELDA_TREASURE)
+#    endif
+#    ifndef CLICKY_OFF_SONG
+#        define CLICKY_OFF_SONG SONG(PLOVER_GOODBYE_SOUND)
+#    endif
+float clicky_on_song[][2]  = CLICKY_ON_SONG;
+float clicky_off_song[][2] = CLICKY_OFF_SONG;
+#endif
 
 bool is_left_hand;
 
@@ -29,6 +43,31 @@ bool process_record_custom_keycodes_user(uint16_t keycode, keyrecord_t *record) 
     uint8_t mods = get_mods();
     uint8_t osm  = get_oneshot_mods();
     switch (keycode) {
+        case M_AU:
+#ifdef AUDIO_ENABLE
+            if (record->event.pressed) {
+                if ((mods | osm) & MOD_MASK_ALT) {
+#    ifdef AUDIO_CLICKY
+                    if (audio_is_on()) {
+                        if (is_clicky_on()) {
+                            clicky_off();
+                            PLAY_SONG(clicky_off_song);
+                        } else {
+                            clicky_on();
+                            PLAY_SONG(clicky_on_song);
+                        }
+                    }
+#    endif
+                } else {
+                    if (audio_is_on()) {
+                        audio_off();
+                    } else {
+                        audio_on();
+                    }
+                }
+            }
+            break;
+#endif
         case M_QK_BOOT:
             if (record->event.pressed) {
                 if ((mods | osm) & MOD_MASK_ALT && (mods | osm) & MOD_MASK_CTRL) {
