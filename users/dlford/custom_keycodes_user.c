@@ -33,8 +33,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    ifndef CLICKY_OFF_SONG
 #        define CLICKY_OFF_SONG SONG(PLOVER_GOODBYE_SOUND)
 #    endif
-float clicky_on_song[][2]  = CLICKY_ON_SONG;
-float clicky_off_song[][2] = CLICKY_OFF_SONG;
+#    ifndef RESET_EEPROM_SONG
+#        define RESET_EEPROM_SONG SONG(PLOVER_SOUND)
+#    endif
+#    ifndef RESET_RGB_SONG
+#        define RESET_RGB_SONG SONG(PLANCK_SOUND)
+#    endif
+float clicky_on_song[][2]    = CLICKY_ON_SONG;
+float clicky_off_song[][2]   = CLICKY_OFF_SONG;
+float reset_eeprom_song[][2] = RESET_EEPROM_SONG;
+float reset_rgb_song[][2]    = RESET_RGB_SONG;
 #endif
 
 bool is_left_hand;
@@ -78,6 +86,11 @@ bool process_record_custom_keycodes_user(uint16_t keycode, keyrecord_t *record) 
                     rgb_matrix_set_speed_noeeprom(user_config.rgb_speed);
                     rgb_matrix_mode(RGB_MATRIX_SPLASH);
                     rgb_matrix_sethsv(HSV_BLUE);
+                    clicky_on();
+                    audio_on();
+#ifdef AUDIO_ENABLE
+                    PLAY_SONG(reset_eeprom_song);
+#endif
                 } else if ((mods | osm) & MOD_MASK_SHIFT) {
                     clear_mods();
                     clear_oneshot_mods();
@@ -161,6 +174,9 @@ bool process_record_custom_keycodes_user(uint16_t keycode, keyrecord_t *record) 
                     rgb_matrix_set_speed_noeeprom(user_config.rgb_speed);
                     rgb_matrix_mode(RGB_MATRIX_SPLASH);
                     rgb_matrix_sethsv(HSV_BLUE);
+#ifdef AUDIO_ENABLE
+                    PLAY_SONG(reset_rgb_song);
+#endif
                 } else if ((mods | osm) & MOD_MASK_ALT) {
                     rgb_matrix_mode_noeeprom(user_config.rgb_idle_mode);
                     rgb_matrix_set_speed_noeeprom(user_config.rgb_idle_speed);
