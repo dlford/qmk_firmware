@@ -24,7 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "pwgen_user.h"
 
 #ifdef AUDIO_ENABLE
-__attribute((weak)) float password_song[][2] = SONG(ZELDA_PUZZLE_SONG);
+__attribute__((weak)) float password_song[][2] = SONG(ZELDA_PUZZLE);
 #endif
 
 const char PROGMEM legends_url[] = "https://raw.githubusercontent.com/dlford/qmk_firmware/dlford/users/dlford/keymap_3x5_3.svg";
