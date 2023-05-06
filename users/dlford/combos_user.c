@@ -23,14 +23,52 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "sarcasm_mode.h"
 #include "pwgen_user.h"
 
+#ifndef KEYMAP_SVG_URL
+#    define KEYMAP_SVG_URL "https://raw.githubusercontent.com/dlford/qmk_firmware/dlford/users/dlford/keymap_3x5_3.svg"
+#endif
+
 #ifdef AUDIO_ENABLE
 #    ifndef PASSWORD_SONG
 #        define PASSWORD_SONG SONG(ZELDA_PUZZLE)
 #    endif
-float password_song[][2] = PASSWORD_SONG;
+#    ifndef COMBO_SONG
+#        define COMBO_SONG SONG(COIN_SOUND)
+#    endif
+#    ifndef CAPS_ON_SONG
+#        define CAPS_ON_SONG SONG(CAPS_LOCK_ON_SOUND)
+#    endif
+#    ifndef SCSM_ON_SONG
+#        define SCSM_ON_SONG SONG(NUM_LOCK_ON_SOUND)
+#    endif
+#    ifndef SCSM_OFF_SONG
+#        define SCSM_OFF_SONG SONG(NUM_LOCK_OFF_SOUND)
+#    endif
+#    ifndef KEYMAP_LINK_SONG
+#        define KEYMAP_LINK_SONG SONG(OLD_SPICE)
+#    endif
+#    ifndef MOUSE_JIGGLER_ON_SONG
+#        define MOUSE_JIGGLER_ON_SONG SONG(SCROLL_LOCK_ON_SOUND)
+#    endif
+#    ifndef MOUSE_JIGGLER_OFF_SONG
+#        define MOUSE_JIGGLER_OFF_SONG SONG(SCROLL_LOCK_OFF_SOUND)
+#    endif
+#    ifndef COLEMAK_SONG
+#        define COLEMAK_SONG SONG(COLEMAK_SOUND)
+#    endif
+#    ifndef QWERTY_SONG
+#        define QWERTY_SONG SONG(QWERTY_SOUND)
+#    endif
+float password_song[][2]          = PASSWORD_SONG;
+float combo_song[][2]             = COMBO_SONG;
+float caps_on_song[][2]           = CAPS_ON_SONG;
+float scsm_on_song[][2]           = SCSM_ON_SONG;
+float scsm_off_song[][2]          = SCSM_OFF_SONG;
+float keymap_link_song[][2]       = KEYMAP_LINK_SONG;
+float mouse_jiggler_on_song[][2]  = MOUSE_JIGGLER_ON_SONG;
+float mouse_jiggler_off_song[][2] = MOUSE_JIGGLER_OFF_SONG;
+float colemak_song[][2]           = COLEMAK_SONG;
+float qwerty_song[][2]            = QWERTY_SONG;
 #endif
-
-const char PROGMEM legends_url[] = "https://raw.githubusercontent.com/dlford/qmk_firmware/dlford/users/dlford/keymap_3x5_3.svg";
 
 const uint16_t PROGMEM qw_esc_combo[]          = {CSA_Q, CA_W, COMBO_END};
 const uint16_t PROGMEM op_bspc_combo[]         = {CA_O, CSA_P, COMBO_END};
@@ -102,17 +140,26 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
     switch (combo_index) {
         case QW_ESC_COMBO:
             if (pressed) {
+#ifdef AUDIO_ENABLE
+                PLAY_SONG(combo_song);
+#endif
                 tap_code(KC_ESC);
             }
             break;
         case OP_BSPC_COMBO:
         case YSEMI_BSPC_COMBO:
             if (pressed) {
+#ifdef AUDIO_ENABLE
+                PLAY_SONG(combo_song);
+#endif
                 tap_code(KC_BSPC);
             }
             break;
         case QX_EXIT_COMBO:
             if (pressed) {
+#ifdef AUDIO_ENABLE
+                PLAY_SONG(combo_song);
+#endif
                 SEND_STRING("exit");
                 tap_code(KC_ENT);
             }
@@ -121,6 +168,14 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
         case SC_SCSM2_COMBO:
             if (pressed) {
                 is_scsm_active = !is_scsm_active;
+#ifdef AUDIO_ENABLE
+                PLAY_SONG(combo_song);
+                if (is_scsm_active) {
+                    PLAY_SONG(scsm_on_song);
+                } else {
+                    PLAY_SONG(scsm_off_song);
+                }
+#endif
 #ifdef RGB_MATRIX_ENABLE
                 // trigger RGB layer change
                 layer_on(_MOUSE);
@@ -134,11 +189,10 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
         case KM_KEYMAP_COMBO:
         case KM_KEYMAP2_COMBO:
             if (pressed) {
-#ifdef KEYMAP_SVG_URL
-                send_string(KEYMAP_SVG_URL);
-#else
-                send_string(legends_url);
+#ifdef AUDIO_ENABLE
+                PLAY_SONG(keymap_link_song);
 #endif
+                send_string(KEYMAP_SVG_URL);
             }
             break;
         case PW_RAND_COMBO:
@@ -154,31 +208,53 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
         case LSEMI_DEL_COMBO:
         case IO_DEL_COMBO:
             if (pressed) {
+#ifdef AUDIO_ENABLE
+                PLAY_SONG(combo_song);
+#endif
                 tap_code(KC_DEL);
             }
             break;
         case DOTSLASH_JIGGLE_COMBO:
             if (pressed) {
                 is_mouse_jiggle_active = !is_mouse_jiggle_active;
+#ifdef AUDIO_ENABLE
+                if (is_mouse_jiggle_active) {
+                    PLAY_SONG(mouse_jiggler_on_song);
+                } else {
+                    PLAY_SONG(mouse_jiggler_off_song);
+                }
+#endif
             }
             break;
         case CM_COLEMAK_COMBO:
             if (pressed) {
                 if (default_layer_state - 1 == _COLEMAK) {
                     set_single_persistent_default_layer(_QWERTY);
+#ifdef AUDIO_ENABLE
+                    PLAY_SONG(qwerty_song);
+#endif
                 } else {
                     set_single_persistent_default_layer(_COLEMAK);
+#ifdef AUDIO_ENABLE
+                    PLAY_SONG(colemak_song);
+#endif
                 }
             }
             break;
         case BR_WRAP_COMBO:
             if (pressed) {
+#ifdef AUDIO_ENABLE
+                PLAY_SONG(combo_song);
+#endif
                 SEND_STRING("[]");
                 tap_code(KC_LEFT);
             }
             break;
         case BR_WRAP_SEMI_COMBO:
             if (pressed) {
+#ifdef AUDIO_ENABLE
+                PLAY_SONG(combo_song);
+#endif
                 SEND_STRING("[];");
                 tap_code(KC_LEFT);
                 tap_code(KC_LEFT);
@@ -186,12 +262,18 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
             break;
         case CBR_WRAP_COMBO:
             if (pressed) {
+#ifdef AUDIO_ENABLE
+                PLAY_SONG(combo_song);
+#endif
                 SEND_STRING("{}");
                 tap_code(KC_LEFT);
             }
             break;
         case CBR_WRAP_SEMI_COMBO:
             if (pressed) {
+#ifdef AUDIO_ENABLE
+                PLAY_SONG(combo_song);
+#endif
                 SEND_STRING("{};");
                 tap_code(KC_LEFT);
                 tap_code(KC_LEFT);
@@ -199,12 +281,18 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
             break;
         case PRN_WRAP_COMBO:
             if (pressed) {
+#ifdef AUDIO_ENABLE
+                PLAY_SONG(combo_song);
+#endif
                 SEND_STRING("()");
                 tap_code(KC_LEFT);
             }
             break;
         case PRN_WRAP_SEMI_COMBO:
             if (pressed) {
+#ifdef AUDIO_ENABLE
+                PLAY_SONG(combo_song);
+#endif
                 SEND_STRING("();");
                 tap_code(KC_LEFT);
                 tap_code(KC_LEFT);
@@ -212,12 +300,18 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
             break;
         case ANG_WRAP_COMBO:
             if (pressed) {
+#ifdef AUDIO_ENABLE
+                PLAY_SONG(combo_song);
+#endif
                 SEND_STRING("<>");
                 tap_code(KC_LEFT);
             }
             break;
         case ANG_WRAP_SEMI_COMBO:
             if (pressed) {
+#ifdef AUDIO_ENABLE
+                PLAY_SONG(combo_song);
+#endif
                 SEND_STRING("<>;");
                 tap_code(KC_LEFT);
                 tap_code(KC_LEFT);
@@ -226,12 +320,18 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
         case FAT_ARROW_COMBO:
         case FAT_ARROW2_COMBO:
             if (pressed) {
+#ifdef AUDIO_ENABLE
+                PLAY_SONG(combo_song);
+#endif
                 SEND_STRING("=>");
             }
             break;
         case SKINNY_ARROW_COMBO:
         case SKINNY_ARROW2_COMBO:
             if (pressed) {
+#ifdef AUDIO_ENABLE
+                PLAY_SONG(combo_song);
+#endif
                 SEND_STRING("->");
             }
             break;
@@ -239,6 +339,9 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
         case CAPS_COMBO:
         case CAPS2_COMBO:
             if (pressed) {
+#    ifdef AUDIO_ENABLE
+                PLAY_SONG(caps_on_song);
+#    endif
                 caps_word_on();
             }
             break;
