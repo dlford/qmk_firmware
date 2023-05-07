@@ -16,7 +16,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #pragma once
-#include "tap_dance_user.h"
 
 bool process_record_custom_keycodes_user(uint16_t keycode, keyrecord_t *record);
 

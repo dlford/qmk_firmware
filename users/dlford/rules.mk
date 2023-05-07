@@ -9,8 +9,6 @@ SRC += eeprom_user.c
 SRC += custom_keycodes_user.c
 SRC += layer_lock.c
 
-TAP_DANCE_ENABLE = yes
-SRC += tap_dance_user.c
 LEADER_ENABLE = yes
 SRC += leader_user.c
 

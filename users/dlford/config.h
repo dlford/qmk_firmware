@@ -20,8 +20,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define HOLD_ON_OTHER_KEY_PRESS_PER_KEY
 #define QUICK_TAP_TERM_PER_KEY
 
-#define LEADER_PER_KEY_TIMING
 #define LEADER_TIMEOUT 250
+#define LEADER_NO_TIMEOUT
+#define LEADER_PER_KEY_TIMING
 
 #ifdef AUDIO_ENABLE
 #    define STARTUP_SONG SONG(NO_SOUND)
