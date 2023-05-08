@@ -24,6 +24,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LEADER_NO_TIMEOUT
 #define LEADER_PER_KEY_TIMING
 
+#define SPLIT_TRANSACTION_IDS_USER USER_SYNC_RGB_STATES
+
 #ifdef AUDIO_ENABLE
 #    define STARTUP_SONG SONG(NO_SOUND)
 #    define GOODBYE_SONG SONG(GOODBYE_SOUND)

@@ -30,6 +30,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "progmem.h"
 #include "eeprom_user.h"
 #include "rgb_idle_mode_user.h"
+#include "split_transport_user.h"
 
 rgb_config_t  rgb_matrix_config;
 user_config_t user_config;
@@ -125,24 +126,24 @@ __attribute__((weak)) bool rgb_matrix_indicators_keymap(void) {
 bool rgb_matrix_indicators_user(void) {
     if (host_keyboard_led_state().caps_lock
 #ifdef CAPS_WORD_ENABLE
-        || is_caps_word_active
+        || is_caps_word_active || rgb_sync_states.is_caps_word_active
 #endif
     ) {
         rgb_matrix_indicators_keymap_caps();
     }
 #ifdef DYNAMIC_MACRO_ENABLE
-    if (is_macro_recording) {
+    if (is_macro_recording || rgb_sync_states.is_macro_recording) {
         rgb_matrix_indicators_keymap_dynamic_macro_recording();
     }
 #endif
     if (default_layer_state - 1 == _COLEMAK) {
         rgb_matrix_indicators_keymap_colemak();
     }
-    if (is_mouse_jiggle_active) {
+    if (is_mouse_jiggle_active || rgb_sync_states.is_mouse_jiggle_active) {
         rgb_matrix_indicators_keymap_mouse_jiggling();
     }
-    if (rgb_idle_mode_user_toggled) {
-        if (user_config.is_rgb_idle_enabled) {
+    if (rgb_idle_mode_user_toggled || rgb_sync_states.rgb_idle_mode_user_toggled) {
+        if (user_config.is_rgb_idle_enabled || rgb_sync_states.is_rgb_idle_enabled) {
             rgb_matrix_indicators_keymap_rgb_idle_changed_on();
         } else {
             rgb_matrix_indicators_keymap_rgb_idle_changed_off();

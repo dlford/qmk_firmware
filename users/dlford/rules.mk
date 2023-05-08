@@ -8,6 +8,8 @@ SRC += sarcasm_mode.c
 SRC += eeprom_user.c
 SRC += custom_keycodes_user.c
 SRC += layer_lock.c
+SRC += housekeeping_task_user.c
+SRC += split_transport_user.c
 
 LEADER_ENABLE = yes
 SRC += leader_user.c
