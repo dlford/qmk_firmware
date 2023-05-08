@@ -23,6 +23,7 @@ void rgb_matrix_indicators_keymap_caps(void) {
 
 void rgb_matrix_indicators_keymap_colemak(void) {
     rgb_matrix_set_color(9, RGB_PURPLE);
+    rgb_matrix_set_color(26, RGB_PURPLE);
 }
 
 void rgb_matrix_indicators_keymap_dynamic_macro_recording(void) {

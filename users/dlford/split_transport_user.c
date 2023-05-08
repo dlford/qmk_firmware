@@ -35,7 +35,7 @@ void keyboard_post_init_split_transport_user(void) {
 }
 
 void user_transport_update(void) {
-    rgb_sync_states.is_caps_word_active        = is_caps_word_active; // TODO: switch to syncing rgb indicators states???
+    rgb_sync_states.is_caps_word_active        = is_caps_word_active;
     rgb_sync_states.is_macro_recording         = is_macro_recording;
     rgb_sync_states.is_mouse_jiggle_active     = is_mouse_jiggle_active;
     rgb_sync_states.rgb_idle_mode_user_toggled = rgb_idle_mode_user_toggled;
