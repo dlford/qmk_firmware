@@ -143,7 +143,7 @@ bool rgb_matrix_indicators_user(void) {
         rgb_matrix_indicators_keymap_mouse_jiggling();
     }
     if (rgb_idle_mode_user_toggled || rgb_sync_states.rgb_idle_mode_user_toggled) {
-        if (user_config.is_rgb_idle_enabled || rgb_sync_states.is_rgb_idle_enabled) {
+        if ((is_keyboard_master() && user_config.is_rgb_idle_enabled) || rgb_sync_states.is_rgb_idle_enabled) {
             rgb_matrix_indicators_keymap_rgb_idle_changed_on();
         } else {
             rgb_matrix_indicators_keymap_rgb_idle_changed_off();
