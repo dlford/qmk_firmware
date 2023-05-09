@@ -94,8 +94,12 @@ bool process_record_custom_keycodes_user(uint16_t keycode, keyrecord_t *record) 
                     rgb_matrix_set_speed_noeeprom(user_config.rgb_speed);
                     rgb_matrix_mode(RGB_MATRIX_SPLASH);
                     rgb_matrix_sethsv(HSV_BLUE);
-                    clicky_on();
+#ifdef AUDIO_ENABLE
                     audio_on();
+#    ifdef AUDIO_CLICKY
+                    clicky_on();
+#    endif
+#endif
 #ifdef AUDIO_ENABLE
                     PLAY_SONG(reset_eeprom_song);
 #endif
