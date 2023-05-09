@@ -23,9 +23,10 @@ typedef struct _master_to_slave_t {
     bool is_mouse_jiggle_active;
     bool rgb_idle_mode_user_toggled;
     bool is_rgb_idle_enabled;
-} rgb_sync_states_t;
+    bool is_scsm_active;
+} info_sync_states_t;
 
-rgb_sync_states_t rgb_sync_states;
+info_sync_states_t info_sync_states;
 
 void keyboard_post_init_split_transport_user(void);
 void housekeeping_task_split_transport_user(void);

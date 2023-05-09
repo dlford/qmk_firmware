@@ -21,12 +21,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "mouse_jiggler_user.h"
 #include "eeprom_user.h"
 #include "rgb_idle_mode_user.h"
+#include "sarcasm_mode.h"
 
-rgb_sync_states_t rgb_sync_states;
+info_sync_states_t info_sync_states;
 
 void user_sync_rgb_states_slave_handler(uint8_t initiator2target_buffer_size, const void* initiator2target_buffer, uint8_t target2initiator_buffer_size, void* target2initiator_buffer) {
-    if (initiator2target_buffer_size == sizeof(rgb_sync_states)) {
-        memcpy(&rgb_sync_states, initiator2target_buffer, initiator2target_buffer_size);
+    if (initiator2target_buffer_size == sizeof(info_sync_states)) {
+        memcpy(&info_sync_states, initiator2target_buffer, initiator2target_buffer_size);
     }
 }
 
@@ -35,16 +36,17 @@ void keyboard_post_init_split_transport_user(void) {
 }
 
 void user_transport_update(void) {
-    rgb_sync_states.is_caps_word_active        = is_caps_word_active;
-    rgb_sync_states.is_macro_recording         = is_macro_recording;
-    rgb_sync_states.is_mouse_jiggle_active     = is_mouse_jiggle_active;
-    rgb_sync_states.rgb_idle_mode_user_toggled = rgb_idle_mode_user_toggled;
-    rgb_sync_states.is_rgb_idle_enabled        = user_config.is_rgb_idle_enabled; // TODO: add sound
+    info_sync_states.is_caps_word_active        = is_caps_word_active;
+    info_sync_states.is_macro_recording         = is_macro_recording;
+    info_sync_states.is_mouse_jiggle_active     = is_mouse_jiggle_active;
+    info_sync_states.rgb_idle_mode_user_toggled = rgb_idle_mode_user_toggled;
+    info_sync_states.is_rgb_idle_enabled        = user_config.is_rgb_idle_enabled;
+    info_sync_states.is_scsm_active             = is_scsm_active;
 }
 
 bool user_transport_sync(void) {
     bool res = false;
-    res      = transaction_rpc_send(USER_SYNC_RGB_STATES, sizeof(rgb_sync_states), &rgb_sync_states);
+    res      = transaction_rpc_send(USER_SYNC_RGB_STATES, sizeof(info_sync_states), &info_sync_states);
     return res;
 }
 

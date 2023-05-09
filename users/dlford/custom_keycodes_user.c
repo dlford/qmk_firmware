@@ -17,6 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "os_detection.h"
 #include "custom_keycodes_user.h"
 #include "layers_user.h"
+#include "layer_lock.h"
 #include "rgb_matrix_user.h"
 #include "rgb_timeout_user.h"
 #include "eeprom_user.h"
@@ -59,6 +60,19 @@ bool process_record_custom_keycodes_user(uint16_t keycode, keyrecord_t *record) 
     uint8_t mods = get_mods();
     uint8_t osm  = get_oneshot_mods();
     switch (keycode) {
+        case LT3_SPC:
+        case LT2_TAB:
+            if (record->event.pressed) {
+                if (is_layer_locked(_SPECIAL)) {
+                    layer_lock_off(_SPECIAL);
+                    return false;
+                }
+                if (is_layer_locked(_NAVIGATION)) {
+                    layer_lock_off(_NAVIGATION);
+                    return false;
+                }
+            }
+            break;
         case M_AU:
 #ifdef AUDIO_ENABLE
             if (record->event.pressed) {

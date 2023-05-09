@@ -105,7 +105,7 @@ bool rgb_matrix_indicators_user(void) {
     static const uint8_t rgb_indicator_caps_ids[] = RGB_INDICATOR_CAPS_IDS;
     if (host_keyboard_led_state().caps_lock
 #    ifdef CAPS_WORD_ENABLE
-        || is_caps_word_active || rgb_sync_states.is_caps_word_active
+        || is_caps_word_active || info_sync_states.is_caps_word_active
 #    endif
     ) {
         for (int i = 0; i < sizeof(rgb_indicator_caps_ids); i++) {
@@ -120,7 +120,7 @@ bool rgb_matrix_indicators_user(void) {
 #            define RGB_INDICATOR_MACRO_RECORDING_COLOR RGB_ORANGE
 #        endif
     static const uint8_t rgb_indicator_macro_recording_ids[] = RGB_INDICATOR_MACRO_RECORDING_IDS;
-    if (is_macro_recording || rgb_sync_states.is_macro_recording) {
+    if (is_macro_recording || info_sync_states.is_macro_recording) {
         for (int i = 0; i < sizeof(rgb_indicator_macro_recording_ids); i++) {
             rgb_matrix_set_color(rgb_indicator_macro_recording_ids[i], RGB_INDICATOR_MACRO_RECORDING_COLOR);
         }
@@ -145,7 +145,7 @@ bool rgb_matrix_indicators_user(void) {
 #        define RGB_INDICATOR_MOUSE_JIGGLER_COLOR RGB_BLUE
 #    endif
     static const uint8_t rgb_indicator_mouse_jiggler_ids[] = RGB_INDICATOR_MOUSE_JIGGLER_IDS;
-    if (is_mouse_jiggle_active || rgb_sync_states.is_mouse_jiggle_active) {
+    if (is_mouse_jiggle_active || info_sync_states.is_mouse_jiggle_active) {
         for (int i = 0; i < sizeof(rgb_indicator_mouse_jiggler_ids); i++) {
             rgb_matrix_set_color(rgb_indicator_mouse_jiggler_ids[i], RGB_INDICATOR_MOUSE_JIGGLER_COLOR);
         }
@@ -160,8 +160,8 @@ bool rgb_matrix_indicators_user(void) {
 #        define RGB_INDICATOR_RGB_IDLE_CHANGED_OFF_COLOR RGB_RED
 #    endif
     static const uint8_t rgb_indicator_rgb_idle_changed_ids[] = RGB_INDICATOR_RGB_IDLE_CHANGED_IDS;
-    if (rgb_idle_mode_user_toggled || rgb_sync_states.rgb_idle_mode_user_toggled) {
-        if ((is_keyboard_master() && user_config.is_rgb_idle_enabled) || rgb_sync_states.is_rgb_idle_enabled) {
+    if (rgb_idle_mode_user_toggled || info_sync_states.rgb_idle_mode_user_toggled) {
+        if ((is_keyboard_master() && user_config.is_rgb_idle_enabled) || info_sync_states.is_rgb_idle_enabled) {
             for (int i = 0; i < sizeof(rgb_indicator_rgb_idle_changed_ids); i++) {
                 rgb_matrix_set_color(rgb_indicator_rgb_idle_changed_ids[i], RGB_INDICATOR_RGB_IDLE_CHANGED_ON_COLOR);
             }

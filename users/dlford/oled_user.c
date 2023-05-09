@@ -20,6 +20,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "mouse_jiggler_user.h"
 #include "sarcasm_mode.h"
 #include "layer_lock.h"
+#include "split_util.h"
+#include "split_transport_user.h"
 #ifdef CAPS_WORD_ENABLE
 #    include "caps_word_user.h"
 #endif
@@ -38,26 +40,22 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     return rotation;
 }
 
-void oled_render_layer_lock_state(int highest_layer, char *layer_name) {
-    if (is_layer_locked(highest_layer)) {
-        oled_write_P(PSTR(layer_name), false);
-        oled_write_ln_P(PSTR(" LOCK"), false);
-    } else {
-        oled_write_ln_P(PSTR(layer_name), false);
-    }
-}
-
 void oled_render_layer_state(void) {
     int highest_layer = get_highest_layer(layer_state);
+
+#ifdef OLED_DISPLAY_128X64
+    oled_write_P(PSTR("Layer: "), false);
+#endif
+
     switch (highest_layer) {
         case _COLEMAK:
             oled_write_ln_P(PSTR("Colemak"), false);
             break;
         case _SPECIAL:
-            oled_render_layer_lock_state(highest_layer, "Special");
+            oled_write_ln_P(PSTR("Special"), false);
             break;
         case _NAVIGATION:
-            oled_render_layer_lock_state(highest_layer, "Navigation");
+            oled_write_ln_P(PSTR("Navigation"), false);
             break;
         case _MOUSE:
             oled_write_ln_P(PSTR("Mouse"), false);
@@ -67,13 +65,13 @@ void oled_render_layer_state(void) {
             break;
         default:
             if (default_layer_state - 1 == _COLEMAK) {
-                if (is_scsm_active) {
+                if (is_scsm_active || info_sync_states.is_scsm_active) {
                     oled_write_ln_P(PSTR("CoLeMaK"), false);
                 } else {
                     oled_write_ln_P(PSTR("Colemak"), false);
                 }
             } else {
-                if (is_scsm_active) {
+                if (is_scsm_active || info_sync_states.is_scsm_active) {
                     oled_write_ln_P(PSTR("QwErTy"), false);
                 } else {
                     oled_write_ln_P(PSTR("Qwerty"), false);
@@ -81,7 +79,7 @@ void oled_render_layer_state(void) {
             }
     }
 
-    if (is_mouse_jiggle_active) {
+    if (is_mouse_jiggle_active || info_sync_states.is_mouse_jiggle_active) {
         oled_write_ln_P(PSTR("Mouse Jiggling..."), false);
     } else {
         oled_write_ln_P(PSTR(""), false);
@@ -90,7 +88,7 @@ void oled_render_layer_state(void) {
 
 #ifdef DYNAMIC_MACRO_ENABLE
 void oled_render_dynamic_macro_status(void) {
-    if (is_macro_recording) {
+    if (is_macro_recording || info_sync_states.is_macro_recording) {
         oled_write_ln_P(PSTR("Macro Recording..."), false);
     } else {
         oled_write_ln_P(PSTR(""), false);
@@ -102,7 +100,7 @@ void oled_render_caps_lock_status(void) {
     if (host_keyboard_led_state().caps_lock) {
         oled_write_ln_P(PSTR("CAPS LOCK"), false);
 #ifdef CAPS_WORD_ENABLE
-    } else if (is_caps_word_active) {
+    } else if (is_caps_word_active || info_sync_states.is_caps_word_active) {
         oled_write_ln_P(PSTR("CAPS word"), false);
 #endif
     } else {
@@ -121,17 +119,17 @@ static void oled_render_logo(void) {
 #endif
 
 bool oled_task_user(void) {
-    if (is_keyboard_master()) {
-        oled_render_layer_state();
-        oled_render_dynamic_macro_status();
-        oled_render_caps_lock_status();
-    } else {
+    if (isLeftHand) {
 #ifdef WPM_ENABLE
         oled_write_P(PSTR("WPM: "), false);
         oled_write_ln_P(get_u8_str(get_current_wpm(), '0'), false);
 #else
         oled_render_logo();
 #endif
+    } else {
+        oled_render_layer_state();
+        oled_render_dynamic_macro_status();
+        oled_render_caps_lock_status();
     }
     return false;
 }
