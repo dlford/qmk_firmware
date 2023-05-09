@@ -56,19 +56,25 @@ float caps_off_song[][2]     = CAPS_OFF_SONG;
 
 bool is_left_hand;
 
+bool should_cancel_mouse_layer = false;
+
 bool process_record_custom_keycodes_user(uint16_t keycode, keyrecord_t *record) {
     uint8_t mods = get_mods();
     uint8_t osm  = get_oneshot_mods();
     switch (keycode) {
         case LT3_SPC:
         case LT2_TAB:
+        case TG(_MOUSE):
             if (record->event.pressed) {
-                if (is_layer_locked(_SPECIAL)) {
-                    layer_lock_off(_SPECIAL);
+                if (is_layer_locked(_SPECIAL) || is_layer_locked(_NAVIGATION)) {
+                    layer_lock_all_off();
+                    should_cancel_mouse_layer = true;
                     return false;
                 }
-                if (is_layer_locked(_NAVIGATION)) {
-                    layer_lock_off(_NAVIGATION);
+            } else {
+                if (should_cancel_mouse_layer) {
+                    layer_off(_MOUSE);
+                    should_cancel_mouse_layer = false;
                     return false;
                 }
             }

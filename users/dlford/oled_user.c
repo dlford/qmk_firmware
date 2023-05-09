@@ -31,10 +31,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 #ifdef OLED_DISPLAY_128X64
-    return OLED_ROTATION_180; // flips the display 180 degrees if using the 128x64 display
+    return OLED_ROTATION_180;
 #else
-    if (is_keyboard_master()) {
-        return OLED_ROTATION_180; // flips the display 180 degrees if offhand
+    if (!isLeftHand) {
+        return OLED_ROTATION_180;
     }
 #endif
     return rotation;
