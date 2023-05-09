@@ -79,8 +79,8 @@ bool process_record_custom_keycodes_user(uint16_t keycode, keyrecord_t *record) 
                 }
             }
             break;
-        case M_AU:
 #ifdef AUDIO_ENABLE
+        case M_AU:
             if (record->event.pressed) {
                 if ((mods | osm) & MOD_MASK_ALT) {
 #    ifdef AUDIO_CLICKY
