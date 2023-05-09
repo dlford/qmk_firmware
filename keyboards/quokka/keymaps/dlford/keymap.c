@@ -15,35 +15,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include QMK_KEYBOARD_H
 #include "dlford.h"
 
-#ifdef RGB_MATRIX_ENABLE
-
-void rgb_matrix_indicators_keymap_caps(void) {
-    rgb_matrix_set_color(13, RGB_RED);
-}
-
-void rgb_matrix_indicators_keymap_colemak(void) {
-    rgb_matrix_set_color(9, RGB_PURPLE);
-    rgb_matrix_set_color(26, RGB_PURPLE);
-}
-
-void rgb_matrix_indicators_keymap_dynamic_macro_recording(void) {
-    rgb_matrix_set_color(5, RGB_ORANGE);
-}
-
-void rgb_matrix_indicators_keymap_mouse_jiggling(void) {
-    rgb_matrix_set_color(33, RGB_BLUE);
-}
-
-void rgb_matrix_indicators_keymap_rgb_idle_changed_on(void) {
-    rgb_matrix_set_color(3, RGB_BLUE);
-}
-
-void rgb_matrix_indicators_keymap_rgb_idle_changed_off(void) {
-    rgb_matrix_set_color(3, RGB_RED);
-}
-
-#endif // RGB_MATRIX_ENABLE
-
 // clang-format off
 
 #define LAYOUT_wrapper(...) LAYOUT_split_3x5_3(__VA_ARGS__)

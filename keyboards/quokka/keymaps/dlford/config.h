@@ -19,3 +19,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET_TIMEOUT 150U
+
+#ifdef RGB_MATRIX_ENABLE
+#    define RGB_INDICATOR_CAPS_IDS \
+        { 13 }
+#    define RGB_INDICATOR_MACRO_RECORDING_IDS \
+        { 5 }
+#    define RGB_INDICATOR_COLEMAK_IDS \
+        { 9, 26 }
+#    define RGB_INDICATOR_MOUSE_JIGGLER_IDS \
+        { 33 }
+#    define RGB_INDICATOR_RGB_IDLE_CHANGED_IDS \
+        { 3 }
+#endif

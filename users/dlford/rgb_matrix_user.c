@@ -93,62 +93,85 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     return layer_state_set_keymap(state);
 }
 
-__attribute__((weak)) void rgb_matrix_indicators_keymap_caps(void) {
-    return;
-}
-
-__attribute__((weak)) void rgb_matrix_indicators_keymap_colemak(void) {
-    return;
-}
-
-#ifdef DYNAMIC_MACRO_ENABLE
-__attribute__((weak)) void rgb_matrix_indicators_keymap_dynamic_macro_recording(void) {
-    return;
-}
-#endif
-
-__attribute__((weak)) void rgb_matrix_indicators_keymap_mouse_jiggling(void) {
-    return;
-}
-
-__attribute__((weak)) void rgb_matrix_indicators_keymap_rgb_idle_changed_on(void) {
-    return;
-}
-
-__attribute__((weak)) void rgb_matrix_indicators_keymap_rgb_idle_changed_off(void) {
-    return;
-}
-
 __attribute__((weak)) bool rgb_matrix_indicators_keymap(void) {
     return true;
 }
 
 bool rgb_matrix_indicators_user(void) {
+#ifdef RGB_INDICATOR_CAPS_IDS
+#    ifndef RGB_INDICATOR_CAPS_COLOR
+#        define RGB_INDICATOR_CAPS_COLOR RGB_RED
+#    endif
+    static const uint8_t rgb_indicator_caps_ids[] = RGB_INDICATOR_CAPS_IDS;
     if (host_keyboard_led_state().caps_lock
-#ifdef CAPS_WORD_ENABLE
+#    ifdef CAPS_WORD_ENABLE
         || is_caps_word_active || rgb_sync_states.is_caps_word_active
-#endif
+#    endif
     ) {
-        rgb_matrix_indicators_keymap_caps();
-    }
-#ifdef DYNAMIC_MACRO_ENABLE
-    if (is_macro_recording || rgb_sync_states.is_macro_recording) {
-        rgb_matrix_indicators_keymap_dynamic_macro_recording();
-    }
-#endif
-    if (default_layer_state - 1 == _COLEMAK) {
-        rgb_matrix_indicators_keymap_colemak();
-    }
-    if (is_mouse_jiggle_active || rgb_sync_states.is_mouse_jiggle_active) {
-        rgb_matrix_indicators_keymap_mouse_jiggling();
-    }
-    if (rgb_idle_mode_user_toggled || rgb_sync_states.rgb_idle_mode_user_toggled) {
-        if ((is_keyboard_master() && user_config.is_rgb_idle_enabled) || rgb_sync_states.is_rgb_idle_enabled) {
-            rgb_matrix_indicators_keymap_rgb_idle_changed_on();
-        } else {
-            rgb_matrix_indicators_keymap_rgb_idle_changed_off();
+        for (int i = 0; i < sizeof(rgb_indicator_caps_ids); i++) {
+            rgb_matrix_set_color(rgb_indicator_caps_ids[i], RGB_INDICATOR_CAPS_COLOR);
         }
     }
+#endif
+
+#ifdef DYNAMIC_MACRO_ENABLE
+#    ifdef RGB_INDICATOR_MACRO_RECORDING_IDS
+#        ifndef RGB_INDICATOR_MACRO_RECORDING_COLOR
+#            define RGB_INDICATOR_MACRO_RECORDING_COLOR RGB_ORANGE
+#        endif
+    static const uint8_t rgb_indicator_macro_recording_ids[] = RGB_INDICATOR_MACRO_RECORDING_IDS;
+    if (is_macro_recording || rgb_sync_states.is_macro_recording) {
+        for (int i = 0; i < sizeof(rgb_indicator_macro_recording_ids); i++) {
+            rgb_matrix_set_color(rgb_indicator_macro_recording_ids[i], RGB_INDICATOR_MACRO_RECORDING_COLOR);
+        }
+    }
+#    endif
+#endif
+
+#ifdef RGB_INDICATOR_COLEMAK_IDS
+#    ifndef RGB_INDICATOR_COLEMAK_COLOR
+#        define RGB_INDICATOR_COLEMAK_COLOR RGB_PURPLE
+#    endif
+    static const uint8_t rgb_indicator_colemak_ids[] = RGB_INDICATOR_COLEMAK_IDS;
+    if (default_layer_state - 1 == _COLEMAK) {
+        for (int i = 0; i < sizeof(rgb_indicator_colemak_ids); i++) {
+            rgb_matrix_set_color(rgb_indicator_colemak_ids[i], RGB_INDICATOR_COLEMAK_COLOR);
+        }
+    }
+#endif
+
+#ifdef RGB_INDICATOR_MOUSE_JIGGLER_IDS
+#    ifndef RGB_INDICATOR_MOUSE_JIGGLER_COLOR
+#        define RGB_INDICATOR_MOUSE_JIGGLER_COLOR RGB_BLUE
+#    endif
+    static const uint8_t rgb_indicator_mouse_jiggler_ids[] = RGB_INDICATOR_MOUSE_JIGGLER_IDS;
+    if (is_mouse_jiggle_active || rgb_sync_states.is_mouse_jiggle_active) {
+        for (int i = 0; i < sizeof(rgb_indicator_mouse_jiggler_ids); i++) {
+            rgb_matrix_set_color(rgb_indicator_mouse_jiggler_ids[i], RGB_INDICATOR_MOUSE_JIGGLER_COLOR);
+        }
+    }
+#endif
+
+#ifdef RGB_INDICATOR_RGB_IDLE_CHANGED_IDS
+#    ifndef RGB_INDICATOR_RGB_IDLE_CHANGED_ON_COLOR
+#        define RGB_INDICATOR_RGB_IDLE_CHANGED_ON_COLOR RGB_BLUE
+#    endif
+#    ifndef RGB_INDICATOR_RGB_IDLE_CHANGED_OFF_COLOR
+#        define RGB_INDICATOR_RGB_IDLE_CHANGED_OFF_COLOR RGB_RED
+#    endif
+    static const uint8_t rgb_indicator_rgb_idle_changed_ids[] = RGB_INDICATOR_RGB_IDLE_CHANGED_IDS;
+    if (rgb_idle_mode_user_toggled || rgb_sync_states.rgb_idle_mode_user_toggled) {
+        if ((is_keyboard_master() && user_config.is_rgb_idle_enabled) || rgb_sync_states.is_rgb_idle_enabled) {
+            for (int i = 0; i < sizeof(rgb_indicator_rgb_idle_changed_ids); i++) {
+                rgb_matrix_set_color(rgb_indicator_rgb_idle_changed_ids[i], RGB_INDICATOR_RGB_IDLE_CHANGED_ON_COLOR);
+            }
+        } else {
+            for (int i = 0; i < sizeof(rgb_indicator_rgb_idle_changed_ids); i++) {
+                rgb_matrix_set_color(rgb_indicator_rgb_idle_changed_ids[i], RGB_INDICATOR_RGB_IDLE_CHANGED_OFF_COLOR);
+            }
+        }
+    }
+#endif
 
     return rgb_matrix_indicators_keymap();
 }
