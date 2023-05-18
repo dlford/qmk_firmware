@@ -14,6 +14,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
+#define RP2040_BOOTLOADER_DOUBLE_TAP_RESET
+#define RP2040_BOOTLOADER_DOUBLE_TAP_RESET_TIMEOUT 150U
+
 // wiring of each half
 #define MATRIX_COL_PINS \
     { B4, E6, D7, C6, D4 }
