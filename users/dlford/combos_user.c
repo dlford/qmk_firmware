@@ -201,8 +201,7 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
 #ifdef AUDIO_ENABLE
                 PLAY_SONG(password_song);
 #endif
-                gen_random_password();
-                send_string(random_password);
+                gen_random_password(32);
             }
             break;
         case LSEMI_DEL_COMBO:

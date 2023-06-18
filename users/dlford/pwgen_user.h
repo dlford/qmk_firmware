@@ -15,5 +15,4 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-char random_password[32];
-void gen_random_password(void);
+void gen_random_password(int length);

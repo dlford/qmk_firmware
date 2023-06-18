@@ -15,23 +15,26 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include QMK_KEYBOARD_H
 #include <stdlib.h>
 #include <time.h>
 
-char random_password[32];
-const char rand_numbers[] = "0123456789";
-const char rand_letters[] = "abcdefghijklmnoqprstuvwyzx";
-const char rand_LETTERS[] = "ABCDEFGHIJKLMNOQPRSTUYWVZX";
-const char rand_symbols[] = "!@#$^&*?";
+const char rand_numbers[] PROGMEM = "0123456789";
+const char rand_letters[] PROGMEM = "abcdefghijklmnoqprstuvwyzx";
+const char rand_LETTERS[] PROGMEM = "ABCDEFGHIJKLMNOQPRSTUYWVZX";
+const char rand_symbols[] PROGMEM = "!@#$%^&*";
 
-void gen_random_password(void) {
+void gen_random_password(int length) {
     // Seed the random-number generator
     // with current time so that the
     // numbers will be different every time
-    srand((unsigned int)(time(NULL)));
+    srand(timer_read());
 
-    for (int i = 0; i < 32; i++) {
+    char random_password[length];
+
+    for (int i = 0; i < length; i++) {
         int rand_type = rand() % 4;
+
         switch (rand_type) {
             case 0:
                 random_password[i] = rand_numbers[rand() % 10];
@@ -47,4 +50,6 @@ void gen_random_password(void) {
                 break;
         }
     }
+
+    send_string(random_password);
 }
