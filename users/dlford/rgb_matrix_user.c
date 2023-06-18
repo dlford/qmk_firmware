@@ -40,7 +40,7 @@ __attribute__((weak)) void matrix_init_keymap(void) {
 }
 
 void matrix_init_user(void) {
-    rgb_matrix_config.raw = eeprom_read_dword(EECONFIG_RGB_MATRIX);
+    eeprom_read_block(&rgb_matrix_config, ((void *)EECONFIG_RGB_MATRIX), sizeof(rgb_config_t));
     return matrix_init_keymap();
 }
 
@@ -83,7 +83,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
                 rgb_matrix_mode_noeeprom(RGB_MATRIX_PIXEL_FRACTAL);
 
             } else {
-                rgb_matrix_config.raw = eeprom_read_dword(EECONFIG_RGB_MATRIX);
+                eeprom_read_block(&rgb_matrix_config, ((void *)EECONFIG_RGB_MATRIX), sizeof(rgb_config_t));
                 rgb_matrix_mode_noeeprom(rgb_matrix_config.mode);
                 rgb_matrix_set_speed_noeeprom(user_config.rgb_speed);
                 rgb_matrix_sethsv_noeeprom(rgb_matrix_config.hsv.h, rgb_matrix_config.hsv.s, rgb_matrix_config.hsv.v);

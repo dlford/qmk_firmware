@@ -26,7 +26,7 @@ __attribute__((weak)) void dynamic_macro_record_start_keymap(int8_t direction) {
 
 void dynamic_macro_record_start_user(int8_t direction) {
     is_macro_recording = true;
-    dynamic_macro_record_start_keymap();
+    dynamic_macro_record_start_keymap(direction);
 }
 
 __attribute__((weak)) void dynamic_macro_record_end_keymap(int8_t direction) {
