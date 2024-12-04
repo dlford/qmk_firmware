@@ -74,7 +74,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
         case _GAMING:
             rgb_matrix_sethsv_noeeprom(HSV_RED);
             rgb_matrix_set_speed_noeeprom(150);
-            rgb_matrix_mode_noeeprom(RGB_MATRIX_HUE_WAVE);
+            rgb_matrix_mode_noeeprom(RGB_MATRIX_PIXEL_FRACTAL);
             break;
         default:
             if (is_scsm_active) {
