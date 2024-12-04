@@ -61,7 +61,7 @@ void oled_render_layer_state(void) {
             oled_write_ln_P(PSTR("Mouse"), false);
             break;
         case _GAMING:
-            oled_write_ln_P(PSTR("Number Pad"), false);
+            oled_write_ln_P(PSTR("Gaming"), false);
             break;
         default:
             if (default_layer_state - 1 == _COLEMAK) {
