@@ -72,7 +72,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
             rgb_matrix_mode_noeeprom(RGB_MATRIX_HUE_WAVE);
             break;
         case _GAMING:
-            rgb_matrix_sethsv_noeeprom(HSV_PURPLE);
+            rgb_matrix_sethsv_noeeprom(HSV_RED);
             rgb_matrix_set_speed_noeeprom(150);
             rgb_matrix_mode_noeeprom(RGB_MATRIX_HUE_WAVE);
             break;
