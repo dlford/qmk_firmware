@@ -49,11 +49,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         ___MOUSE_L3___,                    ___MOUSE_R3___,
         ___MOUSE_L4___,                    ___MOUSE_R4___
     ),
-    [_NUMPAD] = LAYOUT_wrapper(
-        ___NUMPAD_L1___,                   ___NUMPAD_R1___,
-        ___NUMPAD_L2___,                   ___NUMPAD_R2___,
-        ___NUMPAD_L3___,                   ___NUMPAD_R3___,
-        ___NUMPAD_L4___,                   ___NUMPAD_R4___
+    [_GAMING] = LAYOUT_wrapper(
+        ___GAMING_L1___,                   ___GAMING_R1___,
+        ___GAMING_L2___,                   ___GAMING_R2___,
+        ___GAMING_L3___,                   ___GAMING_R3___,
+        ___GAMING_L4___,                   ___GAMING_R4___
     ),
 };
 

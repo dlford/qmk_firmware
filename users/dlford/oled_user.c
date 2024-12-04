@@ -60,7 +60,7 @@ void oled_render_layer_state(void) {
         case _MOUSE:
             oled_write_ln_P(PSTR("Mouse"), false);
             break;
-        case _NUMPAD:
+        case _GAMING:
             oled_write_ln_P(PSTR("Number Pad"), false);
             break;
         default:

@@ -23,5 +23,5 @@ enum layers {
     _SPECIAL,
     _NAVIGATION,
     _MOUSE,
-    _NUMPAD,
+    _GAMING,
 };

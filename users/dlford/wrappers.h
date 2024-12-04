@@ -62,7 +62,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ___SPECIAL_R3___                                                                         M_QK_BOOT, KC_UNDS, KC_PLUS, KC_PIPE, KC_DQUO
 //                             |--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
 #define ___SPECIAL_L4___                                     VVV,     VVV,     VVV
-#define ___SPECIAL_R4___                                                                M_LLOCK,TG(_MOUSE),TG(_NUMPAD)
+#define ___SPECIAL_R4___                                                                M_LLOCK,TG(_MOUSE),TG(_GAMING)
 //                                                        |--------+--------+--------|  |--------+--------+--------|
 
 // right thumb
@@ -76,7 +76,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ___NAVIGATION_L3___    M_RGB_SPD,M_RGB_HUE, KC_VOLD, KC_VOLU,M_RGB_STP
 #define ___NAVIGATION_R3___                                                                       KC_MPLY,  M_VDSL,  M_VDSR,  M_MNXT,  KC_F12
 //                             |--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
-#define ___NAVIGATION_L4___                             TG(_NUMPAD),TG(_MOUSE),M_LLOCK
+#define ___NAVIGATION_L4___                             TG(_GAMING),TG(_MOUSE),M_LLOCK
 #define ___NAVIGATION_R4___                                                                 VVV,    VVV,     VVV
 //                                                        |--------+--------+--------|  |--------+--------+--------|
 
@@ -95,17 +95,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //                                                        |--------+--------+--------|  |--------+--------+--------|
 
 //                             |--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
-#define ___NUMPAD_L1___           XXX,    KC_PGDN, KC_UP,  KC_PGUP,  KC_ASTR
-#define ___NUMPAD_R1___                                                                           KC_HOME,  KC_7,    CS_8,    CA_9,    KC_0
+#define ___GAMING_L1___          KC_Z,    KC_Q,    KC_W,     KC_E,    KC_R
+#define ___GAMING_R1___                                                                           XXX,     XXX,     XXX,     XXX,     XXX
 //                             |--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
-#define ___NUMPAD_L2___           XXX,   KC_LEFT, KC_DOWN, KC_RGHT, KC_MINS
-#define ___NUMPAD_R2___                                                                           KC_PLUS,  KC_4,    KC_5,    KC_6,    KC_COMM
+#define ___GAMING_L2___         KC_LSFT,  KC_A,    KC_S,     KC_D,    KC_G
+#define ___GAMING_R2___                                                                           KC_LEFT, KC_DOWN,  KC_UP,  KC_RGHT, XXX
 //                             |--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
-#define ___NUMPAD_L3___           XXX,     XXX,    KC_TAB,  KC_SPC, KC_SLSH
-#define ___NUMPAD_R3___                                                                           KC_END,   KC_1,    KC_2,    KC_3,    KC_DOT
+#define ___GAMING_L3___          KC_LCTL,  KC_X,   KC_C,     KC_V,    KC_F
+#define ___GAMING_R3___                                                                           XXX,     XXX,     XXX,     XXX,     XXX
 //                             |--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
-#define ___NUMPAD_L4___                                      VVV, TG(_NUMPAD), VVV
-#define ___NUMPAD_R4___                                                                    VVV, TG(_NUMPAD), VVV
+#define ___GAMING_L4___                                     KC_ESC, KC_SPACE, KC_TAB
+#define ___GAMING_R4___                                                                    XXX, TG(_GAMING), KC_ENT
 //                                                        |--------+--------+--------|  |--------+--------+--------|
 
 // clang-format on
