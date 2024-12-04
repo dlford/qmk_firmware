@@ -27,13 +27,13 @@
      inkscape:document-units="mm"
      showgrid="false"
      showborder="true"
-     inkscape:zoom="2.4222184"
-     inkscape:cx="500.36776"
-     inkscape:cy="239.03707"
+     inkscape:zoom="1.7127671"
+     inkscape:cx="575.96857"
+     inkscape:cy="263.90045"
      inkscape:window-width="3016"
      inkscape:window-height="1461"
-     inkscape:window-x="809"
-     inkscape:window-y="578"
+     inkscape:window-x="886"
+     inkscape:window-y="206"
      inkscape:window-maximized="0"
      inkscape:current-layer="layer1"
      fit-margin-top="0"
@@ -365,14 +365,14 @@
     <text
        xml:space="preserve"
        style="font-size:3.31937px;line-height:1.25;font-family:sans-serif;fill:#ff0000;stroke-width:0.248952"
-       x="-13.124396"
-       y="163.93051"
+       x="-99.631584"
+       y="131.79927"
        id="text2719-35-4-2-3-3-2-2"><tspan
          sodipodi:role="line"
          id="tspan2717-62-76-6-3-0-4-7"
          style="font-size:3.31937px;fill:#ff0000;stroke-width:0.248952"
-         x="-13.124396"
-         y="163.93051">Tab</tspan></text>
+         x="-99.631584"
+         y="131.79927">Tab</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:3.49454px;line-height:1.25;font-family:sans-serif;stroke-width:0.26209"
@@ -425,17 +425,17 @@
          y="143.52499">Esc</tspan></text>
     <text
        xml:space="preserve"
-       style="font-size:3.12839px;line-height:1.25;font-family:sans-serif;stroke-width:0.234628;fill:#ff0000"
-       x="-54.249722"
-       y="149.73262"
+       style="font-size:3.12839px;line-height:1.25;font-family:sans-serif;fill:#ff0000;stroke-width:0.234628"
+       x="-99.974953"
+       y="109.56856"
        id="text2719-35-4-2-3-7"
        inkscape:transform-center-x="-2.4730821"
        inkscape:transform-center-y="-5.7296468e-06"><tspan
          sodipodi:role="line"
          id="tspan2717-62-76-6-3-1"
-         style="font-size:3.12839px;stroke-width:0.234628;fill:#ff0000"
-         x="-54.249722"
-         y="149.73262">Esc</tspan></text>
+         style="font-size:3.12839px;fill:#ff0000;stroke-width:0.234628"
+         x="-99.974953"
+         y="109.56856">Esc</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:3.56339px;line-height:1.25;font-family:sans-serif;stroke-width:0.334068"
@@ -450,14 +450,14 @@
     <text
        xml:space="preserve"
        style="font-size:2.58042px;line-height:1.25;font-family:sans-serif;fill:#ff0000;stroke-width:0.241915"
-       x="-34.343349"
-       y="153.62448"
+       x="-12.716552"
+       y="163.20206"
        id="text2719-35-4-2-3-4-1"><tspan
          sodipodi:role="line"
          id="tspan2717-62-76-6-3-8-5"
          style="font-size:2.58042px;fill:#ff0000;stroke-width:0.241915"
-         x="-34.343349"
-         y="153.62448">Space</tspan></text>
+         x="-12.716552"
+         y="163.20206">Space</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:4.45425px;line-height:1.25;font-family:sans-serif;stroke-width:0.334068"
@@ -1305,25 +1305,25 @@
     <text
        xml:space="preserve"
        style="font-size:2.16199px;line-height:1.25;font-family:sans-serif;fill:#ff0000;fill-opacity:1;stroke-width:0.162149"
-       x="-100.09382"
-       y="110.29821"
+       x="-33.205223"
+       y="153.70628"
        id="text2719-35-7-3-4-8-2"><tspan
          sodipodi:role="line"
          id="tspan2717-62-5-6-8-2-2"
          style="font-size:2.16199px;fill:#ff0000;fill-opacity:1;stroke-width:0.162149"
-         x="-100.09382"
-         y="110.29821">Shift</tspan></text>
+         x="-33.205223"
+         y="153.70628">Shift</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:2.16199px;line-height:1.25;font-family:sans-serif;fill:#ff0000;fill-opacity:1;stroke-width:0.162149"
-       x="-100.04791"
-       y="131.37482"
+       x="-54.477158"
+       y="149.13969"
        id="text2719-35-7-3-4-8-2-1"><tspan
          sodipodi:role="line"
          id="tspan2717-62-5-6-8-2-2-6"
          style="font-size:2.16199px;fill:#ff0000;fill-opacity:1;stroke-width:0.162149"
-         x="-100.04791"
-         y="131.37482">Control</tspan></text>
+         x="-54.477158"
+         y="149.13969">Control</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:3.38335px;line-height:1.25;font-family:sans-serif;fill:#ff0000;fill-opacity:1;stroke-width:0.253751"

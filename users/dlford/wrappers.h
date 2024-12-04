@@ -98,13 +98,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ___GAMING_L1___          KC_Z,    KC_Q,    KC_W,     KC_E,    KC_R
 #define ___GAMING_R1___                                                                           XXX,     XXX,     XXX,     XXX,     XXX
 //                             |--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
-#define ___GAMING_L2___         KC_LSFT,  KC_A,    KC_S,     KC_D,    KC_G
+#define ___GAMING_L2___          KC_ESC,   KC_A,    KC_S,     KC_D,    KC_G
 #define ___GAMING_R2___                                                                           KC_LEFT, KC_DOWN,  KC_UP,  KC_RGHT, XXX
 //                             |--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
-#define ___GAMING_L3___          KC_LCTL,  KC_X,   KC_C,     KC_V,    KC_F
+#define ___GAMING_L3___          KC_TAB,   KC_X,   KC_C,     KC_V,    KC_F
 #define ___GAMING_R3___                                                                           XXX,     XXX,     XXX,     XXX,     XXX
 //                             |--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
-#define ___GAMING_L4___                                     KC_ESC, KC_SPACE, KC_TAB
+#define ___GAMING_L4___                                     KC_LCTL, KC_LSFT, KC_SPC
 #define ___GAMING_R4___                                                                    XXX, TG(_GAMING), KC_ENT
 //                                                        |--------+--------+--------|  |--------+--------+--------|
 
