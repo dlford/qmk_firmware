@@ -1,0 +1,11 @@
+# TODO: Move some of these to userspace
+
+MOUSEKEY_ENABLE = yes
+DYNAMIC_MACRO_ENABLE = yes
+COMBO_ENABLE = yes
+INDICATOR_LIGHTS = yes
+CAPS_WORD_ENABLE = yes
+OS_DETECTION_ENABLE = yes
+# SWAP_HANDS_ENABLE = yes
+# RAW_ENABLE = yes
+# CONSOLE_ENABLE = yes
